@@ -1,4 +1,4 @@
-namespace GymProgress.Mobile.View;
+namespace GymProgress.Mobile;
 
 public partial class CreateExercicePage : ContentPage
 {
