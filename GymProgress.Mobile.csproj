@@ -65,6 +65,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\SeancePage.xaml.cs">
+	    <DependentUpon>SeancePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="View\AddExercicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

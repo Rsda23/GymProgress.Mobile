@@ -6,13 +6,13 @@ namespace GymProgress.Mobile.Extensions
     {
         public static IServiceCollection AddGymProgressViews(this IServiceCollection services)
         {
-            services.AddTransient<MainPage>();
+            services.AddTransient<SeancePage>();
             return services;
         }
 
         public static IServiceCollection AddGymProgressModels(this IServiceCollection services)
         {
-            services.AddTransient<MainViewModel>();
+            services.AddTransient<SeanceViewModel>();
             return services;
         }
 

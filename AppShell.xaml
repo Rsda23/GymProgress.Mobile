@@ -8,9 +8,9 @@
     Title="GymProgress.Mobile">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" 
+        Title="Seance"
+        ContentTemplate="{DataTemplate local:SeancePage}"
+        Route="SeancePage" 
         Shell.NavBarIsVisible="False"/>
 
 </Shell>

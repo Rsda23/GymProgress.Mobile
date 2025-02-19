@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:GymProgress.Mobile.ViewModels"
-             x:Class="GymProgress.Mobile.MainPage">
+             x:Class="GymProgress.Mobile.SeancePage">
 
     <VerticalStackLayout>
         <Grid>

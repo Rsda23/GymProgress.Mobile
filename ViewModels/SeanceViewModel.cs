@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class MainViewModel : ObservableObject
+    public partial class SeanceViewModel : ObservableObject
     {
-        public MainViewModel()
+        public SeanceViewModel()
         {
             VisibleSeance();
         }
@@ -22,7 +22,7 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private bool emptySeance;
 
-        private List<MainPage> fake = new List<MainPage>();
+        private List<SeancePage> fake = new List<SeancePage>();
 
         [RelayCommand]
         private async Task VisibleSeance()
