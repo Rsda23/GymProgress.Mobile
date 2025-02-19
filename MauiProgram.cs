@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using GymProgress.Mobile.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace GymProgress.Mobile
@@ -8,6 +9,11 @@ namespace GymProgress.Mobile
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            builder.Services.AddGymProgressViews();
+            builder.Services.AddGymProgressModels();
+            builder.Services.AddInfrastructure();
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
