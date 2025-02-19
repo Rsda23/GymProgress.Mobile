@@ -4,12 +4,12 @@ namespace GymProgress.Mobile
 {
     public partial class SeancePage : ContentPage
     {
-        private SeanceViewModel _SeanceViewModel;
+        private SeanceViewModel _seanceViewModel;
         public SeancePage(SeanceViewModel model)
         {
             InitializeComponent();
-            _SeanceViewModel = model;
-            BindingContext = _SeanceViewModel;
+            _seanceViewModel = model;
+            BindingContext = _seanceViewModel;
         }
     }
 
