@@ -8,26 +8,35 @@
     <VerticalStackLayout>
         <Grid>
             <Label 
-                Grid.Column="0" 
-                Text="{Binding TitleSeance}"
-                Padding="20" 
-                HorizontalOptions="Center" />
+                    Grid.Column="0" 
+                    Text="{Binding TitleSeance}"
+                    Padding="20" 
+                    HorizontalOptions="Center" />
             <Button 
-                Grid.Column="1" 
-                Text="{Binding ButtonCreateSeance}" 
-                WidthRequest="100" 
-                HeightRequest="40" 
-                HorizontalOptions="End" 
-                Margin="0, 0, 20, 0" />
+                    Grid.Column="1" 
+                    Text="{Binding ButtonCreateSeance}" 
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    HorizontalOptions="End" 
+                    Margin="0, 0, 20, 0" />
         </Grid>
-        <VerticalStackLayout Padding="30">
-            <Frame Margin="0, 0, 0, 20">
-                <Label Text="Seance 1"/>
-            </Frame>
-            <Frame>
-                <Label Text="Seance 2"/>
-            </Frame>
-        </VerticalStackLayout>
+        <StackLayout IsVisible="{Binding HasSeance}">
+            <VerticalStackLayout Padding="30">
+                <Frame Margin="0, 0, 0, 20">
+                    <Label Text="Seance 1"/>
+                </Frame>
+                <Frame>
+                    <Label Text="Seance 2"/>
+                </Frame>
+            </VerticalStackLayout>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding EmptySeance}">
+            <VerticalStackLayout Padding="30">
+                <Frame Margin="0, 0, 0, 20">
+                    <Label Text="Pas de séance"/>
+                </Frame>
+            </VerticalStackLayout>
+        </StackLayout>
     </VerticalStackLayout>
 
 </ContentPage>
