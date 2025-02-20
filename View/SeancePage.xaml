@@ -13,7 +13,8 @@
                     HorizontalOptions="Center" />
             <Button 
                     Grid.Column="1" 
-                    Text="{Binding ButtonCreateSeance}" 
+                    Text="{Binding ButtonCreateSeanceText}" 
+                    Command="{Binding ButtonCreateSeance}"
                     WidthRequest="100" 
                     HeightRequest="40" 
                     HorizontalOptions="End" 

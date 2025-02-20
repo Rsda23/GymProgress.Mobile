@@ -11,7 +11,7 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [ObservableProperty]
-        private string buttonCreateSeance = "Créer";
+        private string buttonCreateSeanceText = "Créer";
 
         [ObservableProperty]
         private string titleSeance = "Séance";
@@ -23,6 +23,13 @@ namespace GymProgress.Mobile.ViewModels
         private bool emptySeance;
 
         private List<SeancePage> fake = new List<SeancePage>();
+
+        [RelayCommand]
+        private async Task ButtonCreateSeance()
+        {
+            Console.WriteLine("Navigation vers...");
+            await Shell.Current.GoToAsync("CreateSeancePage");
+        }
 
         [RelayCommand]
         private async Task VisibleSeance()
