@@ -7,12 +7,20 @@ namespace GymProgress.Mobile.Extensions
         public static IServiceCollection AddGymProgressViews(this IServiceCollection services)
         {
             services.AddTransient<SeancePage>();
+            services.AddTransient<ExercicePage>();
+            services.AddTransient<CreateSeancePage>();
+            services.AddTransient<CreateExercicePage>();
+            services.AddTransient<AddExercicePage>();
             return services;
         }
 
         public static IServiceCollection AddGymProgressModels(this IServiceCollection services)
         {
             services.AddTransient<SeanceViewModel>();
+            services.AddTransient<ExerciceViewModel>();
+            services.AddTransient<CreateSeanceViewModel>();
+            services.AddTransient<CreateExerciceViewModel>();
+            services.AddTransient<AddExerciceViewModel>();
             return services;
         }
 
