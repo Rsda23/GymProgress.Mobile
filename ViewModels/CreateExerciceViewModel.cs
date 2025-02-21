@@ -11,7 +11,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonAddExercice()
         {
-            await Shell.Current.GoToAsync("AddExercicePage", true);
+            await Shell.Current.GoToAsync("AddExercicePage");
         }
     }
 }

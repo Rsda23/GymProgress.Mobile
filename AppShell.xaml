@@ -15,17 +15,24 @@
     <TabBar>
         <Tab Title="Seance" Icon="training.png">
             <ShellContent
-            Title="Seance"
-            ContentTemplate="{DataTemplate local:SeancePage}"
-            Route="SeancePage"
-            Shell.NavBarIsVisible="False"/>
+                Title="Seance"
+                ContentTemplate="{DataTemplate local:SeancePage}"
+                Route="SeancePage"
+                Shell.NavBarIsVisible="False"/>
         </Tab>
         <Tab Title="Exercice" Icon="exercice.png">
             <ShellContent
-            Title="Exercice"
-            ContentTemplate="{DataTemplate local:ExercicePage}"
-            Route="ExercicePage"
-            Shell.NavBarIsVisible="False"/>
+                Title="Exercice"
+                ContentTemplate="{DataTemplate local:ExercicePage}"
+                Route="ExercicePage"
+                Shell.NavBarIsVisible="False"/>
+        </Tab>
+        <Tab Title="Parametre" Icon="setting.png">
+            <ShellContent
+                Title="Parametre"
+                ContentTemplate="{DataTemplate local:SettingPage}"
+                Route="SettingPage"
+                Shell.NavBarIsVisible="False"/>
         </Tab>
     </TabBar>
 </Shell>
