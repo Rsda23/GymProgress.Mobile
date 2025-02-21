@@ -27,7 +27,6 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonCreateSeance()
         {
-            Console.WriteLine("Navigation vers...");
             await Shell.Current.GoToAsync("CreateSeancePage");
         }
 

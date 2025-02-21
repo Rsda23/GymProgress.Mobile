@@ -14,12 +14,13 @@
             <Button 
                     Grid.Column="1" 
                     Text="{Binding ButtonCreateSeanceText}" 
-                    Command="{Binding ButtonCreateSeance}"
+                    Command="{Binding ButtonCreateSeanceCommand}"
                     WidthRequest="100" 
                     HeightRequest="40" 
                     HorizontalOptions="End" 
                     Margin="0, 0, 20, 0" />
         </Grid>
+        
         <StackLayout IsVisible="{Binding HasSeance}">
             <VerticalStackLayout Padding="30">
                 <Frame Margin="0, 0, 0, 20">
@@ -30,6 +31,7 @@
                 </Frame>
             </VerticalStackLayout>
         </StackLayout>
+        
         <StackLayout IsVisible="{Binding EmptySeance}">
             <VerticalStackLayout Padding="30">
                 <Frame Margin="0, 0, 0, 20">
