@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="GymProgress.Mobile.LoginPage">
+
+    <Frame 
+        VerticalOptions="CenterAndExpand" 
+        Margin="50, 0">
+        <VerticalStackLayout Spacing="10">
+            <Frame Padding="10, 10, 30, 10">
+                <Grid ColumnDefinitions="5,*">
+                    <Entry 
+                        Text="{Binding Email}" 
+                        VerticalOptions="Center" 
+                        Placeholder="Email" 
+                        FontSize="11" 
+                        Grid.Column="1"/>
+                </Grid>
+            </Frame>
+            <Frame Padding="10, 10, 30, 10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Entry 
+                        x:Name="PasswordEntry"
+                        Text="{Binding Password}"
+                        VerticalOptions="Start" 
+                        Placeholder="Mot de passe" 
+                        IsPassword="True" 
+                        FontSize="11" 
+                        Grid.Column="0"/>
+                </Grid>
+            </Frame>
+            <Button 
+                Text="{Binding ButtonConnectionText}"  
+                Command="{Binding ButtonConnectionCommand}"
+                FontAttributes="Bold" 
+                HeightRequest="45" 
+                FontSize="18"/>
+        </VerticalStackLayout>
+    </Frame>
+</ContentPage>
