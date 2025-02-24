@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class CreateExerciceViewModel : ObservableObject
+    public partial class CreateExerciceViewModel : ViewModelBase
     {
         [ObservableProperty]
         private string buttonAddExerciceText = "Ajouter";

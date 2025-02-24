@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class SettingViewModel : ObservableObject
+    public partial class SettingViewModel : ViewModelBase
     {
         [ObservableProperty]
         private string buttonDisconnectText = "Déconnexion";

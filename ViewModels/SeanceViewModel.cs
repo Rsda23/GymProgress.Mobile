@@ -1,13 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Mobile.Interfaces;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class SeanceViewModel : ObservableObject
+    public partial class SeanceViewModel : ViewModelBase
     {
-        public SeanceViewModel()
+        private readonly ISeancesService _seanceService;
+
+        public SeanceViewModel(ISeancesService seanceService)
         {
             VisibleSeance();
+            _seanceService = seanceService;
         }
 
         [ObservableProperty]
@@ -24,10 +28,13 @@ namespace GymProgress.Mobile.ViewModels
 
         private List<SeancePage> fake = new List<SeancePage>();
 
+
         [RelayCommand]
         private async Task ButtonCreateSeance()
         {
-            await Shell.Current.GoToAsync("CreateSeancePage");
+
+            var seance = await _seanceService.GetSeanceByName("pull");
+            await Shell.Current.GoToAsync($"/{Routes.CreateSeancePage}");
         }
 
         [RelayCommand]

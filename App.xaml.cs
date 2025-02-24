@@ -1,12 +1,14 @@
-﻿namespace GymProgress.Mobile
+﻿using GymProgress.Mobile.ViewModels;
+
+namespace GymProgress.Mobile
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new AppShell();
+            LoginViewModel vm = new LoginViewModel();
+            MainPage = new LoginPage(vm);
         }
     }
 }
