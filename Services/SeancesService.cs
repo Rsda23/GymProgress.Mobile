@@ -20,7 +20,8 @@ namespace GymProgress.Mobile.Services
             {
                 var uri = $"GetSeanceByName?name={name}";
                 var response = await _httpClient.GetAsync(uri);
-                var seance = JsonSerializer.Deserialize<Seance>(await response.Content.ReadAsStringAsync());
+                var data = await response.Content.ReadAsStringAsync();
+                var seance = JsonSerializer.Deserialize<Seance>(data);
                 return seance;
             }
             catch (Exception ex)

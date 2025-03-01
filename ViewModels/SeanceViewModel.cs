@@ -38,10 +38,11 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [RelayCommand]
-        private async Task VisibleSeance()
+        private Task VisibleSeance()
         {
-            hasSeance = fake.Any();
-            emptySeance = !hasSeance;
+            HasSeance = fake.Any();
+            EmptySeance = !HasSeance;
+            return Task.CompletedTask;
         }
     }
 }
