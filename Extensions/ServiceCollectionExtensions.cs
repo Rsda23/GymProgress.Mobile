@@ -8,6 +8,7 @@ namespace GymProgress.Mobile.Extensions
         {
             services.AddTransient<LoginPage>();
             services.AddTransient<SeancePage>();
+            services.AddTransient<SeanceDetailPage>();
             services.AddTransient<ExercicePage>();
             services.AddTransient<CreateSeancePage>();
             services.AddTransient<CreateExercicePage>();
@@ -20,6 +21,7 @@ namespace GymProgress.Mobile.Extensions
         {
             services.AddTransient<LoginViewModel>();
             services.AddTransient<SeanceViewModel>();
+            services.AddTransient<SeanceDetailViewModel>();
             services.AddTransient<ExerciceViewModel>();
             services.AddTransient<CreateSeanceViewModel>();
             services.AddTransient<CreateExerciceViewModel>();

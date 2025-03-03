@@ -4,7 +4,7 @@
              x:Class="GymProgress.Mobile.SettingPage"
              Title="SettingPage">
     <VerticalStackLayout>
-        <Button
+        <Button 
             Margin="20"
             Text="{Binding ButtonDisconnectText}"
             Command="{Binding ButtonDisconnectCommand}"/>

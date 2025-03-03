@@ -1,9 +1,13 @@
 ﻿using CommunityToolkit.Maui;
+using epj.RouteGenerator;
 using GymProgress.Mobile.Extensions;
+using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.Services;
 using Microsoft.Extensions.Logging;
 
 namespace GymProgress.Mobile
 {
+    [AutoRoutes("Page")]
     public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()
@@ -13,6 +17,10 @@ namespace GymProgress.Mobile
             builder.Services.AddGymProgressViews();
             builder.Services.AddGymProgressModels();
             builder.Services.AddInfrastructure();
+            builder.Services.AddHttpClient<ISeancesService, SeancesService>(client =>
+            {
+                client.BaseAddress = new Uri("https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/");
+            });
 
             builder
                 .UseMauiApp<App>()

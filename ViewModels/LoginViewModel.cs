@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public partial class LoginViewModel : ViewModelBase
     {
         [ObservableProperty]
         private string email = string.Empty;
@@ -17,6 +17,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonConnection()
         {
+            Application.Current.MainPage = new AppShell();
             await Shell.Current.GoToAsync("//SeancePage");
         }
     }

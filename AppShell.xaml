@@ -7,14 +7,14 @@
     Shell.FlyoutBehavior="Disabled"
     Title="GymProgress.Mobile">
 
-    <ShellContent
+    <!--<ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="LoginPage"
-        Shell.NavBarIsVisible="False"/>
+        Shell.NavBarIsVisible="False"/>-->
     <TabBar>
         <Tab Title="Seance" Icon="training.png">
-            <ShellContent 
+            <ShellContent
                 Title="Seance"
                 ContentTemplate="{DataTemplate local:SeancePage}"
                 Route="SeancePage"
@@ -27,12 +27,10 @@
                 Route="ExercicePage"
                 Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Title="Setting" Icon="setting.png">
-            <ShellContent
-                Title="Setting"
-                ContentTemplate="{DataTemplate local:SettingPage}"
-                Route="SettingPage"
-                Shell.NavBarIsVisible="False"/>
-        </Tab>
     </TabBar>
+    <!--<ShellContent
+            Title="Create"
+            ContentTemplate="{DataTemplate local:CreateSeancePage}"
+            Route="CreateSeancePage"
+            Shell.NavBarIsVisible="True"/>-->
 </Shell>

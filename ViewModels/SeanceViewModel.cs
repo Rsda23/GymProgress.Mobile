@@ -1,13 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Domain.Models;
+using GymProgress.Mobile.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    public partial class SeanceViewModel : ObservableObject
+    public partial class SeanceViewModel : ViewModelBase
     {
-        public SeanceViewModel()
+        private readonly ISeancesService _seanceService;
+
+        public SeanceViewModel(ISeancesService seanceService)
         {
-            VisibleSeance();
+            _seanceService = seanceService;
+            DisplaySeance();
         }
 
         [ObservableProperty]
@@ -17,24 +23,52 @@ namespace GymProgress.Mobile.ViewModels
         private string titleSeance = "Séance";
 
         [ObservableProperty]
+        private string buttonDisplaySeanceText = "Afficher";
+
+        [ObservableProperty]
         private bool hasSeance;
 
         [ObservableProperty]
         private bool emptySeance;
 
-        private List<SeancePage> fake = new List<SeancePage>();
+        [ObservableProperty]
+        private ObservableCollection<Seance> seances = new();
+
+
+        [RelayCommand]
+        private async Task DisplaySeance()
+        {
+            var seances = await _seanceService.GetAllSeance();
+            if (seances != null)
+            {
+                foreach (var seance in seances)
+                {
+                    Seances.Add(seance);
+                }
+            }
+
+            VisibleSeance();
+        }
 
         [RelayCommand]
         private async Task ButtonCreateSeance()
         {
-            await Shell.Current.GoToAsync("CreateSeancePage");
+            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
         }
 
         [RelayCommand]
-        private async Task VisibleSeance()
+        private async Task ButtonGoToSeance()
         {
-            hasSeance = fake.Any();
-            emptySeance = !hasSeance;
+            //var seance = await _seanceService.GetSeanceByName("pull");
+            await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
+        }
+
+        [RelayCommand]
+        private Task VisibleSeance()
+        {
+            HasSeance = seances.Any();
+            EmptySeance = !HasSeance;
+            return Task.CompletedTask;
         }
     }
 }
