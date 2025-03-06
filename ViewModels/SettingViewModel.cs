@@ -8,10 +8,29 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private string buttonDisconnectText = "Déconnexion";
 
+        [ObservableProperty]
+        private string pseudo = "Aprilia";
+
+        [ObservableProperty]
+        private string email = "aprilia@gmail.com";
+
+        [ObservableProperty]
+        private string buttonDeleteAccountText = "Supprimer le compte";
+
+        [ObservableProperty]
+        private string titleSetting = "Parametre";
+
         [RelayCommand]
         private async Task ButtonDisconnect()
         {
             Application.Current.MainPage = new LoginPage(new LoginViewModel());
+        }
+
+        [RelayCommand]
+        private async Task ButtonDeleteAccountCommand()
+        {
+            //Suppression
+            ButtonDisconnect();
         }
     }
 }
