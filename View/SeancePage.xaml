@@ -34,6 +34,13 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Frame Margin="10, 5">
+            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="End"/>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ButtonGoToSeanceCommand}"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
         <StackLayout IsVisible="{Binding EmptySeance}">
             <VerticalStackLayout>
                 <Frame Margin="10, 5">
