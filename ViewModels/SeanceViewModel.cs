@@ -50,14 +50,15 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonCreateSeance()
         {
-            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
+            await Shell.Current.GoToAsync($"/{Routes.CreateSeancePage}");
         }
 
         [RelayCommand]
         private async Task ButtonGoToSeance()
         {
+            Console.WriteLine("methode ButtonGoToSeance vient d'être appelé");
             //var seance = await _seanceService.GetSeanceByName("pull");
-            await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
+            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
         }
 
         [RelayCommand]
