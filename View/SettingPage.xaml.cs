@@ -4,9 +4,11 @@ namespace GymProgress.Mobile;
 
 public partial class SettingPage : ContentPage
 {
-	private readonly SettingViewModel _viewModel;
+	private readonly SettingViewModel _settingViewModel;
 	public SettingPage(SettingViewModel model)
 	{
 		InitializeComponent();
+		_settingViewModel = model;
+		BindingContext = _settingViewModel;
 	}
 }

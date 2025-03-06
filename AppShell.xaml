@@ -27,6 +27,13 @@
                 Route="ExercicePage"
                 Shell.NavBarIsVisible="False"/>
         </Tab>
+        <Tab Title="Parametre" Icon="setting.png">
+            <ShellContent
+                Title="Parametre"
+                ContentTemplate="{DataTemplate local:SettingPage}"
+                Route="SettingPage"
+                Shell.NavBarIsVisible="False"/>
+        </Tab>
     </TabBar>
     <!--<ShellContent
             Title="Create"

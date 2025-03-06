@@ -11,7 +11,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonDisconnect()
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            Application.Current.MainPage = new LoginPage(new LoginViewModel());
         }
     }
 }
