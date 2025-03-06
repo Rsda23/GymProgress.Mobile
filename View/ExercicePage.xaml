@@ -6,13 +6,38 @@
              x:Class="GymProgress.Mobile.ExercicePage"
              >
     <VerticalStackLayout>
-        <Button 
+        <Grid>
+            <Label 
             Grid.Column="0" 
+            Text="{Binding TitleExercice}"
+            Padding="20" 
+            HorizontalOptions="Center" />
+            <Button 
+            Grid.Column="1" 
             Text="{Binding ButtonCreateExerciceText}" 
             Command="{Binding ButtonCreateExerciceCommand}"
             WidthRequest="100" 
             HeightRequest="40" 
             HorizontalOptions="End" 
-            Margin="0, 20, 20, 0"/>
+            Margin="0, 0, 20, 0" />
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Exercices}" IsVisible="{Binding HasExercice}" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="10, 5">
+                        <Label Text="{Binding Nom}" FontSize="16" VerticalOptions="End"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout IsVisible="{Binding EmptyExercice}">
+            <VerticalStackLayout>
+                <Frame Margin="10, 5">
+                    <Label Text="Aucun Exercice"/>
+                </Frame>
+            </VerticalStackLayout>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

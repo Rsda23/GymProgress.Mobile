@@ -21,6 +21,10 @@ namespace GymProgress.Mobile
             {
                 client.BaseAddress = new Uri("https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/");
             });
+            builder.Services.AddHttpClient<IExercicesService, ExercicesService>(client =>
+            {
+                client.BaseAddress = new Uri("https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/");
+            });
 
             builder
                 .UseMauiApp<App>()
