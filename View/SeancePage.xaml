@@ -36,22 +36,11 @@
 
         <StackLayout IsVisible="{Binding EmptySeance}">
             <VerticalStackLayout>
-             <Frame Margin="10, 5">
-                <Label Text="Pas de séance"/>
-            </Frame>
-        </VerticalStackLayout>
+                <Frame Margin="10, 5">
+                    <Label Text="Pas de séance"/>
+                </Frame>
+            </VerticalStackLayout>
         </StackLayout>
-
-        <Grid>
-            <Button 
-                Grid.Column="1" 
-                Text="{Binding ButtonDisplaySeanceText}" 
-                Command="{Binding ButtonDisplaySeanceCommand}"
-                WidthRequest="100" 
-                HeightRequest="40" 
-                HorizontalOptions="End" 
-                Margin="0, 10, 20, 0" />
-        </Grid>
     </VerticalStackLayout>
 
 </ContentPage>

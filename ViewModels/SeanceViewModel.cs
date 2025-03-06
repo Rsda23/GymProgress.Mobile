@@ -23,9 +23,6 @@ namespace GymProgress.Mobile.ViewModels
         private string titleSeance = "Séance";
 
         [ObservableProperty]
-        private string buttonDisplaySeanceText = "Afficher";
-
-        [ObservableProperty]
         private bool hasSeance;
 
         [ObservableProperty]
