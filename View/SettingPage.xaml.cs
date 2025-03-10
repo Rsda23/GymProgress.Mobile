@@ -11,4 +11,14 @@ public partial class SettingPage : ContentPage
 		_settingViewModel = model;
 		BindingContext = _settingViewModel;
 	}
+
+	private void ThemeMode(object sender, ToggledEventArgs e)
+	{
+		bool isThemeMode = e.Value;
+
+		if (Application.Current != null)
+		{
+			Application.Current.UserAppTheme = isThemeMode ? AppTheme.Dark : AppTheme.Light;
+		}
+	}
 }

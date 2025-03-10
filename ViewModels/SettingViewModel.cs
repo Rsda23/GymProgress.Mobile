@@ -27,7 +27,7 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [RelayCommand]
-        private async Task ButtonDeleteAccountCommand()
+        private async Task ButtonDeleteAccount()
         {
             //Suppression
             ButtonDisconnect();
