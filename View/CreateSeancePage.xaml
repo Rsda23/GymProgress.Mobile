@@ -11,5 +11,24 @@
             HeightRequest="40" 
             HorizontalOptions="End" 
             Margin="0, 0, 20, 0" />
+
+        <Frame Margin="20">
+            <VerticalStackLayout Spacing="10">
+                <Label 
+                    Text="Nom de la séance" 
+                    Margin="5, 0, 0, 0"/>
+                <Frame Padding="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry/>
+                    </Grid>
+                </Frame>
+                <Button 
+                    Text="{Binding ButtonConfirm}"  
+                    Command="{Binding ButtonConfirmCommand}"
+                    FontAttributes="Bold" 
+                    HeightRequest="45" 
+                    FontSize="18"/>
+            </VerticalStackLayout>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>
