@@ -27,19 +27,19 @@
                     <Frame Margin="10, 5">
                         <Label Text="{Binding Name}" FontSize="16" VerticalOptions="End"/>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ButtonGoToSeanceCommand}"/>
+                            <TapGestureRecognizer Tapped = "GoToSeanceDetail"/>
                         </Frame.GestureRecognizers>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Frame Margin="10, 5">
+        <!--<Frame Margin="10, 5">
             <Label Text="{Binding Name}" FontSize="16" VerticalOptions="End"/>
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ButtonGoToSeanceCommand}"/>
             </Frame.GestureRecognizers>
-        </Frame>
+        </Frame>-->
 
         <StackLayout IsVisible="{Binding EmptySeance}">
             <VerticalStackLayout>

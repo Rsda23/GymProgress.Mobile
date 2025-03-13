@@ -27,6 +27,9 @@
                 <DataTemplate>
                     <Frame Margin="10, 5">
                         <Label Text="{Binding Nom}" FontSize="16" VerticalOptions="End"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped = "GoToExerciceDetail"/>
+                        </Frame.GestureRecognizers>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
