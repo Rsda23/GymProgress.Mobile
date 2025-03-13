@@ -83,6 +83,9 @@
 	  <MauiXaml Update="View\CreateSeancePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ExerciceDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ExercicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

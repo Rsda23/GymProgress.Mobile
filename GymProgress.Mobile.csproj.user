@@ -17,6 +17,9 @@
     <MauiXaml Update="View\CreateSeancePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="View\ExerciceDetailPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="View\ExercicePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
