@@ -11,4 +11,10 @@ public partial class CreateSeancePage : ContentPage
 		_createSeanceViewModel = model;
 		BindingContext = _createSeanceViewModel;
 	}
+
+	//public async void ButtonNext(object sender, EventArgs e)
+	//{
+	//	NameSeance.IsVisible = false;
+ //       await Task.Delay(500);
+ //   }
 }
