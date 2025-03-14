@@ -1,4 +1,6 @@
-﻿using GymProgress.Mobile.ViewModels;
+﻿using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.Services;
+using GymProgress.Mobile.ViewModels;
 
 namespace GymProgress.Mobile
 {
@@ -8,7 +10,9 @@ namespace GymProgress.Mobile
         {
             InitializeComponent();
             LoginViewModel vm = new LoginViewModel();
-            MainPage = new LoginPage(vm);
+            HttpClient httpClient = new HttpClient();
+            IUsersService us = new UsersService(httpClient);
+            MainPage = new LoginPage(vm, us);
         }
     }
 }

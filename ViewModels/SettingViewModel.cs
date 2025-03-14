@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.Services;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -23,7 +25,8 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonDisconnect()
         {
-            Application.Current.MainPage = new LoginPage(new LoginViewModel());
+            IUsersService us = new UsersService(new HttpClient());
+            Application.Current.MainPage = new LoginPage(new LoginViewModel(), us);
         }
 
         [RelayCommand]
