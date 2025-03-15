@@ -21,15 +21,22 @@
                     Margin="0, 0, 20, 0" />
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Seances}" IsVisible="{Binding HasSeance}" >
+        <CollectionView ItemsSource="{Binding Seances}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelectSeanceCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+                        IsVisible="{Binding HasSeance}" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="10, 5">
+                    <HorizontalStackLayout Margin="10,5">
                         <Label Text="{Binding Name}" FontSize="16" VerticalOptions="End"/>
-                        <Frame.GestureRecognizers>
+                    </HorizontalStackLayout>
+                    <!--<Frame Margin="10, 5">
+                    <Label Text="{Binding Name}" FontSize="16" VerticalOptions="End"/>-->
+                    <!--<Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped = "GoToSeanceDetail"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
+                        </Frame.GestureRecognizers>-->
+                    <!--</Frame>-->
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

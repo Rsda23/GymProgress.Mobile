@@ -82,7 +82,7 @@
                     <Label Text="Aller à l'acceuil sans ce connecter" FontSize="12" VerticalTextAlignment="Center"/>
                     <Label Text="GO" FontAttributes="Bold" FontSize="13" Margin="10, 0, 0, 0">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Go_Home" />
+                            <TapGestureRecognizer Tapped="Go" />
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>

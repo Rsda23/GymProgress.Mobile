@@ -26,8 +26,9 @@ public partial class LoginPage : ContentPage
         ErrorLogin.IsVisible = false;
 
     }
-    private async void Go_Home(object sender, EventArgs e)
+    private async void Go(object sender, EventArgs e)
     {
+        //await _loginViewModel.ButtonConnectionCommand.ExecuteAsync(null);
         await Shell.Current.GoToAsync("//SeancePage");
     }
     private async void Go_Home()

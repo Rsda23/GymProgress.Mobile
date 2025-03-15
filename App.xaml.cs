@@ -9,10 +9,12 @@ namespace GymProgress.Mobile
         public App()
         {
             InitializeComponent();
-            LoginViewModel vm = new LoginViewModel();
-            HttpClient httpClient = new HttpClient();
-            IUsersService us = new UsersService(httpClient);
-            MainPage = new LoginPage(vm, us);
+            //LoginViewModel vm = new LoginViewModel();
+            //HttpClient httpClient = new HttpClient();
+            //IUsersService us = new UsersService(httpClient);
+            // MainPage = new LoginPage(vm, us);
+
+            MainPage = new AppShell();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
+using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -45,6 +46,21 @@ namespace GymProgress.Mobile.ViewModels
             }
 
             VisibleSeance();
+        }
+
+        [RelayCommand]
+        private async Task SelectSeance(Seance model)
+        {
+            var test = model.Name;
+            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+            parameters.Add(Constants.QueryIdentifiers.SeanceName, model.Name);
+    
+            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
+            //Dictionary<string, object> parameters = new Dictionary<string, object>();
+            //parameters.Add("seanceId", model.SeanceId);
+            //{
+            //    { "seance1", model.SeanceId },
+            //};
         }
 
         [RelayCommand]
