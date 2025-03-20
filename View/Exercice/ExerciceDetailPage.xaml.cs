@@ -4,8 +4,8 @@ namespace GymProgress.Mobile;
 
 public partial class ExerciceDetailPage : ContentPage
 {
-	private readonly ExerciceViewModel _exerciceDetailPage;
-	public ExerciceDetailPage(ExerciceViewModel model)
+	private readonly ExerciceDetailViewModel _exerciceDetailPage;
+	public ExerciceDetailPage(ExerciceDetailViewModel model)
 	{
 		InitializeComponent();
 		_exerciceDetailPage = model;

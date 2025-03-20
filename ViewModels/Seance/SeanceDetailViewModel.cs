@@ -1,10 +1,7 @@
-﻿
-using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {

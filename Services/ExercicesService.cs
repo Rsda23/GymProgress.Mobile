@@ -30,5 +30,22 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
+
+        public async Task<Exercice> GetExerciceByName(string name)
+        {
+            try
+            {
+                var uri = $"Exercices/GetExerciceByName?name={name}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var exercice = JsonSerializer.Deserialize<Exercice>(data);
+                return exercice;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }

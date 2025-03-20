@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
+using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -49,6 +50,16 @@ namespace GymProgress.Mobile.ViewModels
             }
 
             VisibleExercice();
+        }
+
+        [RelayCommand]
+        private async Task SelectExercice(Exercice model)
+        {
+            var test = model.Nom;
+            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+            parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+
+            await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
         }
 
         [RelayCommand]
