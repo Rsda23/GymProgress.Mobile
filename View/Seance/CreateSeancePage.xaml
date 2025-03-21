@@ -2,16 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.CreateSeancePage">
-    <VerticalStackLayout>
-        <Button 
-            Grid.Column="0" 
-            Text="{Binding ButtonAddExerciceText}" 
-            Command="{Binding ButtonAddExerciceCommand}"
-            WidthRequest="100" 
-            HeightRequest="40" 
-            HorizontalOptions="End" 
-            Margin="0, 0, 20, 20" />
 
+    <VerticalStackLayout>
         <Grid IsVisible="{Binding First}">
             <VerticalStackLayout Spacing="10" Margin="20">
                 <Label 

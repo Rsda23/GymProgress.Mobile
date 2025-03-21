@@ -10,6 +10,11 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly IExercicesService _service;
 
+        public ExerciceDetailViewModel(IExercicesService service)
+        {
+            _service = service;
+        }
+
         [ObservableProperty]
         private Exercice currentExercice = new();
 
@@ -22,11 +27,6 @@ namespace GymProgress.Mobile.ViewModels
             {
                 CurrentExercice = await _service.GetExerciceByName(value);
             }
-        }
-
-        public ExerciceDetailViewModel(IExercicesService service)
-        {
-            _service = service;
         }
     }
 }

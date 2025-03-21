@@ -1,14 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
     [QueryProperty(Constants.TargetProperties.SeanceName, Constants.QueryIdentifiers.SeanceName)]
     public partial class SeanceDetailViewModel : ViewModelBase
     {
-        private readonly ISeancesService _service;
+        private readonly ISeancesService _seanceService;
+        private readonly IExercicesService _exerciceService;
+
+        public SeanceDetailViewModel(ISeancesService service)
+        {
+            _seanceService = service;
+        }
 
         [ObservableProperty]
         private Seance currentSeance = new();
@@ -19,18 +27,40 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private string seanceName = string.Empty;
 
+        [ObservableProperty]
+        private string buttonAddExerciceText = "Ajouter";
+
+        [ObservableProperty]
+        private bool hasExercice;
+
+        [ObservableProperty]
+        private bool emptyExercice;
+
+        [ObservableProperty]
+        private string emptyExerciceText = "Aucun Exercice";
+
+        [RelayCommand]
+        private async Task ButtonAddExercice()
+        {
+            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}");
+        }
+
+        [RelayCommand]
+        private Task VisibleSeance()
+        {
+            HasExercice = Exercices.Any();
+            EmptyExercice = !HasExercice;
+            return Task.CompletedTask;
+        }
+
         async partial void OnSeanceNameChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                CurrentSeance = await _service.GetSeanceByName(value);
+                CurrentSeance = await _seanceService.GetSeanceByName(value);
                 Exercices = CurrentSeance.Exercices;
+                VisibleSeance();
             }
-        }
-
-        public SeanceDetailViewModel(ISeancesService service)
-        {
-            _service = service;
         }
     }
 }

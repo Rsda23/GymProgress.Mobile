@@ -30,6 +30,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool emptySeance;
 
         [ObservableProperty]
+        private string emptySeanceText = "Aucune séance";
+
+        [ObservableProperty]
         private ObservableCollection<Seance> seances = new();
 
 

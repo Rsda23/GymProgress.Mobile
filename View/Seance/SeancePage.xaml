@@ -47,7 +47,7 @@
                         <Border Stroke="MediumPurple"
                                 StrokeThickness="1" 
                                 StrokeShape="RoundRectangle 10"
-                                Padding="10" 
+                                Padding="50" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
                             <Label Text="{Binding Name}" 
@@ -60,13 +60,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout IsVisible="{Binding EmptySeance}">
-            <VerticalStackLayout>
-                <Frame Margin="10, 5">
-                    <Label Text="Pas de séance"/>
-                </Frame>
-            </VerticalStackLayout>
-        </StackLayout>
+        <Grid IsVisible="{Binding EmptySeance}"
+              HorizontalOptions="Center">
+            <Label Text="{Binding EmptySeanceText}"
+                    FontSize="20" 
+                    Margin="50"/>
+        </Grid>
     </VerticalStackLayout>
 
 </ContentPage>
