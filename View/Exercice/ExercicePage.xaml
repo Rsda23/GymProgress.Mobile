@@ -7,41 +7,37 @@
              >
     <VerticalStackLayout>
         <Grid>
-            <Label 
-            Grid.Column="0" 
-            Text="{Binding TitleExercice}"
-            Padding="20" 
-            HorizontalOptions="Center" />
-            <Button 
-            Grid.Column="1" 
-            Text="{Binding ButtonCreateExerciceText}" 
-            Command="{Binding ButtonCreateExerciceCommand}"
-            WidthRequest="100" 
-            HeightRequest="40" 
-            HorizontalOptions="End" 
-            Margin="0, 0, 20, 0" />
+            <Label Grid.Column="0" 
+                    Text="{Binding TitleExercice}"
+                    Padding="20" 
+                    HorizontalOptions="Center" />
+            <Button Grid.Column="1" 
+                    Text="{Binding ButtonCreateExerciceText}" 
+                    Command="{Binding ButtonCreateExerciceCommand}"
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    HorizontalOptions="End" 
+                    Margin="0, 0, 20, 0" />
         </Grid>
 
         <CollectionView ItemsSource="{Binding Exercices}"
                         SelectionMode="Single"
                         SelectionChangedCommand="{Binding SelectExerciceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
-                        IsVisible="{Binding HasExercice}" >
+                        IsVisible="{Binding HasExercice}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout Margin="10,5">
-                        <Label Text="{Binding Nom}" FontSize="16" VerticalOptions="End"/>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        
-        <CollectionView ItemsSource="{Binding Exercices}" IsVisible="{Binding HasExercice}" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="10, 5">
-                        <Label Text="{Binding Nom}" FontSize="16" VerticalOptions="End"/>
-                    </Frame>
+                    <Grid Padding="10">
+                        <Border Stroke="MediumPurple"
+                                StrokeThickness="1" 
+                                Padding="10" 
+                                BackgroundColor="White"
+                                Margin="5">
+                            <Label Text="{Binding Nom}"  
+                                   FontSize="16" 
+                                   VerticalOptions="End"/>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
