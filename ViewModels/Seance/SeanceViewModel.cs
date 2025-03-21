@@ -59,11 +59,6 @@ namespace GymProgress.Mobile.ViewModels
             parameters.Add(Constants.QueryIdentifiers.SeanceName, model.Name);
     
             await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
-            //Dictionary<string, object> parameters = new Dictionary<string, object>();
-            //parameters.Add("seanceId", model.SeanceId);
-            //{
-            //    { "seance1", model.SeanceId },
-            //};
         }
 
         [RelayCommand]
@@ -76,7 +71,6 @@ namespace GymProgress.Mobile.ViewModels
         private async Task ButtonGoToSeance()
         {
             Console.WriteLine("methode ButtonGoToSeance vient d'être appelé");
-            //var seance = await _seanceService.GetSeanceByName("pull");
             await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
         }
 
