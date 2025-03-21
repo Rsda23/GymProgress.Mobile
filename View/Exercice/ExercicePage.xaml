@@ -5,6 +5,24 @@
              xmlns:vm="clr-namespace:GymProgress.Mobile.ViewModels"
              x:Class="GymProgress.Mobile.ExercicePage"
              >
+
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout>
         <Grid>
             <Label Grid.Column="0" 
@@ -22,6 +40,7 @@
 
         <CollectionView ItemsSource="{Binding Exercices}"
                         SelectionMode="Single"
+                        
                         SelectionChangedCommand="{Binding SelectExerciceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
                         IsVisible="{Binding HasExercice}">
@@ -31,7 +50,7 @@
                         <Border Stroke="MediumPurple"
                                 StrokeThickness="1" 
                                 Padding="10" 
-                                BackgroundColor="White"
+                                BackgroundColor="Transparent"
                                 Margin="5">
                             <Label Text="{Binding Nom}"  
                                    FontSize="16" 
