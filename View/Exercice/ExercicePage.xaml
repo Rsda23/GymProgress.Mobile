@@ -48,12 +48,14 @@
                     <Grid Padding="10">
                         <Border Stroke="MediumPurple"
                                 StrokeThickness="1" 
+                                StrokeShape="RoundRectangle 10"
                                 Padding="10" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
                             <Label Text="{Binding Nom}"  
                                    FontSize="16" 
-                                   VerticalOptions="End"/>
+                                   VerticalOptions="End"
+                                   Margin="10,0,0,0"/>
                         </Border>
                     </Grid>
                 </DataTemplate>

@@ -4,6 +4,23 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeancePage">
 
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout>
         <Grid>
             <Label Grid.Column="0" 
@@ -26,11 +43,19 @@
                         IsVisible="{Binding HasSeance}" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout Margin="10,5">
-                        <Label Text="{Binding Name}" 
-                               FontSize="16" 
-                               VerticalOptions="End"/>
-                    </HorizontalStackLayout>
+                    <Grid Padding="10">
+                        <Border Stroke="MediumPurple"
+                                StrokeThickness="1" 
+                                StrokeShape="RoundRectangle 10"
+                                Padding="10" 
+                                BackgroundColor="Transparent"
+                                Margin="5">
+                            <Label Text="{Binding Name}" 
+                                   FontSize="16" 
+                                   VerticalOptions="End"
+                                   Margin="10,0,0,0"/>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
