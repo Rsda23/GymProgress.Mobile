@@ -5,20 +5,20 @@
              x:Class="GymProgress.Mobile.SeanceDetailPage"
             >
     <VerticalStackLayout BackgroundColor="Aquamarine">
-        <Label 
-            Text="{Binding CurrentSeance.Name}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentSeance.SeanceId}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentSeance.Name}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentSeance.SeanceId}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
 
         <CollectionView ItemsSource="{Binding Exercices}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout Margin="10,5">
-                        <Label Text="{Binding Nom}" FontSize="16" VerticalOptions="End"/>
+                        <Label Text="{Binding Nom}" 
+                               FontSize="16" 
+                               VerticalOptions="End"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

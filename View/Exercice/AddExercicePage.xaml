@@ -4,13 +4,12 @@
              x:Class="GymProgress.Mobile.AddExercicePage"
              Title="AddExercicePage">
     <VerticalStackLayout>
-        <Button 
-            Grid.Column="0" 
-            Text="{Binding ButtonCreateExerciceText}" 
-            Command="{Binding ButtonCreateExerciceCommand}"
-            WidthRequest="100" 
-            HeightRequest="40" 
-            HorizontalOptions="End" 
-            Margin="0, 0, 20, 0" />
+        <Button Grid.Column="0" 
+                Text="{Binding ButtonCreateExerciceText}" 
+                Command="{Binding ButtonCreateExerciceCommand}"
+                WidthRequest="100" 
+                HeightRequest="40" 
+                HorizontalOptions="End" 
+                Margin="0, 0, 20, 0" />
     </VerticalStackLayout>
 </ContentPage>

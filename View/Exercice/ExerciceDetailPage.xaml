@@ -5,21 +5,17 @@
              x:Class="GymProgress.Mobile.ExerciceDetailPage">
 
     <VerticalStackLayout BackgroundColor="Aquamarine">
-        <Label 
-            Text="{Binding CurrentExercice.Nom}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentExercice.Repetition}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentExercice.Serie}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentExercice.Charge}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentExercice.Nom}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentExercice.Repetition}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentExercice.Serie}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <Label Text="{Binding CurrentExercice.Charge}"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
