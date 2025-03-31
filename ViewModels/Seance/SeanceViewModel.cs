@@ -35,6 +35,9 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private ObservableCollection<Seance> seances = new();
 
+        [ObservableProperty]
+        private Seance selectedSeance;
+
 
         [RelayCommand]
         private async Task DisplaySeance()
@@ -59,6 +62,8 @@ namespace GymProgress.Mobile.ViewModels
             parameters.Add(Constants.QueryIdentifiers.SeanceName, model.Name);
     
             await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
+
+            Deselect();
         }
 
         [RelayCommand]
@@ -80,6 +85,11 @@ namespace GymProgress.Mobile.ViewModels
             HasSeance = seances.Any();
             EmptySeance = !HasSeance;
             return Task.CompletedTask;
+        }
+
+        public void Deselect()
+        {
+            SelectedSeance = null;
         }
     }
 }

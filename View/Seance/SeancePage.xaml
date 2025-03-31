@@ -38,6 +38,7 @@
 
         <CollectionView ItemsSource="{Binding Seances}"
                         SelectionMode="Single"
+                        SelectedItem="{Binding SelectedSeance}"
                         SelectionChangedCommand="{Binding SelectSeanceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
                         IsVisible="{Binding HasSeance}" >
