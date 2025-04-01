@@ -40,6 +40,7 @@
         
         <CollectionView ItemsSource="{Binding Exercices}"
                         SelectionMode="Single"
+                        SelectedItem="{Binding SelectedExercice}"
                         SelectionChangedCommand="{Binding SelectExerciceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
                         IsVisible="{Binding HasExercice}">

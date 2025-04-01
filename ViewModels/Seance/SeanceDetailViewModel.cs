@@ -38,6 +38,9 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private string emptyExerciceText = "Aucun Exercice";
 
+        [ObservableProperty]
+        private Exercice selectedExercice;
+
         [RelayCommand]
         private async Task ButtonAddExercice()
         {
@@ -70,6 +73,13 @@ namespace GymProgress.Mobile.ViewModels
             parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
 
             await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
+
+            Deselect();
+        }
+
+        public void Deselect()
+        {
+            SelectedExercice = null;
         }
     }
 }
