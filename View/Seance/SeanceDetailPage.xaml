@@ -4,21 +4,23 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeanceDetailPage"
              Shell.NavBarIsVisible="true">
+    
+    <Shell.TitleView>
+        <Grid HorizontalOptions="FillAndExpand">
+            <Label Text="{Binding CurrentSeance.Name}"
+                   Padding="0,18,70,0" 
+                   HorizontalOptions="Center"/>
+        </Grid>
+    </Shell.TitleView>
+    
     <VerticalStackLayout>
-        <Grid>
-            <Label Grid.Column="0" 
-                   Text="{Binding CurrentSeance.Name}"
-                   Padding="20" 
-                   HorizontalOptions="Center" />
-            <Button Grid.Column="1" 
-                    Text="{Binding ButtonAddExerciceText}" 
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button Text="{Binding ButtonAddExerciceText}" 
                     Command="{Binding ButtonAddExerciceCommand}"
                     WidthRequest="100" 
-                    HeightRequest="40" 
-                    HorizontalOptions="End" 
-                    Margin="0, 0, 20, 0" />
-        </Grid>
-
+                    HeightRequest="40"/>
+        </HorizontalStackLayout>
+        
         <CollectionView ItemsSource="{Binding Exercices}"
                         IsVisible="{Binding HasExercice}">
             <CollectionView.ItemTemplate>
