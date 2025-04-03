@@ -2,10 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.CreateExercicePage"
-             Title="CreateExercicePage">
+             Title="Creation de l'exercice">
     <VerticalStackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+        <Grid>
+            <VerticalStackLayout Spacing="10" Margin="20">
+                <Label 
+                Text="Nom de l'exercice" 
+                Margin="5, 0, 0, 0"/>
+                <Frame Padding="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry Text="{Binding NameExerciceText}"/>
+                    </Grid>
+                </Frame>
+                <Button 
+                    Text="{Binding ButtonValideText}"  
+                    Command="{Binding ButtonValideCommand}"
+                    FontAttributes="Bold" 
+                    HeightRequest="45" 
+                    FontSize="18"
+                    Margin="20"/>
+            </VerticalStackLayout>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
