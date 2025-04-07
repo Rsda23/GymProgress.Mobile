@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.View.Connexion.ForgotPage"
              Title="ForgotPage">
-    <Grid RowDefinitions="1*,8*,1*">
+    <!--<Grid RowDefinitions="1*,8*,1*">
         <Frame CornerRadius="0" Grid.Row="1" VerticalOptions="CenterAndExpand" Margin="40, 0">
             <VerticalStackLayout Spacing="10">
                 <StackLayout IsVisible="True" x:Name="Mail">
@@ -50,5 +50,5 @@
                 </StackLayout>
             </VerticalStackLayout>
         </Frame>
-    </Grid>
+    </Grid>-->
 </ContentPage>

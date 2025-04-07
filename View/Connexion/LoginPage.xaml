@@ -4,38 +4,17 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.LoginPage">
 
-    <!--<Frame 
-        VerticalOptions="CenterAndExpand" 
-        Margin="50, 0">
-        <VerticalStackLayout Spacing="10">
-            <Frame Padding="10, 10, 30, 10">
-                <Grid ColumnDefinitions="5,*">
-                    <Entry Text="{Binding Email}" 
-                           VerticalOptions="Center" 
-                           Placeholder="Email" 
-                           FontSize="11" 
-                           Grid.Column="1"/>
-                </Grid>
-            </Frame>
-            <Frame Padding="10, 10, 30, 10">
-                <Grid ColumnDefinitions="*,Auto">
-                    <Entry x:Name="PasswordEntry"
-                           Text="{Binding Password}"
-                           VerticalOptions="Start" 
-                           Placeholder="Mot de passe" 
-                           IsPassword="True" 
-                           FontSize="11" 
-                           Grid.Column="0"/>
-                </Grid>
-            </Frame>
-            <Button Text="{Binding ButtonConnectionText}"  
-                    Command="{Binding ButtonConnectionCommand}"
-                    FontAttributes="Bold" 
-                    HeightRequest="45" 
-                    FontSize="18"/>
-        </VerticalStackLayout>
-    </Frame>-->
+    <!--<ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior 
+            StatusBarColor="{AppThemeBinding Light={StaticResource BackgroundDark}, Dark={StaticResource BackgroundDark}}"/>
+    </ContentPage.Behaviors>-->
+
     <Grid RowDefinitions="1*,8*,1*">
+        <!--<Button Text="DarkMode"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Margin="10"
+                Clicked="Btn_PageMode" />-->
         <Frame CornerRadius="0" 
                Grid.Row="1"
                VerticalOptions="CenterAndExpand"
@@ -44,65 +23,62 @@
 
                 <Label Text="Connexion" 
                        FontSize="18" 
-                       FontAttributes="Bold" 
+                       FontAttributes="Bold"
                        HorizontalTextAlignment="Center"/>
 
                 <Frame Padding="10, 10, 30, 10">
                     <Grid ColumnDefinitions="5,*">
-                        <Entry x:Name="EmailEntry" 
-                               Text="{Binding Email}"  
+                        <Entry Text="{Binding Email}"  
                                VerticalOptions="Center" 
                                Placeholder="Email" 
-                               FontSize="11" 
+                               FontSize="11"
                                Grid.Column="1"/>
                     </Grid>
                 </Frame>
 
                 <Frame Padding="10">
                     <Grid ColumnDefinitions="*,Auto">
-                        <Entry x:Name="PasswordEntry" 
+                        <Entry Text="{Binding Password}" 
                                VerticalOptions="Start" 
                                Placeholder="Mot de passe" 
-                               IsPassword="True" 
+                               IsPassword="{Binding IsPasswordField}" 
                                FontSize="11" 
                                Grid.Column="0"/>
-                        <ImageButton x:Name="EyeYes" 
-                                     IsVisible="True" 
+                        <ImageButton IsVisible="{Binding EyeYes}" 
                                      Source="eye_line.png" 
-                                     HeightRequest="40" 
+                                     HeightRequest="40"
                                      WidthRequest="20" 
                                      VerticalOptions="End" 
-                                     Clicked="PasswordVisibility" 
+                                     Command="{Binding PasswordVisibilityCommand}" 
                                      Grid.Column="1"/>
-                        <ImageButton x:Name="EyeNo" 
-                                     IsVisible="False" 
+                        <ImageButton IsVisible="{Binding EyeNo}" 
                                      Source="eye.png" 
                                      HeightRequest="40" 
                                      WidthRequest="20" 
                                      VerticalOptions="End" 
-                                     Clicked="PasswordVisibility" 
+                                     Command="{Binding PasswordVisibilityCommand}" 
                                      Grid.Column="1"/>
                     </Grid>
                 </Frame>
-                <Label x:Name="ErrorLogin" 
+                <Label Text="{Binding ErrorText}" 
                        TextColor="Red" 
                        FontSize="14" 
-                       IsVisible="False" 
+                       IsVisible="{Binding Error}" 
                        Margin="0, 0, 0, 5" 
                        HorizontalTextAlignment="Center" />
-                <Button Clicked="ValidLogin" 
-                        Text="Se connecter"  
+                <Button Command="{Binding ButtonConnectionCommand}" 
+                        Text="{Binding ButtonConnectionText}" 
                         FontAttributes="Bold" 
                         HeightRequest="45" 
                         FontSize="18"/>
 
                 <HorizontalStackLayout HorizontalOptions="Center">
-                    <Label Text="Mot de passe oublié ?" 
+                    <Label Text="Mot de passe oublié ?"
                            FontSize="12" 
                            FontAttributes="Bold" 
                            HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Btn_Forgout" />
+                            <TapGestureRecognizer Command="{Binding GoToForgot}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>
@@ -115,20 +91,7 @@
                            FontSize="13" 
                            Margin="10, 0, 0, 0">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Btn_Subscribe" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout HorizontalOptions="Center">
-                    <Label Text="Aller à l'acceuil sans ce connecter" 
-                           FontSize="12" 
-                           VerticalTextAlignment="Center"/>
-                    <Label Text="GO" 
-                           FontAttributes="Bold" 
-                           FontSize="13" 
-                           Margin="10, 0, 0, 0">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Go" />
+                            <TapGestureRecognizer Command="{Binding GoToSubscribe}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>

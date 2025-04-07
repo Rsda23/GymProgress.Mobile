@@ -69,7 +69,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\Connexion\ForgotPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Connexion\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Connexion\SubscribePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\SettingPage.xaml">
