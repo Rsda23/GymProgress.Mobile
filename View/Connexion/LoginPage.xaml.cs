@@ -1,5 +1,3 @@
-using GymProgress.Mobile.Interfaces;
-using GymProgress.Mobile.View.Connexion;
 using GymProgress.Mobile.ViewModels;
 
 namespace GymProgress.Mobile;
@@ -7,7 +5,7 @@ namespace GymProgress.Mobile;
 public partial class LoginPage : ContentPage
 {
 	private readonly LoginViewModel _loginViewModel;
-    public LoginPage(LoginViewModel model, IUsersService usersService)
+    public LoginPage(LoginViewModel model)
 	{
         InitializeComponent();
 		_loginViewModel = model;

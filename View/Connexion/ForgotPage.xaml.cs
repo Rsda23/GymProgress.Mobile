@@ -2,9 +2,12 @@ namespace GymProgress.Mobile.View.Connexion;
 
 public partial class ForgotPage : ContentPage
 {
-	public ForgotPage()
+    private readonly ForgotPage _forgotPage;
+	public ForgotPage(ForgotPage model)
 	{
 		InitializeComponent();
+        _forgotPage = model;
+        BindingContext = _forgotPage;
 	}
 
     //private async void Btn_Mail(object sender, EventArgs e)
