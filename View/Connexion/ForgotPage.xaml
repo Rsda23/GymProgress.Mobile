@@ -15,6 +15,7 @@
                            HorizontalTextAlignment="Center" 
                            FontSize="18"
                            FontAttributes="Bold"/>
+                    
                     <Label Text="Saisissez votre adresse e-mail de récupération" 
                            Padding="0, 0, 0, 10" 
                            HorizontalTextAlignment="Center" 
@@ -29,24 +30,26 @@
                                    Grid.Column="1"/>
                         </Grid>
                     </Frame>
-
+                    
                     <Button Command="{Binding EmailNextCommand}" 
                             Text="Suivant" 
                             FontAttributes="Bold" 
                             HeightRequest="45" 
                             FontSize="18" />
                 </StackLayout>
-
+                
                 <StackLayout IsVisible="{Binding LayoutCode}">
                     <Label Text="Vérification" 
                            Padding="0, 0, 0, 5"
                            HorizontalTextAlignment="Center" 
                            FontSize="18" 
                            FontAttributes="Bold"/>
+                    
                     <Label Text="Veuillez entrer le code de récupération reçu par e-mail." 
                            Padding="0, 0, 0, 10" 
                            HorizontalTextAlignment="Center" 
                            FontSize="12"/>
+                    
                     <Frame Padding="10" 
                            Margin="0, 0, 0, 10">
                         <Grid ColumnDefinitions="5,*">
@@ -57,23 +60,25 @@
                                    Grid.Column="1"/>
                         </Grid>
                     </Frame>
-
+                    
                     <Button Command="{Binding PasswordNextCommand}" 
                             Text="Valider"
                             FontAttributes="Bold" 
                             HeightRequest="45" 
                             FontSize="18" />
                 </StackLayout>
-
+                
                 <StackLayout IsVisible="{Binding LayoutPassword}">
                     <Label Text="Réinitialisation" Padding="0, 0, 0, 5" 
                            HorizontalTextAlignment="Center" 
                            FontSize="18"
                            FontAttributes="Bold"/>
+                    
                     <Label Text="Choisissez un nouveau mot de passe sécurisé en combinant lettres, chiffres et caractères spéciaux." 
                            Padding="0, 0, 0, 10"
                            HorizontalTextAlignment="Center" 
                            FontSize="12"/>
+                    
                     <Frame Padding="10">
                         <Grid ColumnDefinitions="5,*">
                             <Entry VerticalOptions="Center" 

@@ -9,7 +9,6 @@ namespace GymProgress.Mobile.ViewModels
     public partial class ExerciceDetailViewModel : ViewModelBase
     {
         private readonly IExercicesService _service;
-
         public ExerciceDetailViewModel(IExercicesService service)
         {
             _service = service;
@@ -20,6 +19,8 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string exerciceNom = string.Empty;
+
+
 
         async partial void OnExerciceNomChanged(string value)
         {

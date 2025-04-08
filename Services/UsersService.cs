@@ -19,7 +19,6 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
-                //var uri = $"GetUserByEmail?email={email}";
                 var fullUri = $"https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/GetUserByEmail?email={Uri.EscapeDataString(email)}";
                 var response = await _httpClient.GetAsync(fullUri);
                 var data = await response.Content.ReadAsStringAsync();

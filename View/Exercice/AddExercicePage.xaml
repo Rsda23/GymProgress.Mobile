@@ -9,6 +9,7 @@
                 <Grid>
                     <HorizontalStackLayout Margin="20, 5, 0, 0">
                         <CheckBox IsChecked="{Binding IsSelected}"/>
+                        
                         <Label Text="{Binding Nom}" 
                                FontSize="16" 
                                Margin="0,10,0,0"/>

@@ -11,11 +11,5 @@ namespace GymProgress.Mobile
             _seanceViewModel = model;
             BindingContext = _seanceViewModel;
         }
-
-        public async void GoToSeanceDetail(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
-        }
     }
-
 }

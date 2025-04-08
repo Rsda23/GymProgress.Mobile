@@ -11,7 +11,6 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly ISeancesService _seanceService;
         private readonly IExercicesService _exerciceService;
-
         public SeanceDetailViewModel(ISeancesService service)
         {
             _seanceService = service;
@@ -30,16 +29,17 @@ namespace GymProgress.Mobile.ViewModels
         private string buttonAddExerciceText = "Ajouter";
 
         [ObservableProperty]
-        private bool hasExercice;
+        private string emptyExerciceText = "Aucun Exercice";
 
+        [ObservableProperty]
+        private bool hasExercice;
         [ObservableProperty]
         private bool emptyExercice;
 
         [ObservableProperty]
-        private string emptyExerciceText = "Aucun Exercice";
-
-        [ObservableProperty]
         private Exercice selectedExercice;
+
+
 
         [RelayCommand]
         private async Task ButtonAddExercice()
@@ -76,6 +76,8 @@ namespace GymProgress.Mobile.ViewModels
 
             Deselect();
         }
+
+
 
         public void Deselect()
         {

@@ -8,32 +8,29 @@ namespace GymProgress.Mobile.ViewModels
     public partial class SettingViewModel : ViewModelBase
     {
         [ObservableProperty]
-        private string buttonDisconnectText = "Déconnexion";
+        private string titleSetting = "Parametre";
 
         [ObservableProperty]
         private string pseudo = "Aprilia";
-
         [ObservableProperty]
         private string email = "aprilia@gmail.com";
 
         [ObservableProperty]
+        private string buttonDisconnectText = "Déconnexion";
+        [ObservableProperty]
         private string buttonDeleteAccountText = "Supprimer le compte";
 
-        [ObservableProperty]
-        private string titleSetting = "Parametre";
+
 
         [RelayCommand]
         private async Task ButtonDisconnect()
         {
-            //IUsersService us = new UsersService(new HttpClient());
             await Shell.Current.GoToAsync($"/{Routes.LoginPage}");
-            //Application.Current.MainPage = new LoginPage(new LoginViewModel(), us);
         }
 
         [RelayCommand]
         private async Task ButtonDeleteAccount()
         {
-            //Suppression
             ButtonDisconnect();
         }
     }

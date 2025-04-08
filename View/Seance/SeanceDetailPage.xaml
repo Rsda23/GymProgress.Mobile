@@ -4,7 +4,6 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeanceDetailPage"
              Shell.NavBarIsVisible="true">
-
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -53,6 +52,7 @@
                                 Padding="10" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
+                            
                         <Label Text="{Binding Nom}" 
                                FontSize="16" 
                                VerticalOptions="End"/>
@@ -68,7 +68,5 @@
                    FontSize="20" 
                    Margin="50"/>
         </Grid>
-        
-        
     </VerticalStackLayout>
 </ContentPage>

@@ -12,9 +12,4 @@ public partial class ExercicePage : ContentPage
 		BindingContext = _exerciceViewModel;
 
     }
-
-    public async void GoToExerciceDetail(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}");
-    }
 }

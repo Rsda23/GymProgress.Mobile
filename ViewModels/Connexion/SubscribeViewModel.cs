@@ -139,6 +139,8 @@ namespace GymProgress.Mobile.ViewModels
 
         }
 
+
+
         public bool ConfirmedPseudo(string pseudo)
         {
             if (string.IsNullOrWhiteSpace(pseudo))
@@ -232,6 +234,5 @@ namespace GymProgress.Mobile.ViewModels
                 throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
             }
         }
-
     }
 }

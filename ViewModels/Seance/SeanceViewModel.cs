@@ -10,7 +10,6 @@ namespace GymProgress.Mobile.ViewModels
     public partial class SeanceViewModel : ViewModelBase
     {
         private readonly ISeancesService _seanceService;
-
         public SeanceViewModel(ISeancesService seanceService)
         {
             _seanceService = seanceService;
@@ -24,13 +23,12 @@ namespace GymProgress.Mobile.ViewModels
         private string titleSeance = "Séance";
 
         [ObservableProperty]
-        private bool hasSeance;
+        private string emptySeanceText = "Aucune séance";
 
+        [ObservableProperty]
+        private bool hasSeance;
         [ObservableProperty]
         private bool emptySeance;
-
-        [ObservableProperty]
-        private string emptySeanceText = "Aucune séance";
 
         [ObservableProperty]
         private ObservableCollection<Seance> seances = new();
@@ -39,10 +37,12 @@ namespace GymProgress.Mobile.ViewModels
         private Seance selectedSeance;
 
 
+
         [RelayCommand]
         private async Task DisplaySeance()
         {
             var seances = await _seanceService.GetAllSeance();
+
             if (seances != null)
             {
                 foreach (var seance in seances)
@@ -86,6 +86,8 @@ namespace GymProgress.Mobile.ViewModels
             EmptySeance = !HasSeance;
             return Task.CompletedTask;
         }
+
+
 
         public void Deselect()
         {

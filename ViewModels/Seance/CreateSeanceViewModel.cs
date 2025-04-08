@@ -16,20 +16,17 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [ObservableProperty]
-        private string buttonAddExerciceText = "Ajouter";
-
-        [ObservableProperty]
         private string nameSeanceText = string.Empty;
 
         [ObservableProperty]
+        private string buttonAddExerciceText = "Ajouter";
+        [ObservableProperty]
         private string buttonNextText = "Suivant";
-
         [ObservableProperty]
         private string buttonValideText = "Valider";
 
         [ObservableProperty]
         private bool first = true;
-
         [ObservableProperty]
         private bool second = false;
 
@@ -39,10 +36,13 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private ObservableCollection<Exercice> exercices = new();
 
+
+
         [RelayCommand]
         private async Task DisplayExercice()
         {
             var exercices = await _exercicesService.GetAllExercice();
+
             if (exercices != null)
             {
                 foreach (var exercice in exercices)
@@ -55,7 +55,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonAddExercice()
         {
-            await Shell.Current.GoToAsync("AddExercicePage");
+            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}");
         }
 
         [RelayCommand]
@@ -68,8 +68,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValide()
         {
-            //await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
-            await Shell.Current.GoToAsync("//SeancePage");
+            await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
         }
     }
 }

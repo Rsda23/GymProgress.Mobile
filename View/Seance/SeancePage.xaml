@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeancePage">
-
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -20,13 +19,14 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    
+
     <VerticalStackLayout>
         <Grid>
             <Label Grid.Column="0" 
                    Text="{Binding TitleSeance}"
                    Padding="20" 
                    HorizontalOptions="Center" />
+
             <Button Grid.Column="1" 
                     Text="{Binding ButtonCreateSeanceText}" 
                     Command="{Binding ButtonCreateSeanceCommand}"
@@ -68,5 +68,4 @@
                     Margin="50"/>
         </Grid>
     </VerticalStackLayout>
-
 </ContentPage>

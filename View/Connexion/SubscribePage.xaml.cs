@@ -11,20 +11,5 @@ public partial class SubscribePage : ContentPage
 		InitializeComponent();
         _subscribeViewModel = model;
         BindingContext = _subscribeViewModel;
-
 	}
-
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-
-    //    PseudoEntry.Text = string.Empty;
-    //    EmailEntry.Text = string.Empty;
-    //    FirstPasswordEntry.Text = string.Empty;
-    //    ConfirmedPasswordEntry.Text = string.Empty;
-
-    //    Pseudo.IsVisible = true;
-    //    Email.IsVisible = false;
-    //    Password.IsVisible = false;
-    //}
 }

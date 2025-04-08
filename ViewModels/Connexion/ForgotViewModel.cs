@@ -7,7 +7,6 @@ namespace GymProgress.Mobile.ViewModels.Connexion
     public partial class ForgotViewModel : ViewModelBase
     {
         private readonly UsersService _usersService;
-
         public ForgotViewModel(UsersService model)
         {
             _usersService = model;
@@ -19,6 +18,8 @@ namespace GymProgress.Mobile.ViewModels.Connexion
         private bool layoutCode = false;
         [ObservableProperty]
         private bool layoutPassword = false;
+
+
 
         [RelayCommand]
         private async void EmailNext()

@@ -5,22 +5,23 @@
              Title="Creation de l'exercice">
     <VerticalStackLayout>
         <Grid>
-            <VerticalStackLayout Spacing="10" Margin="20">
-                <Label 
-                Text="Nom de l'exercice" 
-                Margin="5, 0, 0, 0"/>
+            <VerticalStackLayout Spacing="10" 
+                                 Margin="20">
+                <Label Text="Nom de l'exercice" 
+                       Margin="5, 0, 0, 0"/>
+                
                 <Frame Padding="10">
                     <Grid ColumnDefinitions="*,Auto">
                         <Entry Text="{Binding NameExerciceText}"/>
                     </Grid>
                 </Frame>
-                <Button 
-                    Text="{Binding ButtonValideText}"  
-                    Command="{Binding ButtonValideCommand}"
-                    FontAttributes="Bold" 
-                    HeightRequest="45" 
-                    FontSize="18"
-                    Margin="20"/>
+                
+                <Button Text="{Binding ButtonValideText}"  
+                        Command="{Binding ButtonValideCommand}"
+                        FontAttributes="Bold" 
+                        HeightRequest="45" 
+                        FontSize="18"
+                        Margin="20"/>
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

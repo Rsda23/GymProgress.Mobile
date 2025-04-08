@@ -15,10 +15,12 @@
                            HorizontalTextAlignment="Center" 
                            FontSize="18" 
                            FontAttributes="Bold"/>
+                    
                     <Label Text="Choisissez un pseudo compris entre 3 et 20 caractères." 
                            Padding="0, 0, 0, 10" 
                            HorizontalTextAlignment="Center" 
                            FontSize="12"/>
+                    
                     <Frame Padding="10" 
                            Margin="0, 10, 0, 15">
                         <Grid ColumnDefinitions="5,*">
@@ -29,12 +31,14 @@
                                    Grid.Column="1"/>
                         </Grid>
                     </Frame>
+                    
                     <Label Text="{Binding ErrorPseudoText}" 
                            TextColor="Red" 
                            FontSize="14" 
                            IsVisible="{Binding ErrorPseudo}" 
                            Margin="0, 0, 0, 15" 
                            HorizontalTextAlignment="Center" />
+                    
                     <Button Command="{Binding EmailNextCommand}" 
                             Text="Suivant"  
                             FontAttributes="Bold" 
@@ -48,10 +52,12 @@
                            HorizontalTextAlignment="Center" 
                            FontSize="18" 
                            FontAttributes="Bold"/>
+                    
                     <Label Text="Saisissez une adresse e-mail valide pour vous connecter" 
                            Padding="0, 0, 0, 10" 
                            HorizontalTextAlignment="Center" 
                            FontSize="12"/>
+                    
                     <Frame  Padding="10" 
                             Margin="0, 10, 0, 15">
                         <Grid ColumnDefinitions="5,*">
@@ -62,12 +68,14 @@
                                    Grid.Column="1"/>
                         </Grid>
                     </Frame>
+                    
                     <Label Text="{Binding ErrorEmailText}"
                            TextColor="Red" 
                            FontSize="14" 
                            IsVisible="{Binding ErrorEmail}"
                            Margin="0, 0, 0, 15" 
                            HorizontalTextAlignment="Center" />
+                    
                     <Button Command="{Binding PasswordNextCommand}"
                             Text="Suivant"  
                             FontAttributes="Bold"
@@ -81,7 +89,12 @@
                            HorizontalTextAlignment="Center" 
                            FontSize="18" 
                            FontAttributes="Bold"/>
-                    <Label Text="Choisissez un mot de passe sécurisé contenant au moins 8 caractères." Padding="0, 0, 0, 10" HorizontalTextAlignment="Center" FontSize="12"/>
+                    
+                    <Label Text="Choisissez un mot de passe sécurisé contenant au moins 8 caractères." 
+                           Padding="0, 0, 0, 10"
+                           HorizontalTextAlignment="Center" 
+                           FontSize="12"/>
+                    
                     <Frame Padding="10">
                         <Grid ColumnDefinitions="5,*">
                             <Entry VerticalOptions="Center" 
@@ -103,12 +116,14 @@
                                    Grid.Column="1"/>
                         </Grid>
                     </Frame>
+                    
                     <Label Text="{Binding ErrorPasswordText}" 
                            TextColor="Red" 
                            FontSize="14" 
                            IsVisible="{Binding ErrorPassword}" 
                            Margin="0, 0, 0, 15" 
                            HorizontalTextAlignment="Center" />
+                    
                     <Button Command="{Binding ValidRegisterCommand}"
                             Text="S'inscrire" 
                             FontAttributes="Bold" 
@@ -120,6 +135,7 @@
                     <Label Text="Vous avez un compte ?" 
                            FontSize="12" 
                            VerticalTextAlignment="Center" />
+                    
                     <Label Text="Connectez-vous" 
                            FontAttributes="Bold" 
                            FontSize="13" 

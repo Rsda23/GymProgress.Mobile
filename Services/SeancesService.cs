@@ -46,6 +46,5 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-
     }
 }

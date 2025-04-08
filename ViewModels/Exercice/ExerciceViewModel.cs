@@ -18,7 +18,6 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private bool hasExercice;
-
         [ObservableProperty]
         private bool emptyExercice;
 
@@ -26,10 +25,12 @@ namespace GymProgress.Mobile.ViewModels
         private string buttonCreateExerciceText = "Créer";
 
         [ObservableProperty]
-        private string titleExercice = "Exercice";
+        private string titleExerciceText = "Exercice";
 
         [ObservableProperty]
         private ObservableCollection<Exercice> exercices = new();
+
+
 
         [RelayCommand]
         private async Task ButtonCreateExercice()
@@ -41,6 +42,7 @@ namespace GymProgress.Mobile.ViewModels
         private async Task DisplayExercice()
         {
             var exercices = await _exercicesService.GetAllExercice();
+
             if (exercices != null)
             {
                 foreach (var exercice in exercices)

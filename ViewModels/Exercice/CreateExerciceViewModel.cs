@@ -9,10 +9,12 @@ namespace GymProgress.Mobile.ViewModels
         private string buttonAddExerciceText = "Ajouter";
 
         [ObservableProperty]
-        private string nameExerciceText = string.Empty;
+        private string buttonValideText = "Valider";
 
         [ObservableProperty]
-        private string buttonValideText = "Valider";
+        private string nameExerciceText = string.Empty;
+
+
 
         [RelayCommand]
         private async Task ButtonAddExercice()

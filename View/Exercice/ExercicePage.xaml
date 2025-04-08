@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:GymProgress.Mobile.ViewModels"
-             x:Class="GymProgress.Mobile.ExercicePage"
-             >
-
+             x:Class="GymProgress.Mobile.ExercicePage">
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -26,9 +24,10 @@
     <VerticalStackLayout>
         <Grid>
             <Label Grid.Column="0" 
-                   Text="{Binding TitleExercice}"
+                   Text="{Binding TitleExerciceText}"
                    Padding="20" 
                    HorizontalOptions="Center" />
+            
             <Button Grid.Column="1" 
                     Text="{Binding ButtonCreateExerciceText}" 
                     Command="{Binding ButtonCreateExerciceCommand}"
@@ -52,6 +51,7 @@
                                 Padding="10" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
+                            
                             <Label Text="{Binding Nom}"  
                                    FontSize="16" 
                                    VerticalOptions="End"

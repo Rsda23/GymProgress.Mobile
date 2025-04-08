@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.SettingPage"
              Title="SettingPage">
-
     <VerticalStackLayout >
         <Grid ColumnDefinitions="*, Auto" 
               Margin="20, 0, 20, 0" 
@@ -14,12 +13,14 @@
                    FontSize="15" 
                    FontAttributes="Bold" 
                    Padding="20"  />
+            
             <Grid Grid.Column="1" 
                   Margin="0, 10, 0, 0">
                 <Label Text="Theme" 
                        FontAttributes="Bold" 
                        FontSize="14" 
                        HorizontalTextAlignment="Center" />
+                
                 <Switch VerticalOptions="Center" 
                         HorizontalOptions="Center" 
                         Toggled="ThemeMode" 
@@ -38,12 +39,14 @@
                            FontSize="15" 
                            HorizontalTextAlignment="Start" 
                            Margin="0"/>
+                    
                     <Label Text="{Binding Pseudo}" 
                            FontSize="18" 
                            HorizontalTextAlignment="Start" 
                            Margin="0"/>
                 </VerticalStackLayout>
             </Frame>
+            
             <Frame>
                 <VerticalStackLayout>
                     <Label Text="E-mail" 
@@ -51,15 +54,18 @@
                            FontSize="15" 
                            HorizontalTextAlignment="Start" 
                            Margin="0"/>
+                    
                     <Label Text="{Binding Email}" 
                            FontSize="18" 
                            HorizontalTextAlignment="Start" 
                            Margin="0"/>
                 </VerticalStackLayout>
             </Frame>
+            
             <Button Margin="0, 20"
                     Text="{Binding ButtonDeleteAccountText}"
                     Command="{Binding ButtonDeleteAccountCommand}"/>
+            
             <Button Text="{Binding ButtonDisconnectText}"
                     Command="{Binding ButtonDisconnectCommand}"/>
         </VerticalStackLayout>

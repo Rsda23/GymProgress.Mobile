@@ -5,7 +5,6 @@
              x:Class="GymProgress.Mobile.ExerciceDetailPage"
              Shell.NavBarIsVisible="True"
              Shell.BackgroundColor="Aquamarine">
-
     <Shell.TitleView>
         <Grid HorizontalOptions="FillAndExpand">
             <Label Text="{Binding CurrentExercice.Nom}"
@@ -18,9 +17,11 @@
         <Label Text="{Binding CurrentExercice.Repetition}"
                VerticalOptions="Center" 
                HorizontalOptions="Center" />
+        
         <Label Text="{Binding CurrentExercice.Serie}"
                VerticalOptions="Center" 
                HorizontalOptions="Center" />
+        
         <Label Text="{Binding CurrentExercice.Charge}"
                VerticalOptions="Center" 
                HorizontalOptions="Center" />

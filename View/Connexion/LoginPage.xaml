@@ -3,24 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.LoginPage">
-
-    <!--<ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior 
-            StatusBarColor="{AppThemeBinding Light={StaticResource BackgroundDark}, Dark={StaticResource BackgroundDark}}"/>
-    </ContentPage.Behaviors>-->
-
     <Grid RowDefinitions="1*,8*,1*">
-        <!--<Button Text="DarkMode"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                Margin="10"
-                Clicked="Btn_PageMode" />-->
         <Frame CornerRadius="0" 
                Grid.Row="1"
                VerticalOptions="CenterAndExpand"
                Margin="40, 0">
             <VerticalStackLayout Spacing="10">
-
                 <Label Text="Connexion" 
                        FontSize="18" 
                        FontAttributes="Bold"
@@ -44,6 +32,7 @@
                                IsPassword="{Binding IsPasswordField}" 
                                FontSize="11" 
                                Grid.Column="0"/>
+                        
                         <ImageButton IsVisible="{Binding EyeYes}" 
                                      Source="eye_line.png" 
                                      HeightRequest="40"
@@ -51,6 +40,7 @@
                                      VerticalOptions="End" 
                                      Command="{Binding PasswordVisibilityCommand}" 
                                      Grid.Column="1"/>
+                        
                         <ImageButton IsVisible="{Binding EyeNo}" 
                                      Source="eye.png" 
                                      HeightRequest="40" 
@@ -60,12 +50,14 @@
                                      Grid.Column="1"/>
                     </Grid>
                 </Frame>
+                
                 <Label Text="{Binding ErrorText}" 
                        TextColor="Red" 
                        FontSize="14" 
                        IsVisible="{Binding Error}" 
                        Margin="0, 0, 0, 5" 
                        HorizontalTextAlignment="Center" />
+                
                 <Button Command="{Binding ButtonConnectionCommand}" 
                         Text="{Binding ButtonConnectionText}" 
                         FontAttributes="Bold" 
@@ -82,10 +74,12 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </HorizontalStackLayout>
+                
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Label Text="Vous n'avez pas de compte ?" 
                            FontSize="12" 
                            VerticalTextAlignment="Center"/>
+                    
                     <Label Text="Inscrivez-vous" 
                            FontAttributes="Bold" 
                            FontSize="13" 

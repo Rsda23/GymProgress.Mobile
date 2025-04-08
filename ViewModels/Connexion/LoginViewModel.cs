@@ -8,7 +8,6 @@ namespace GymProgress.Mobile.ViewModels
     public partial class LoginViewModel : ViewModelBase
     {
         private readonly UsersService _usersService;
-
         public LoginViewModel(UsersService usersService)
         {
             _usersService = usersService;
@@ -16,12 +15,12 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string email = string.Empty;
-
         [ObservableProperty]
         private string password = string.Empty;
 
         [ObservableProperty]
         private string errorText = "Email ou mot de passe incorrect.";
+
         [ObservableProperty]
         private bool error = false;
 
@@ -30,7 +29,6 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private bool eyeYes = true;
-
         [ObservableProperty]
         private bool eyeNo = false;
 
@@ -39,12 +37,7 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private bool isPasswordField = true;
 
-        //[RelayCommand]
-        //private async Task ButtonConnection()
-        //{
-        //    Application.Current.MainPage = new AppShell();
-        //    await Shell.Current.GoToAsync("//SeancePage");
-        //}
+
 
         [RelayCommand]
         private async void GoToSeance()
@@ -116,11 +109,5 @@ namespace GymProgress.Mobile.ViewModels
                 EyeNo = false;
             }
         }
-
-        //private async void Go_Main()
-        //{
-        //    await Shell.Current.GoToAsync("//Main");
-        //}
-
     }
 }

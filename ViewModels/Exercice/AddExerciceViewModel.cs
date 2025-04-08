@@ -14,6 +14,7 @@ namespace GymProgress.Mobile.ViewModels
             _exercicesService = exercicesService;
             DisplayExercice();
         }
+
         [ObservableProperty]
         private string buttonCreateExerciceText = "Créer";
 
@@ -22,6 +23,8 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<Exercice> exercices = new();
+
+
 
         [RelayCommand]
         private async Task ButtonCreateExercice()
