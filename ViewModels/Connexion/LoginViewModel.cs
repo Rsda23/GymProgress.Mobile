@@ -42,7 +42,6 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async void GoToSeance()
         {
-            //await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
             await Shell.Current.GoToAsync("//SeancePage");
         }
 

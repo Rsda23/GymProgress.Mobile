@@ -7,10 +7,19 @@ namespace GymProgress.Mobile
 {
     public partial class App : Application
     {
-        private readonly IServiceProvider _serviceProvider;
-        public App(IServiceProvider serviceProvider)
+        public App()
         {
             InitializeComponent();
+
+            MainPage = new AppShell();
+
+            Dispatcher.Dispatch(async () =>
+            {
+                var httpClient = new HttpClient();
+                var usersService = new UsersService(httpClient);
+                var loginViewModel = new LoginViewModel(usersService);
+                await Shell.Current.Navigation.PushModalAsync(new LoginPage(loginViewModel));
+            });
             //_serviceProvider = serviceProvider;
 
             //MainPage = _serviceProvider.GetRequiredService<LoginPage>();
@@ -22,7 +31,7 @@ namespace GymProgress.Mobile
             //MainPage = new LoginPage(new LoginViewModel(userService));
 
 
-            MainPage = new AppShell();
+
 
             //var httpClient = new HttpClient();
             //var usersService = new UsersService(httpClient);
