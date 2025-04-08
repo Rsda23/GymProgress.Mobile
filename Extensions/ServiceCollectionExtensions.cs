@@ -1,6 +1,7 @@
 ﻿using GymProgress.Mobile.Services;
 using GymProgress.Mobile.View.Connexion;
 using GymProgress.Mobile.ViewModels;
+using GymProgress.Mobile.ViewModels.Connexion;
 
 namespace GymProgress.Mobile.Extensions
 {
@@ -10,6 +11,7 @@ namespace GymProgress.Mobile.Extensions
         {
             services.AddTransient<LoginPage>();
             services.AddTransient<SubscribePage>();
+            services.AddTransient<ForgotPage>();
             services.AddTransient<SeancePage>();
             services.AddTransient<SeanceDetailPage>();
             services.AddTransient<ExercicePage>();
@@ -28,6 +30,7 @@ namespace GymProgress.Mobile.Extensions
         {
             services.AddTransient<LoginViewModel>();
             services.AddTransient<SubscribeViewModel>();
+            services.AddTransient<ForgotViewModel>();
             services.AddTransient<SeanceViewModel>();
             services.AddTransient<SeanceDetailViewModel>();
             services.AddTransient<ExerciceViewModel>();
