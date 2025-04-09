@@ -12,4 +12,9 @@ public partial class ExercicePage : ContentPage
 		BindingContext = _exerciceViewModel;
 
     }
+
+    private void OnSearchBar(object sender, TextChangedEventArgs e)
+    {
+        _exerciceViewModel.FilterExercicesBySearchCommand.Execute(e.NewTextValue);
+    }
 }

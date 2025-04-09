@@ -38,8 +38,6 @@
 
         <SearchBar Placeholder="Rechercher une seance..."
                    Text="{Binding SearchText}"
-                   SearchCommand="{Binding FilterSeancesBySearchTextCommand}"
-                   SearchCommandParameter="{Binding SearchText}"
                    TextChanged="OnSearchBarTextChanged"/>
 
         <CollectionView ItemsSource="{Binding FilterSeances}"

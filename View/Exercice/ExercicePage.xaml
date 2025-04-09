@@ -37,7 +37,11 @@
                     Margin="0, 0, 20, 0" />
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Exercices}"
+        <SearchBar Placeholder="Rechercher un exercice..."
+                   Text="{Binding SearchText}"
+                   TextChanged="OnSearchBar"/>
+
+        <CollectionView ItemsSource="{Binding FilterExercices}"
                         SelectionMode="Single"
                         SelectionChangedCommand="{Binding SelectExerciceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
