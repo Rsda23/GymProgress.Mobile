@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.CreateSeancePage">
     <VerticalStackLayout>
-        <Grid IsVisible="{Binding First}">
+        <Grid>
             <VerticalStackLayout Spacing="10" 
                                  Margin="20">
                 <Label Text="Nom de la séance" 
@@ -22,39 +22,11 @@
                        Margin="0, 0, 0, 15" 
                        HorizontalTextAlignment="Center" />
 
-                <Button Text="Suivant"  
-                        Command="{Binding ButtonNextCommand}"
-                        FontAttributes="Bold" 
-                        HeightRequest="45" 
-                        FontSize="18"/>
-            </VerticalStackLayout>
-        </Grid>
-
-        <CollectionView ItemsSource="{Binding Exercices}" 
-                        IsVisible="{Binding Second}" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <HorizontalStackLayout Margin="20, 5, 0, 0">
-                            <CheckBox IsChecked="{Binding IsSelected}"/>
-                            
-                            <Label Text="{Binding Nom}" 
-                                   FontSize="16" 
-                                   Margin="0,10,0,0"/>
-                        </HorizontalStackLayout>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        
-        <Grid IsVisible="{Binding Second}">
-            <VerticalStackLayout>
-                <Button Text="{Binding ButtonValideText}"  
+                <Button Text="Confirmer"  
                         Command="{Binding ButtonValideCommand}"
                         FontAttributes="Bold" 
                         HeightRequest="45" 
-                        FontSize="18"
-                        Margin="20"/>
+                        FontSize="18"/>
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

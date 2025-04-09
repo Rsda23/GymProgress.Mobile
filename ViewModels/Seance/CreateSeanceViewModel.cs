@@ -9,10 +9,11 @@ namespace GymProgress.Mobile.ViewModels
     public partial class CreateSeanceViewModel : ViewModelBase
     {
         private readonly IExercicesService _exercicesService;
-        public CreateSeanceViewModel(IExercicesService exercicesService)
+        private readonly ISeancesService _seancesService;
+        public CreateSeanceViewModel(IExercicesService exercicesService, ISeancesService seancesService)
         {
             _exercicesService = exercicesService;
-            DisplayExercice();
+            _seancesService = seancesService;
         }
 
         [ObservableProperty]
@@ -22,56 +23,18 @@ namespace GymProgress.Mobile.ViewModels
         private string errorSeanceText = string.Empty;
 
         [ObservableProperty]
-        private string buttonAddExerciceText = "Ajouter";
-        [ObservableProperty]
-        private string buttonNextText = "Suivant";
-        [ObservableProperty]
-        private string buttonValideText = "Valider";
-
-        [ObservableProperty]
-        private bool first = true;
-        [ObservableProperty]
-        private bool second = false;
-
-        [ObservableProperty]
         private bool errorSeance = false;
 
-        [ObservableProperty]
-        private bool isSelected;
-
-        [ObservableProperty]
-        private ObservableCollection<Exercice> exercices = new();
-
 
 
         [RelayCommand]
-        private async Task DisplayExercice()
-        {
-            var exercices = await _exercicesService.GetAllExercice();
-
-            if (exercices != null)
-            {
-                foreach (var exercice in exercices)
-                {
-                    Exercices.Add(exercice);
-                }
-            }
-        }
-
-        [RelayCommand]
-        private async Task ButtonAddExercice()
-        {
-            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}");
-        }
-
-        [RelayCommand]
-        private async Task ButtonNext()
+        private async Task ButtonValide()
         {
             if (!string.IsNullOrWhiteSpace(NameSeanceText))
             {
                 ErrorSeance = false;
-                First = false;
-                Second = true;
+                await _seancesService.PostSeance(NameSeanceText);
+                await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
             }
             else
             {
@@ -79,12 +42,6 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorSeanceText = ex.Message;
                 ErrorSeance = true;
             }
-        }
-
-        [RelayCommand]
-        private async Task ButtonValide()
-        {
-            await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
         }
     }
 }

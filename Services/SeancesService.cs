@@ -1,6 +1,7 @@
 ﻿using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
 using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 
 namespace GymProgress.Mobile.Services
@@ -44,6 +45,27 @@ namespace GymProgress.Mobile.Services
             {
                 Debug.WriteLine(ex);
                 return null;
+            }
+        }
+
+        public async Task<bool> PostSeance(string name)
+        {
+            try
+            {
+                var uri = $"PostSeance";
+
+                var jsonContent = JsonSerializer.Serialize(name);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync(uri, content);
+                var data = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
             }
         }
     }
