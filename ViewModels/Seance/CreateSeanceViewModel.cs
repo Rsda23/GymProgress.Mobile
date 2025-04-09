@@ -19,6 +19,9 @@ namespace GymProgress.Mobile.ViewModels
         private string nameSeanceText = string.Empty;
 
         [ObservableProperty]
+        private string errorSeanceText = string.Empty;
+
+        [ObservableProperty]
         private string buttonAddExerciceText = "Ajouter";
         [ObservableProperty]
         private string buttonNextText = "Suivant";
@@ -29,6 +32,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool first = true;
         [ObservableProperty]
         private bool second = false;
+
+        [ObservableProperty]
+        private bool errorSeance = false;
 
         [ObservableProperty]
         private bool isSelected;
@@ -61,8 +67,18 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonNext()
         {
-            First = false;
-            Second = true;
+            if (!string.IsNullOrWhiteSpace(NameSeanceText))
+            {
+                ErrorSeance = false;
+                First = false;
+                Second = true;
+            }
+            else
+            {
+                var ex = new Exception("Le champs ne peut pas être vide.");
+                ErrorSeanceText = ex.Message;
+                ErrorSeance = true;
+            }
         }
 
         [RelayCommand]

@@ -14,7 +14,14 @@
                         <Entry Text="{Binding NameSeanceText}"/>
                     </Grid>
                 </Frame>
-                
+
+                <Label Text="{Binding ErrorSeanceText}" 
+                       TextColor="Red" 
+                       FontSize="14" 
+                       IsVisible="{Binding ErrorSeance}" 
+                       Margin="0, 0, 0, 15" 
+                       HorizontalTextAlignment="Center" />
+
                 <Button Text="Suivant"  
                         Command="{Binding ButtonNextCommand}"
                         FontAttributes="Bold" 
