@@ -11,5 +11,10 @@ namespace GymProgress.Mobile
             _seanceViewModel = model;
             BindingContext = _seanceViewModel;
         }
+
+        private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            _seanceViewModel.FilterSeancesBySearchTextCommand.Execute(e.NewTextValue);
+        }
     }
 }

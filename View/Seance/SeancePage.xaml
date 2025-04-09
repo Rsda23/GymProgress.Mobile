@@ -36,7 +36,13 @@
                     Margin="0, 0, 20, 0" />
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Seances}"
+        <SearchBar Placeholder="Rechercher une seance..."
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding FilterSeancesBySearchTextCommand}"
+                   SearchCommandParameter="{Binding SearchText}"
+                   TextChanged="OnSearchBarTextChanged"/>
+
+        <CollectionView ItemsSource="{Binding FilterSeances}"
                         SelectionMode="Single"
                         SelectedItem="{Binding SelectedSeance}"
                         SelectionChangedCommand="{Binding SelectSeanceCommand}"

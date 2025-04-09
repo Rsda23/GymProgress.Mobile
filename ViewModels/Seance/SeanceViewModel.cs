@@ -17,6 +17,9 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [ObservableProperty]
+        private string searchText = string.Empty;
+
+        [ObservableProperty]
         private string buttonCreateSeanceText = "Créer";
 
         [ObservableProperty]
@@ -34,6 +37,9 @@ namespace GymProgress.Mobile.ViewModels
         private ObservableCollection<Seance> seances = new();
 
         [ObservableProperty]
+        private ObservableCollection<Seance> filterSeances = new();
+
+        [ObservableProperty]
         private Seance selectedSeance;
 
 
@@ -45,11 +51,14 @@ namespace GymProgress.Mobile.ViewModels
 
             if (seances != null)
             {
+                Seances.Clear();
                 foreach (var seance in seances)
                 {
                     Seances.Add(seance);
                 }
             }
+
+            FilterSeances = new ObservableCollection<Seance>(Seances);
 
             VisibleSeance();
         }
@@ -75,16 +84,30 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonGoToSeance()
         {
-            Console.WriteLine("methode ButtonGoToSeance vient d'être appelé");
             await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}");
         }
 
         [RelayCommand]
         private Task VisibleSeance()
         {
-            HasSeance = seances.Any();
+            HasSeance = Seances.Any();
             EmptySeance = !HasSeance;
             return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private void FilterSeancesBySearchText(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                FilterSeances = new ObservableCollection<Seance>(Seances);
+            }
+            else
+            {
+                FilterSeances = new ObservableCollection<Seance>(Seances .Where(
+                    seance => !string.IsNullOrEmpty(seance.Name) && 
+                    seance.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
+            }
         }
 
 
