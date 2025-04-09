@@ -44,7 +44,11 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonAddExercice()
         {
-            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}");
+            var seance = SeanceName;
+            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+            parameters.Add(Constants.QueryIdentifiers.SeanceName, seance);
+
+            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}", parameters);
         }
 
         [RelayCommand]

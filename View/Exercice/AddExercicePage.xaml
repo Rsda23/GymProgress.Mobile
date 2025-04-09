@@ -3,20 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.AddExercicePage"
              Title="Ajouter un Exercice">
-    <CollectionView ItemsSource="{Binding Exercices}" >
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <HorizontalStackLayout Margin="20, 5, 0, 0">
-                        <CheckBox IsChecked="{Binding IsSelected}"/>
-                        
-                        <Label Text="{Binding Nom}" 
-                               FontSize="16" 
-                               Margin="0,10,0,0"/>
-                    </HorizontalStackLayout>
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Exercices}" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <HorizontalStackLayout Margin="20, 5, 0, 0">
+                            <CheckBox IsChecked="{Binding IsSelected}"/>
+
+                            <Label Text="{Binding Nom}" 
+                                   FontSize="16" 
+                                   Margin="0,10,0,0"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid>
+            <Button Grid.Column="1" 
+                    Text="{Binding ButtonValidExerciceText}" 
+                    Command="{Binding ButtonValidExerciceCommand}"
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    HorizontalOptions="Center" 
+                    Margin="0, 20, 20, 0"/>
+        </Grid>
+    </StackLayout>
 </ContentPage>
