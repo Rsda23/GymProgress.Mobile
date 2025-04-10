@@ -1,10 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.Services;
 
 namespace GymProgress.Mobile.ViewModels
 {
     public partial class CreateExerciceViewModel : ViewModelBase
     {
+        private readonly IExercicesService _exercicesService;
+        public CreateExerciceViewModel(IExercicesService exercicesService)
+        {
+            _exercicesService = exercicesService;
+        }
         [ObservableProperty]
         private string buttonAddExerciceText = "Ajouter";
 
@@ -25,7 +32,8 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValide()
         {
-
+            await _exercicesService.PostExercice(NameExerciceText);
+            await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
         }
     }
 }

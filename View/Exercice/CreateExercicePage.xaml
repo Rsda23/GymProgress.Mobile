@@ -20,8 +20,7 @@
                         Command="{Binding ButtonValideCommand}"
                         FontAttributes="Bold" 
                         HeightRequest="45" 
-                        FontSize="18"
-                        Margin="20"/>
+                        FontSize="18"/>
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

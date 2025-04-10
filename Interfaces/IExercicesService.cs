@@ -6,5 +6,6 @@ namespace GymProgress.Mobile.Interfaces
     {
         public Task<List<Exercice>> GetAllExercice();
         public Task<Exercice> GetExerciceByName(string name);
+        public Task<bool> PostExercice(string name);
     }
 }
