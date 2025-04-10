@@ -26,17 +26,23 @@
             <Label Text="{Binding CurrentSeance.Name}"
                    Padding="0,18,70,0" 
                    HorizontalOptions="Center"/>
+            <ImageButton Source="add.png"
+                         HeightRequest="26"
+                         BackgroundColor="Transparent"
+                         Command="{Binding AddExerciceCommand}"
+                         Grid.Column="2"
+                         Margin="170,1,0,0"/>
+            <ImageButton Source="delete.png"
+                         WidthRequest="24"
+                         BackgroundColor="Transparent"
+                         Command="{Binding DeleteCommand}"
+                         Grid.Column="3"
+                         HorizontalOptions="End"
+                         Margin="0,0,30,0"/>
         </Grid>
     </Shell.TitleView>
-    
+
     <VerticalStackLayout>
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <Button Text="{Binding ButtonAddExerciceText}" 
-                    Command="{Binding ButtonAddExerciceCommand}"
-                    WidthRequest="100" 
-                    HeightRequest="40"/>
-        </HorizontalStackLayout>
-        
         <CollectionView ItemsSource="{Binding Exercices}"
                         SelectionMode="Single"
                         SelectedItem="{Binding SelectedExercice}"

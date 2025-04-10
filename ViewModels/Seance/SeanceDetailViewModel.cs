@@ -26,7 +26,7 @@ namespace GymProgress.Mobile.ViewModels
         private string seanceName = string.Empty;
 
         [ObservableProperty]
-        private string buttonAddExerciceText = "Ajouter";
+        private bool confirm = false;
 
         [ObservableProperty]
         private string emptyExerciceText = "Aucun Exercice";
@@ -42,7 +42,22 @@ namespace GymProgress.Mobile.ViewModels
 
 
         [RelayCommand]
-        private async Task ButtonAddExercice()
+        private async Task Delete()
+        {
+            Confirm = await Shell.Current.DisplayAlert(
+                "Confirmation",
+                "Voulez-vous vraiment supprimer cet exercice ?",
+                "Oui", "Non");
+
+            if (Confirm)
+            {
+                await _seanceService.Delete(currentSeance.SeanceId);
+                await Shell.Current.GoToAsync("..");
+            }
+        }
+
+        [RelayCommand]
+        private async Task AddExercice()
         {
             var seance = SeanceName;
             ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
