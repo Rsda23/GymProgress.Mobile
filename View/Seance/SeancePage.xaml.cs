@@ -12,6 +12,12 @@ namespace GymProgress.Mobile
             BindingContext = _seanceViewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _seanceViewModel.DisplaySeance();
+        }
+
         private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
         {
             _seanceViewModel.FilterSeancesBySearchTextCommand.Execute(e.NewTextValue);

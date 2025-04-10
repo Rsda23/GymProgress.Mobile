@@ -13,7 +13,6 @@ namespace GymProgress.Mobile.ViewModels
         public ExerciceViewModel(IExercicesService exercicesService)
         {
             _exercicesService = exercicesService;
-            DisplayExercice();
         }
 
         [ObservableProperty]
@@ -42,25 +41,6 @@ namespace GymProgress.Mobile.ViewModels
         private async Task ButtonCreateExercice()
         {
             await Shell.Current.GoToAsync("CreateExercicePage");
-        }
-
-        [RelayCommand]
-        private async Task DisplayExercice()
-        {
-            var exercices = await _exercicesService.GetAllExercice();
-
-            if (exercices != null)
-            {
-                Exercices.Clear();
-                foreach (var exercice in exercices)
-                {
-                    Exercices.Add(exercice);
-                }
-            }
-
-            FilterExercices = new ObservableCollection<Exercice>(Exercices);
-
-            VisibleExercice();
         }
 
         [RelayCommand]
@@ -94,6 +74,25 @@ namespace GymProgress.Mobile.ViewModels
                     exercice => !string.IsNullOrEmpty(exercice.Nom) &&
                     exercice.Nom.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
             }
+        }
+
+
+        public async Task DisplayExercice()
+        {
+            var exercices = await _exercicesService.GetAllExercice();
+
+            if (exercices != null)
+            {
+                Exercices.Clear();
+                foreach (var exercice in exercices)
+                {
+                    Exercices.Add(exercice);
+                }
+            }
+
+            FilterExercices = new ObservableCollection<Exercice>(Exercices);
+
+            VisibleExercice();
         }
     }
 }

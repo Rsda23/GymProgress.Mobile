@@ -13,6 +13,12 @@ public partial class ExercicePage : ContentPage
 
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _exerciceViewModel.DisplayExercice();
+    }
+
     private void OnSearchBar(object sender, TextChangedEventArgs e)
     {
         _exerciceViewModel.FilterExercicesBySearchCommand.Execute(e.NewTextValue);
