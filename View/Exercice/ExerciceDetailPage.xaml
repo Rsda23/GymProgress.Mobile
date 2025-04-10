@@ -10,6 +10,14 @@
             <Label Text="{Binding CurrentExercice.Nom}"
                Padding="0,18,70,0" 
                HorizontalOptions="Center"/>
+            <ImageButton Source="delete.png"
+                         WidthRequest="24"
+                         HeightRequest="24"
+                         BackgroundColor="Transparent"
+                         Command="{Binding DeleteCommand}"
+                         Grid.Column="1"
+                         HorizontalOptions="End"
+                         Margin="0,0,20,0"/>
         </Grid>
     </Shell.TitleView>
     

@@ -69,5 +69,22 @@ namespace GymProgress.Mobile.Services
                 return false;
             }
         }
+
+        public async Task<bool> Delete(string exerciceId)
+        {
+            try
+            {
+                var uri = $"Exercices/DeleteExerciceById?id={exerciceId}";
+
+                var response = await _httpClient.DeleteAsync(uri);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

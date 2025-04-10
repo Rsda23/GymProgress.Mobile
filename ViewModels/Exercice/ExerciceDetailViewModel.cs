@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
@@ -19,6 +20,25 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string exerciceNom = string.Empty;
+
+        [ObservableProperty]
+        private bool confirm = false;
+
+
+        [RelayCommand]
+        private async Task Delete()
+        {
+            Confirm = await Shell.Current.DisplayAlert(
+                "Confirmation",
+                "Voulez-vous vraiment supprimer cet exercice ?",
+                "Oui", "Non");
+
+            if (Confirm)
+            {
+                await _service.Delete(currentExercice.ExerciceId);
+                await Shell.Current.GoToAsync("..");
+            }
+        }
 
 
 

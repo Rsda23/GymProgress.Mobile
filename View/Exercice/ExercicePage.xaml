@@ -55,11 +55,13 @@
                                 Padding="10" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
-                            
-                            <Label Text="{Binding Nom}"  
-                                   FontSize="16" 
-                                   VerticalOptions="End"
-                                   Margin="10,0,0,0"/>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Text="{Binding Nom}"  
+                                        FontSize="16" 
+                                        VerticalOptions="End"
+                                        Margin="10,0,0,0"
+                                        Grid.Column="0"/>
+                            </Grid>
                         </Border>
                     </Grid>
                 </DataTemplate>
