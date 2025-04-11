@@ -24,6 +24,10 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private bool confirm = false;
 
+        [ObservableProperty]
+        private bool isEditing = false;
+
+
 
         [RelayCommand]
         private async Task Delete()
@@ -38,6 +42,18 @@ namespace GymProgress.Mobile.ViewModels
                 await _service.Delete(currentExercice.ExerciceId);
                 await Shell.Current.GoToAsync("..");
             }
+        }
+
+        [RelayCommand]
+        private async Task Editing()
+        {
+            IsEditing = !IsEditing;
+        }
+
+        [RelayCommand]
+        private async Task SaveEdit()
+        {
+            IsEditing = false;
         }
 
 
