@@ -23,6 +23,7 @@ namespace GymProgress.Mobile.Extensions
             services.AddTransient<ExercicesService>();
             services.AddTransient<SeancesService>();
             services.AddTransient<UsersService>();
+            services.AddTransient<SetDataService>();
             return services;
         }
 

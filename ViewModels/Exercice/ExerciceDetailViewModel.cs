@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
+using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -10,9 +12,11 @@ namespace GymProgress.Mobile.ViewModels
     public partial class ExerciceDetailViewModel : ViewModelBase
     {
         private readonly IExercicesService _service;
-        public ExerciceDetailViewModel(IExercicesService service)
+        private readonly ISetDatasService _setDatasService;
+        public ExerciceDetailViewModel(IExercicesService service, ISetDatasService setDatasService)
         {
             _service = service;
+            _setDatasService = setDatasService;
         }
 
         [ObservableProperty]
@@ -27,6 +31,14 @@ namespace GymProgress.Mobile.ViewModels
         [ObservableProperty]
         private bool isEditing = false;
 
+        [ObservableProperty]
+        private bool hasSetData;
+
+        [ObservableProperty]
+        private bool emptySetData;
+
+        [ObservableProperty]
+        private ObservableCollection<SetData> setDatas = new();
 
 
         [RelayCommand]
@@ -39,7 +51,7 @@ namespace GymProgress.Mobile.ViewModels
 
             if (Confirm)
             {
-                await _service.Delete(currentExercice.ExerciceId);
+                await _service.Delete(CurrentExercice.ExerciceId);
                 await Shell.Current.GoToAsync("..");
             }
         }
@@ -63,6 +75,29 @@ namespace GymProgress.Mobile.ViewModels
             if (!string.IsNullOrEmpty(value))
             {
                 CurrentExercice = await _service.GetExerciceByName(value);
+            }
+        }
+
+        public async Task DisplaySetData()
+        {
+            Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
+
+            if (exercice.SetDatas.Count() != 0)
+            {
+                SetDatas.Clear();
+
+                EmptySetData = false;
+                HasSetData = true;
+
+                foreach (var setData in exercice.SetDatas)
+                {
+                    SetDatas.Add(setData);
+                }
+            }
+            else
+            {
+                HasSetData = false;
+                EmptySetData = true;
             }
         }
     }
