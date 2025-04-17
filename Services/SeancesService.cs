@@ -69,6 +69,27 @@ namespace GymProgress.Mobile.Services
             }
         }
 
+        public async Task<bool> AddExerciceToSeanceById(string seanceId, List<string> execicesId)
+        {
+            try
+            {
+                var uri = $"PostExerciceToSeanceById?seanceId={seanceId}";
+
+                var jsonContent = JsonSerializer.Serialize(execicesId);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync(uri, content);
+                var data = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
         public async Task<bool> Delete(string seanceId)
         {
             try

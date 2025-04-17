@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.AddExercicePage"
              Title="Ajouter un Exercice">
+    <Shell.TitleView>
+        <Label Text="{Binding CurrentSeance.Name}"
+               Padding="0,18,70,0"
+               Grid.Column="0">
+        </Label>
+    </Shell.TitleView>
     <StackLayout>
         <CollectionView ItemsSource="{Binding Exercices}" >
             <CollectionView.ItemTemplate>

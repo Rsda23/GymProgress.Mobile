@@ -11,11 +11,16 @@ namespace GymProgress.Mobile.ViewModels
     public partial class AddExerciceViewModel : ViewModelBase
     {
         private readonly IExercicesService _exercicesService;
-        public AddExerciceViewModel(IExercicesService exercicesService)
+        private readonly ISeancesService _seanceService;
+        public AddExerciceViewModel(IExercicesService exercicesService, ISeancesService seancesService)
         {
             _exercicesService = exercicesService;
+            _seanceService = seancesService;
             DisplayExercice();
         }
+
+        [ObservableProperty]
+        private Seance currentSeance = new();
 
         [ObservableProperty]
         private string buttonValidExerciceText = "Confirmer";
@@ -30,7 +35,10 @@ namespace GymProgress.Mobile.ViewModels
         private bool isSelected;
 
         [ObservableProperty]
-        private ObservableCollection<Exercice> exercices = new();
+        private ObservableCollection<ExerciceSelectableViewModel> exercices = new();
+
+        [ObservableProperty]
+        private ObservableCollection<string> exercicesId = new();
 
 
 
@@ -40,6 +48,21 @@ namespace GymProgress.Mobile.ViewModels
             await Shell.Current.GoToAsync("CreateExercicePage");
         }
 
+        //[RelayCommand]
+        //private async Task DisplayExercice()
+        //{
+        //    var exercices = await _exercicesService.GetAllExercice();
+        //    if (exercices != null)
+        //    {
+        //        foreach (var exercice in exercices)
+        //        {
+        //            Exercices.Add(exercice);
+        //        }
+        //    }
+
+
+        //}
+
         [RelayCommand]
         private async Task DisplayExercice()
         {
@@ -48,7 +71,7 @@ namespace GymProgress.Mobile.ViewModels
             {
                 foreach (var exercice in exercices)
                 {
-                    Exercices.Add(exercice);
+                    Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
                 }
             }
         }
@@ -56,11 +79,33 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValidExercice()
         {
-            var seance = SeanceName;
-            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.SeanceName, seance);
+            ExercicesId.Clear();
 
-            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
+            foreach (var exercice in Exercices.Where(e => e.IsSelected))
+            {
+                ExercicesId.Add(exercice.Id);
+            }
+
+            await _seanceService.AddExerciceToSeanceById(CurrentSeance.SeanceId, ExercicesId.ToList());
+
+            await GoToSeanceDetail();
+
+        }
+
+
+
+        async partial void OnSeanceNameChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                CurrentSeance = await _seanceService.GetSeanceByName(value);
+            }
+        }
+
+        private async Task  GoToSeanceDetail()
+        {
+            await Shell.Current.GoToAsync($"//{Routes.SeancePage}");
+            await Shell.Current.GoToAsync($"{Routes.SeanceDetailPage}?{Constants.QueryIdentifiers.SeanceName}={SeanceName}");
         }
     }
 }
