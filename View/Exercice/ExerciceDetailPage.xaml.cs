@@ -1,4 +1,5 @@
 using GymProgress.Mobile.ViewModels;
+using GymProgress.Mobile.ViewModels.Popups;
 
 namespace GymProgress.Mobile;
 
@@ -16,5 +17,12 @@ public partial class ExerciceDetailPage : ContentPage
     {
         base.OnAppearing();
         _exerciceDetailPage.DisplaySetData();
+        _exerciceDetailPage.Messaging();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<AddSetDataPopupViewModel>(this, "DataChanged");
     }
 }

@@ -16,6 +16,7 @@
 		<OutputType>Exe</OutputType>
 		<RootNamespace>GymProgress.Mobile</RootNamespace>
 		<UseMaui>true</UseMaui>
+		<UseMauiCommunityToolkitMvvm>true</UseMauiCommunityToolkitMvvm>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -76,6 +77,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Connexion\SubscribePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddSetDataPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\SettingPage.xaml">

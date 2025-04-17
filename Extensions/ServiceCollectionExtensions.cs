@@ -1,7 +1,9 @@
 ﻿using GymProgress.Mobile.Services;
 using GymProgress.Mobile.View.Connexion;
+using GymProgress.Mobile.View.Popups;
 using GymProgress.Mobile.ViewModels;
 using GymProgress.Mobile.ViewModels.Connexion;
+using GymProgress.Mobile.ViewModels.Popups;
 
 namespace GymProgress.Mobile.Extensions
 {
@@ -24,6 +26,7 @@ namespace GymProgress.Mobile.Extensions
             services.AddTransient<SeancesService>();
             services.AddTransient<UsersService>();
             services.AddTransient<SetDataService>();
+            services.AddTransient<AddSetDataPopup>();
             return services;
         }
 
@@ -40,6 +43,7 @@ namespace GymProgress.Mobile.Extensions
             services.AddTransient<CreateExerciceViewModel>();
             services.AddTransient<AddExerciceViewModel>();
             services.AddTransient<SettingViewModel>();
+            services.AddTransient<AddSetDataPopupViewModel>();
             services.AddTransient<ExercicesService>();
             services.AddTransient<SeancesService>();
             services.AddTransient<UsersService>();

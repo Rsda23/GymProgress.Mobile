@@ -199,5 +199,16 @@
                 </Frame>
             </VerticalStackLayout>
         </VerticalStackLayout>
+        <Grid>
+            <ImageButton Source="add.png"
+                 WidthRequest="50"
+                 HeightRequest="50"
+                 BackgroundColor="AntiqueWhite"
+                 CornerRadius="30"
+                 Command="{Binding AddSetDataCommand}"
+                 HorizontalOptions="Center"
+                 VerticalOptions="End"
+                 Margin="20"/>
+        </Grid>
     </Grid>
 </ContentPage>

@@ -35,5 +35,26 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
+
+        public async Task<bool> PostSetData(SetData setData)
+        {
+            try
+            {
+                var uri = $"SetDatas/PostFullSetData";
+
+                var jsonContent = JsonSerializer.Serialize(setData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync(uri, content);
+                var data = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

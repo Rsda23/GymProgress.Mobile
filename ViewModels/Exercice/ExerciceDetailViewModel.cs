@@ -1,8 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.View.Popups;
+using GymProgress.Mobile.ViewModels.Popups;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 
@@ -24,6 +27,9 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string exerciceNom = string.Empty;
+
+        [ObservableProperty]
+        private string exerciceId = string.Empty;
 
         [ObservableProperty]
         private bool confirm = false;
@@ -68,6 +74,15 @@ namespace GymProgress.Mobile.ViewModels
             IsEditing = false;
         }
 
+        [RelayCommand]
+        private async Task AddSetData(Exercice model)
+        {
+            var exercice = await _service.GetExerciceByName(ExerciceNom);
+            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId);
+            var popup = new AddSetDataPopup(viewModel);
+            await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+        }
+
 
 
         async partial void OnExerciceNomChanged(string value)
@@ -99,6 +114,34 @@ namespace GymProgress.Mobile.ViewModels
                 HasSetData = false;
                 EmptySetData = true;
             }
+        }
+
+        private async Task DisplayMessaging()
+        {
+            Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
+
+            if (exercice.SetDatas.Count() != 0)
+            {
+                SetDatas.Clear();
+
+                EmptySetData = false;
+                HasSetData = true;
+
+                foreach (var setData in exercice.SetDatas)
+                {
+                    SetDatas.Add(setData);
+                }
+            }
+
+            EmptySetData = false;
+            HasSetData = true;
+        }
+
+        public void Messaging()
+        {
+            MessagingCenter.Subscribe<AddSetDataPopupViewModel>(this, "DataChanged", async (sender) => {
+                await DisplayMessaging();
+            });
         }
     }
 }
