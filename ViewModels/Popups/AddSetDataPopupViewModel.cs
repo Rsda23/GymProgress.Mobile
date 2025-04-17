@@ -9,11 +9,13 @@ namespace GymProgress.Mobile.ViewModels.Popups
     public partial class AddSetDataPopupViewModel : ViewModelBase
     {
         private readonly ISetDatasService _setDatasService;
+        private readonly ExerciceDetailViewModel _exerciceDetailViewModel;
 
-        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId)
+        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, ExerciceDetailViewModel exerciceDetailViewModel)
         {
             _setDatasService = setDatasService;
             ExerciceId = exerciceId;
+            _exerciceDetailViewModel = exerciceDetailViewModel;
         }
 
         [ObservableProperty]
@@ -39,6 +41,11 @@ namespace GymProgress.Mobile.ViewModels.Popups
         private async void Cancel()
         {
             await PopupInstance.CloseAsync();
+
+            if (Shell.Current.CurrentPage is ExerciceDetailPage page && page.BindingContext is ExerciceDetailViewModel vm)
+            {
+                await _exerciceDetailViewModel.DisplayMessaging();
+            }
         }
 
         [RelayCommand]
@@ -46,13 +53,9 @@ namespace GymProgress.Mobile.ViewModels.Popups
         {
             SetData setData = new SetData(ExerciceId, Serie, Repetition, Charge, Date);
 
-            _setDatasService.PostSetData(setData);
+            await _setDatasService.PostSetData(setData);
 
-            MessagingCenter.Send(this, "DataChanged");
             Cancel();
-
-            await Shell.Current.GoToAsync("../" + nameof(ExerciceDetailPage), true);
-         
         }
     }
 }

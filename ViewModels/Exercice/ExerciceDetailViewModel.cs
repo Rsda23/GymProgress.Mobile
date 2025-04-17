@@ -78,7 +78,7 @@ namespace GymProgress.Mobile.ViewModels
         private async Task AddSetData(Exercice model)
         {
             var exercice = await _service.GetExerciceByName(ExerciceNom);
-            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId);
+            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, this);
             var popup = new AddSetDataPopup(viewModel);
             await Shell.Current.CurrentPage.ShowPopupAsync(popup);
         }
@@ -116,7 +116,7 @@ namespace GymProgress.Mobile.ViewModels
             }
         }
 
-        private async Task DisplayMessaging()
+        public async Task DisplayMessaging()
         {
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
 
@@ -135,13 +135,6 @@ namespace GymProgress.Mobile.ViewModels
 
             EmptySetData = false;
             HasSetData = true;
-        }
-
-        public void Messaging()
-        {
-            MessagingCenter.Subscribe<AddSetDataPopupViewModel>(this, "DataChanged", async (sender) => {
-                await DisplayMessaging();
-            });
         }
     }
 }
