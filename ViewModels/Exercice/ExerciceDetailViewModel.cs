@@ -116,7 +116,7 @@ namespace GymProgress.Mobile.ViewModels
             }
         }
 
-        public async Task DisplayMessaging()
+        public async Task DisplayAdd()
         {
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
 
