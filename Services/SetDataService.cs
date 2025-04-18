@@ -56,5 +56,27 @@ namespace GymProgress.Mobile.Services
                 return false;
             }
         }
+
+        public async Task<bool> ReplaceSetData(SetData setData)
+        {
+            try
+            {
+                var uri = $"SetDatas/ReplaceSetData";
+
+                var jsonContent = JsonSerializer.Serialize(setData);
+                Debug.WriteLine(jsonContent);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync(uri, content);
+                var data = await response.Content.ReadAsStringAsync();
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

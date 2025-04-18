@@ -7,6 +7,7 @@ using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.View.Popups;
 using GymProgress.Mobile.ViewModels.Popups;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace GymProgress.Mobile.ViewModels
@@ -30,6 +31,9 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string exerciceId = string.Empty;
+
+        [ObservableProperty]
+        private DateTime date = DateTime.Now;
 
         [ObservableProperty]
         private bool confirm = false;
@@ -71,7 +75,15 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task SaveEdit()
         {
+            foreach (var setData in SetDatas)
+            {
+                Debug.WriteLine(setData.SetDataId);
+                await _setDatasService.ReplaceSetData(setData);
+            }
+
             IsEditing = false;
+
+            await DisplayAdd();
         }
 
         [RelayCommand]

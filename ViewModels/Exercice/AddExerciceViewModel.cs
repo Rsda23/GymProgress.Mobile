@@ -48,21 +48,6 @@ namespace GymProgress.Mobile.ViewModels
             await Shell.Current.GoToAsync("CreateExercicePage");
         }
 
-        //[RelayCommand]
-        //private async Task DisplayExercice()
-        //{
-        //    var exercices = await _exercicesService.GetAllExercice();
-        //    if (exercices != null)
-        //    {
-        //        foreach (var exercice in exercices)
-        //        {
-        //            Exercices.Add(exercice);
-        //        }
-        //    }
-
-
-        //}
-
         [RelayCommand]
         private async Task DisplayExercice()
         {
