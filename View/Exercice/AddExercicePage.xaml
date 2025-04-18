@@ -4,10 +4,19 @@
              x:Class="GymProgress.Mobile.AddExercicePage"
              Title="Ajouter un Exercice">
     <Shell.TitleView>
-        <Label Text="{Binding CurrentSeance.Name}"
-               Padding="0,18,70,0"
-               Grid.Column="0">
-        </Label>
+        <Grid>
+            <Label Text="{Binding CurrentSeance.Name}"
+                   Padding="0,18,70,0"
+                   Grid.Column="0">
+            </Label>
+            <Button Grid.Column="1" 
+                    Text="{Binding ButtonCreateExerciceText}" 
+                    Command="{Binding ButtonCreateExerciceCommand}"
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    HorizontalOptions="End" 
+                    Margin="0, 0, 20, 0" />
+        </Grid>
     </Shell.TitleView>
     <StackLayout>
         <CollectionView ItemsSource="{Binding Exercices}" >
