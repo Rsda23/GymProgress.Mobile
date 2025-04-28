@@ -59,136 +59,164 @@
         <CollectionView ItemsSource="{Binding SetDatas}" IsVisible="{Binding HasSetData}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout HorizontalOptions="Center" 
-                                           Spacing="40" 
-                                           Margin="0, 20">
-                        <VerticalStackLayout>
-                            <Label Text="Date" 
-                                   HorizontalOptions="Center" />
-                            <Grid HeightRequest="40">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItemView Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteSetDataCommand}"
+                                               CommandParameter="{Binding}">
+                                    <Grid Padding="0,17,0,0"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Center">
+                                        <Image Source="delete_set_data.png"
+                                               WidthRequest="24"
+                                               HeightRequest="24"
+                                               Aspect="AspectFit"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </SwipeItemView>
+                            </SwipeItems>
 
-                                <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" 
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       HorizontalTextAlignment="Center"/>
-                            </Grid>
-                        </VerticalStackLayout>
+                        </SwipeView.RightItems>
+                        
+                        <HorizontalStackLayout HorizontalOptions="Center" 
+                                               Spacing="40" 
+                                               Margin="0, 20">
+                            <VerticalStackLayout>
+                                <Label Text="Date" 
+                                       HorizontalOptions="Center" />
+                                
+                                <Grid HeightRequest="40">
+                                    <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" 
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </VerticalStackLayout>
 
-                        <VerticalStackLayout>
-                            <Label Text="Serie"
-                                   HorizontalOptions="Center"/>
+                            <VerticalStackLayout>
+                                <Label Text="Serie"
+                                       HorizontalOptions="Center"/>
 
-                            <Grid HeightRequest="40" 
-                                  VerticalOptions="Center">
-                                <Label Text="{Binding Serie}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
-                                                     Value="True">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
+                                <Grid HeightRequest="40" 
+                                      VerticalOptions="Center">
+                                    <Label Text="{Binding Serie}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
+                                                         Value="True">
+                                                <Setter Property="IsVisible" 
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
 
-                                <Entry Text="{Binding Serie, Mode=TwoWay}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       Keyboard="Numeric"
-                                       WidthRequest="40">
-                                    <Entry.Triggers>
-                                        <DataTrigger TargetType="Entry"
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
-                                                     Value="False">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Entry.Triggers>
-                                </Entry>
-                            </Grid>
-                        </VerticalStackLayout>
+                                    <Entry Text="{Binding Serie, Mode=TwoWay}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           Keyboard="Numeric"
+                                           WidthRequest="40">
+                                        <Entry.Triggers>
+                                            <DataTrigger TargetType="Entry"
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
+                                                         Value="False">
+                                                <Setter Property="IsVisible"
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Entry.Triggers>
+                                    </Entry>
+                                </Grid>
+                            </VerticalStackLayout>
 
-                        <VerticalStackLayout>
-                            <Label Text="Répetition" 
-                                   HorizontalOptions="Center" />
-                            
-                            <Grid HeightRequest="40">
-                                <Label Text="{Binding Repetition}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
-                                                     Value="True">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
+                            <VerticalStackLayout>
+                                <Label Text="Répetition" 
+                                       HorizontalOptions="Center" />
 
-                                <Entry Text="{Binding Repetition, Mode=TwoWay}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       Keyboard="Numeric"
-                                       WidthRequest="40">
-                                    <Entry.Triggers>
-                                        <DataTrigger TargetType="Entry"
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
-                                                     Value="False">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Entry.Triggers>
-                                </Entry>
-                            </Grid>
-                        </VerticalStackLayout>
+                                <Grid HeightRequest="40">
+                                    <Label Text="{Binding Repetition}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
+                                                         Value="True">
+                                                <Setter Property="IsVisible" 
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
 
-                        <VerticalStackLayout>
-                            <Label Text="Charge" HorizontalOptions="Center" />
-                            
-                            <Grid HeightRequest="40">
-                                <Label Text="{Binding Charge}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
-                                                     Value="True">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
+                                    <Entry Text="{Binding Repetition, Mode=TwoWay}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           Keyboard="Numeric"
+                                           WidthRequest="40">
+                                        <Entry.Triggers>
+                                            <DataTrigger TargetType="Entry"
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
+                                                         Value="False">
+                                                <Setter Property="IsVisible" 
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Entry.Triggers>
+                                    </Entry>
+                                </Grid>
+                            </VerticalStackLayout>
 
-                                <Entry Text="{Binding Charge, Mode=TwoWay}"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       Keyboard="Numeric"
-                                       WidthRequest="40">
-                                    <Entry.Triggers>
-                                        <DataTrigger TargetType="Entry"
-                                                     Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
-                                                     Value="False">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Entry.Triggers>
-                                </Entry>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
+                            <VerticalStackLayout>
+                                <Label Text="Charge" 
+                                       HorizontalOptions="Center" />
+
+                                <Grid HeightRequest="40">
+                                    <Label Text="{Binding Charge}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}" 
+                                                         Value="True">
+                                                <Setter Property="IsVisible" 
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <Entry Text="{Binding Charge, Mode=TwoWay}"
+                                           FontSize="16"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           Keyboard="Numeric"
+                                           WidthRequest="40">
+                                        <Entry.Triggers>
+                                            <DataTrigger TargetType="Entry"
+                                                         Binding="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsEditing}"
+                                                         Value="False">
+                                                <Setter Property="IsVisible"
+                                                        Value="False" />
+                                            </DataTrigger>
+                                        </Entry.Triggers>
+                                    </Entry>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

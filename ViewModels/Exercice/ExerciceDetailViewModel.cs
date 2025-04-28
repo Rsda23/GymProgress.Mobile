@@ -95,6 +95,18 @@ namespace GymProgress.Mobile.ViewModels
             await Shell.Current.CurrentPage.ShowPopupAsync(popup);
         }
 
+        [RelayCommand]
+        private async Task DeleteSetData(SetData setData)
+        {
+            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Etes vous sure de vouloir suprrimer cette serie ?", "Oui", "Non");
+
+            if (confirm)
+            {
+                await _setDatasService.Delete(setData.SetDataId);
+                await DisplaySetData();
+            }
+        }
+
 
 
         async partial void OnExerciceNomChanged(string value)
