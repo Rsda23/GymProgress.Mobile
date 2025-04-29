@@ -106,7 +106,7 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [RelayCommand]
-        public void ValidRegister()
+        public async void ValidRegister()
         {
             try
             {
@@ -128,7 +128,8 @@ namespace GymProgress.Mobile.ViewModels
 
                     _usersService.PostUser(newUser);
 
-                    Preferences.Set("UserId", newUser.UserId);
+                    User user = await _usersService.GetUserByEmail(newUser.Email);
+                    Preferences.Set("UserId", user.UserId);
                     GoToSeance();
                 }
             }

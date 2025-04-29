@@ -23,9 +23,15 @@ namespace GymProgress.Mobile.ViewModels
         private string email = string.Empty;
 
         [ObservableProperty]
+        private string userId = string.Empty;
+
+        [ObservableProperty]
         private string buttonDisconnectText = "Déconnexion";
         [ObservableProperty]
         private string buttonDeleteAccountText = "Supprimer le compte";
+
+        [ObservableProperty]
+        private bool confirm = false;
 
 
 
@@ -39,7 +45,16 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonDeleteAccount()
         {
-            ButtonDisconnect();
+            Confirm = await Shell.Current.DisplayAlert(
+                "Confirmation", 
+                "Etes vous sur de vouloir supprimer votre compte ?", 
+                "Oui", "Non");
+            if (Confirm)
+            {
+                await _usersService.Delete(UserId);
+                UserId = string.Empty;
+                await ButtonDisconnect();
+            }
         }
 
 
@@ -56,6 +71,7 @@ namespace GymProgress.Mobile.ViewModels
                 {
                     Pseudo = user.Pseudo;
                     Email = user.Email;
+                    UserId = user.UserId;
                 }
                 else
                 {

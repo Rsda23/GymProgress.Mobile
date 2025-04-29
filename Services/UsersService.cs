@@ -69,5 +69,22 @@ namespace GymProgress.Mobile.Services
                 return false;
             }
         }
+
+        public async Task<bool> Delete(string userId)
+        {
+            try
+            {
+                var fullUri = $"https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/DeleteUserById?id={Uri.EscapeDataString(userId)}";
+
+                var response = await _httpClient.DeleteAsync(fullUri);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }
