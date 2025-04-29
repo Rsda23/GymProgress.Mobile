@@ -21,7 +21,7 @@
             </Label>
 
             <Entry Text="{Binding CurrentExercice.Nom, Mode=TwoWay}"
-                   Keyboard="Numeric"
+                   Keyboard="Text"
                    HorizontalTextAlignment="Center"
                    Margin="0,18,70,0" 
                    WidthRequest="80"

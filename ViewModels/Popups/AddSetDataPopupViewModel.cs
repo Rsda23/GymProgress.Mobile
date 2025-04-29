@@ -44,7 +44,7 @@ namespace GymProgress.Mobile.ViewModels.Popups
 
             if (Shell.Current.CurrentPage is ExerciceDetailPage page && page.BindingContext is ExerciceDetailViewModel vm)
             {
-                await _exerciceDetailViewModel.DisplayAdd();
+                await _exerciceDetailViewModel.DisplayAddByName();
             }
         }
 

@@ -77,13 +77,15 @@ namespace GymProgress.Mobile.ViewModels
         {
             foreach (var setData in SetDatas)
             {
-                Debug.WriteLine(setData.SetDataId);
                 await _setDatasService.ReplaceSetData(setData);
             }
 
+            await _service.UpdateExercice(CurrentExercice.ExerciceId, CurrentExercice.Nom);
+
             IsEditing = false;
 
-            await DisplayAdd();
+            await DisplayByExerciceId(CurrentExercice.ExerciceId);
+
         }
 
         [RelayCommand]
@@ -140,7 +142,7 @@ namespace GymProgress.Mobile.ViewModels
             }
         }
 
-        public async Task DisplayAdd()
+        public async Task DisplayAddByName()
         {
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
 
@@ -156,6 +158,35 @@ namespace GymProgress.Mobile.ViewModels
                     SetDatas.Add(setData);
                 }
             }
+
+            EmptySetData = false;
+            HasSetData = true;
+        }
+
+        public async Task DisplayByExerciceId(string exerciceId)
+        {
+            Exercice exercice = await _service.GetExerciceById(exerciceId);
+
+            if (exercice.SetDatas.Count() != 0)
+            {
+                SetDatas.Clear();
+
+                EmptySetData = false;
+                HasSetData = true;
+
+                foreach (var setData in exercice.SetDatas)
+                {
+                    SetDatas.Add(setData);
+                }
+            }
+
+            CurrentExercice = new Exercice
+            {
+                ExerciceId = CurrentExercice.ExerciceId,
+                Nom = CurrentExercice.Nom,
+                UserId = CurrentExercice.UserId,
+                SetDatas = CurrentExercice.SetDatas
+            };
 
             EmptySetData = false;
             HasSetData = true;
