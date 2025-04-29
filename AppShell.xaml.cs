@@ -9,6 +9,17 @@
             {
                 Routing.RegisterRoute(route.Key, route.Value);
             }
+
+            var userId = Preferences.Get("UserId", string.Empty);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                GoToAsync("//LoginPage");
+            }
+            else
+            {
+                GoToAsync("//SeancePage");
+            }
         }
 
         protected override void OnNavigating(ShellNavigatingEventArgs args)
