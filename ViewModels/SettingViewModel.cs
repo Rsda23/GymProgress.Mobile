@@ -33,14 +33,7 @@ namespace GymProgress.Mobile.ViewModels
         private async Task ButtonDisconnect()
         {
             Preferences.Remove("UserId");
-            //await Shell.Current.GoToAsync($"/{Routes.LoginPage}");
-            //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-            var httpClient = new HttpClient();
-            var usersService = new UsersService(httpClient);
-            var loginViewModel = new LoginViewModel(usersService);
-            var loginPage = new LoginPage(loginViewModel);
-            Application.Current.MainPage = new NavigationPage(loginPage);
-
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
 
         [RelayCommand]

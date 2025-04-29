@@ -12,14 +12,6 @@ namespace GymProgress.Mobile
             InitializeComponent();
 
             MainPage = new AppShell();
-
-            Dispatcher.Dispatch(async () =>
-            {
-                var httpClient = new HttpClient();
-                var usersService = new UsersService(httpClient);
-                var loginViewModel = new LoginViewModel(usersService);
-                await Shell.Current.Navigation.PushModalAsync(new LoginPage(loginViewModel));
-            });
         }
     }
 }
