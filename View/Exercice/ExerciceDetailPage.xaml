@@ -64,15 +64,15 @@
                             <SwipeItems>
                                 <SwipeItemView Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteSetDataCommand}"
                                                CommandParameter="{Binding}">
-                                    <Grid Padding="0,17,0,0"
+                                    <Grid Padding="10"
+                                          WidthRequest="60"
+                                          HeightRequest="60"
                                           HorizontalOptions="Center"
                                           VerticalOptions="Center">
-                                        <Image Source="delete_set_data.png"
+                                        <Image Source="delete.png"
                                                WidthRequest="24"
                                                HeightRequest="24"
-                                               Aspect="AspectFit"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"/>
+                                               Aspect="AspectFit"/>
                                     </Grid>
                                 </SwipeItemView>
                             </SwipeItems>
