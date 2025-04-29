@@ -63,6 +63,8 @@
             </Frame>
             
             <Button Margin="0, 20"
+                    FontAttributes="Bold"
+                    BackgroundColor="Red"
                     Text="{Binding ButtonDeleteAccountText}"
                     Command="{Binding ButtonDeleteAccountCommand}"/>
             
