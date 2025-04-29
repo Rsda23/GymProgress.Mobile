@@ -21,4 +21,10 @@ public partial class SettingPage : ContentPage
 			Application.Current.UserAppTheme = isThemeMode ? AppTheme.Dark : AppTheme.Light;
 		}
 	}
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+		await _settingViewModel.LoadUser();
+    }
 }

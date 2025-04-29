@@ -32,6 +32,23 @@ namespace GymProgress.Mobile.Services
             }
         }
 
+        public async Task<User> GetUserById(string userId)
+        {
+            try
+            {
+                var fullUri = $"https://gymprogress-adezdfctcsdjhegr.francecentral-01.azurewebsites.net/GetUserById?id={Uri.EscapeDataString(userId)}";
+                var response = await _httpClient.GetAsync(fullUri);
+                var data = await response.Content.ReadAsStringAsync();
+                var user = JsonSerializer.Deserialize<User>(data);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+
         public async Task<bool> PostUser(User user)
         {
             try

@@ -50,7 +50,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async void GoToSeance()
         {
-            await Shell.Current.GoToAsync($"/{Routes.SeancePage}");
+            await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
         }
 
         [RelayCommand]
@@ -128,6 +128,7 @@ namespace GymProgress.Mobile.ViewModels
 
                     _usersService.PostUser(newUser);
 
+                    Preferences.Set("UserId", newUser.UserId);
                     GoToSeance();
                 }
             }

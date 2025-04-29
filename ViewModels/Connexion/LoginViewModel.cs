@@ -83,6 +83,7 @@ namespace GymProgress.Mobile.ViewModels
                     return;
                 }
 
+                Preferences.Set("UserId", user.UserId);
                 GoToSeance();
             }
             catch (Exception ex)
