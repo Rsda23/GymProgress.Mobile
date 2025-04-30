@@ -31,14 +31,14 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<SetData> GetSetDataByUserId(string userId)
+        public async Task<List<SetData>> GetSetDataByUserId(string userId)
         {
             try
             {
                 var uri = $"SetDatas/GetSetDataByUserId?exerciceId={userId}";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
-                var setDatas = JsonSerializer.Deserialize<SetData>(data);
+                var setDatas = JsonSerializer.Deserialize<List<SetData>>(data);
                 return setDatas;
             }
             catch (Exception ex)

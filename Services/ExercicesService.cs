@@ -67,14 +67,14 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<Exercice> GetExerciceUserId(string userId)
+        public async Task<List<Exercice>> GetExerciceUserId(string userId)
         {
             try
             {
                 var uri = $"Exercices/GetExerciceUserId?id={userId}";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
-                var exercice = JsonSerializer.Deserialize<Exercice>(data);
+                var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
                 return exercice;
             }
             catch (Exception ex)
@@ -84,14 +84,14 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<Exercice> GetExercicePublic()
+        public async Task<List<Exercice>> GetExercicePublic()
         {
             try
             {
                 var uri = $"Exercices/GetExercicePublic";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
-                var exercice = JsonSerializer.Deserialize<Exercice>(data);
+                var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
                 return exercice;
             }
             catch (Exception ex)
