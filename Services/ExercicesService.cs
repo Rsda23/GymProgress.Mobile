@@ -71,7 +71,7 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
-                var uri = $"Exercices/GetExerciceUserId?id={userId}";
+                var uri = $"Exercices/GetExerciceUserId?userId={userId}";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);

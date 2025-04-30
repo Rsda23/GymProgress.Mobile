@@ -51,7 +51,7 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
-                var uri = $"GetSeanceByUserId?={userId}";
+                var uri = $"GetSeanceByUserId?userId={userId}";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<List<Seance>>(data);

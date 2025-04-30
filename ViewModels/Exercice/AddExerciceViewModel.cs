@@ -51,10 +51,18 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task DisplayExercice()
         {
-            var exercices = await _exercicesService.GetAllExercice();
-            if (exercices != null)
+            List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
+
+            string userId = Preferences.Get("UserId", string.Empty);
+            List<Exercice> exercicesUser = await _exercicesService.GetExerciceUserId(userId);
+            
+            if (exercicesUser != null)
             {
-                foreach (var exercice in exercices)
+                foreach (var exercice in exercicesUser)
+                {
+                    Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
+                }
+                foreach (var exercice in exercicesPublic)
                 {
                     Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
                 }

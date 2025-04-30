@@ -79,12 +79,20 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplayExercice()
         {
-            var exercices = await _exercicesService.GetAllExercice();
+            List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
 
-            if (exercices != null)
+            string userId = Preferences.Get("UserId", string.Empty);
+            List<Exercice> exercicesUser = await _exercicesService.GetExerciceUserId(userId);
+
+            if (exercicesUser != null && exercicesPublic != null)
             {
                 Exercices.Clear();
-                foreach (var exercice in exercices)
+                foreach (Exercice exercice in exercicesUser)
+                {
+                    Exercices.Add(exercice);
+                }
+
+                foreach (var exercice in exercicesPublic)
                 {
                     Exercices.Add(exercice);
                 }

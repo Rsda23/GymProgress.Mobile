@@ -94,12 +94,13 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplaySeance()
         {
-            var seances = await _seanceService.GetAllSeance();
+            string userId = Preferences.Get("UserId", string.Empty);
+            var seancesUser = await _seanceService.GetSeanceByUserId(userId);
 
-            if (seances != null)
+            if (seancesUser != null)
             {
                 Seances.Clear();
-                foreach (var seance in seances)
+                foreach (var seance in seancesUser)
                 {
                     Seances.Add(seance);
                 }
