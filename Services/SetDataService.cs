@@ -1,12 +1,8 @@
 ﻿using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace GymProgress.Mobile.Services
 {
@@ -24,6 +20,22 @@ namespace GymProgress.Mobile.Services
             try
             {
                 var uri = $"SetDatas/GetSetDataByExerciceId?exerciceId={exerciceId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var setDatas = JsonSerializer.Deserialize<SetData>(data);
+                return setDatas;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+        public async Task<SetData> GetSetDataByUserId(string userId)
+        {
+            try
+            {
+                var uri = $"SetDatas/GetSetDataByUserId?exerciceId={userId}";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var setDatas = JsonSerializer.Deserialize<SetData>(data);

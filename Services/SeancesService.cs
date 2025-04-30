@@ -47,6 +47,38 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
+        public async Task<List<Seance>> GetSeanceByUserId(string userId)
+        {
+            try
+            {
+                var uri = $"GetSeanceByUserId?={userId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var seance = JsonSerializer.Deserialize<List<Seance>>(data);
+                return seance;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+        public async Task<List<Seance>> GetSeancePublic()
+        {
+            try
+            {
+                var uri = $"GetSeancePublic";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var seance = JsonSerializer.Deserialize<List<Seance>>(data);
+                return seance;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
 
         public async Task<bool> PostSeance(Seance seance)
         {

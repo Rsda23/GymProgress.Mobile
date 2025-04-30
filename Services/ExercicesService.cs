@@ -67,6 +67,40 @@ namespace GymProgress.Mobile.Services
             }
         }
 
+        public async Task<Exercice> GetExerciceUserId(string userId)
+        {
+            try
+            {
+                var uri = $"Exercices/GetExerciceUserId?id={userId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var exercice = JsonSerializer.Deserialize<Exercice>(data);
+                return exercice;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+
+        public async Task<Exercice> GetExercicePublic()
+        {
+            try
+            {
+                var uri = $"Exercices/GetExercicePublic";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var exercice = JsonSerializer.Deserialize<Exercice>(data);
+                return exercice;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+
         public async Task<bool> PostExercice(Exercice exercice)
         {
             try
