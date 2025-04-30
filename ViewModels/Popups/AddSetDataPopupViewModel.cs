@@ -51,7 +51,9 @@ namespace GymProgress.Mobile.ViewModels.Popups
         [RelayCommand]
         private async void Add()
         {
-            SetData setData = new SetData(ExerciceId, Repetition, Serie, Charge, Date);
+            string userId = Preferences.Get("UserId", string.Empty);
+
+            SetData setData = new SetData(ExerciceId, Repetition, Serie, Charge, Date, userId);
 
             await _setDatasService.PostSetData(setData);
 

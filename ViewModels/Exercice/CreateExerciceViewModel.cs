@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
-using GymProgress.Mobile.Services;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -32,7 +32,10 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValide()
         {
-            await _exercicesService.PostExercice(NameExerciceText);
+            string userId = Preferences.Get("UserId", string.Empty);
+            Exercice exercice = new Exercice(NameExerciceText, userId);
+
+            await _exercicesService.PostExercice(exercice);
             await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
         }
     }

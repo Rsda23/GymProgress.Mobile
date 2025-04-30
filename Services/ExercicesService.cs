@@ -66,13 +66,13 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<bool> PostExercice(string name)
+        public async Task<bool> PostExercice(Exercice exercice)
         {
             try
             {
                 var uri = $"Exercices/PostExercice";
 
-                var jsonContent = JsonSerializer.Serialize(name);
+                var jsonContent = JsonSerializer.Serialize(exercice);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync(uri, content);

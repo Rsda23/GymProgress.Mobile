@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -32,8 +31,11 @@ namespace GymProgress.Mobile.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(NameSeanceText))
             {
+                string userId = Preferences.Get("UserId", string.Empty);
+                Seance seance = new Seance(NameSeanceText, userId);
+
                 ErrorSeance = false;
-                await _seancesService.PostSeance(NameSeanceText);
+                await _seancesService.PostSeance(seance);
                 await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
             }
             else
