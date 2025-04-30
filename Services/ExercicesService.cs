@@ -3,6 +3,7 @@ using GymProgress.Mobile.Interfaces;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace GymProgress.Mobile.Services
 {
@@ -72,7 +73,12 @@ namespace GymProgress.Mobile.Services
             {
                 var uri = $"Exercices/PostExercice";
 
-                var jsonContent = JsonSerializer.Serialize(exercice);
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+
+                var jsonContent = JsonSerializer.Serialize(exercice, jsonOptions);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync(uri, content);
