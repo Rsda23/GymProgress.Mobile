@@ -56,7 +56,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async void GoToLogin()
         {
-            await Shell.Current.GoToAsync($"/{Routes.LoginPage}");
+            await Shell.Current.GoToAsync($"///{Routes.LoginPage}");
         }
 
         [RelayCommand]

@@ -48,13 +48,13 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async void GoToSubscribe()
         {
-            await Shell.Current.GoToAsync($"/{Routes.SubscribePage}");
+            await Shell.Current.GoToAsync($"{Routes.SubscribePage}");
         }
 
         [RelayCommand]
         private async void GoToForgot()
         {
-            await Shell.Current.GoToAsync($"/{Routes.ForgotPage}");
+            await Shell.Current.GoToAsync($"{Routes.ForgotPage}");
         }
 
         [RelayCommand]
