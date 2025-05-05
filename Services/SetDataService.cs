@@ -48,6 +48,23 @@ namespace GymProgress.Mobile.Services
             }
         }
 
+        public async Task<List<SetData>> GetSetDataByExerciceAndUser(string exerciceId, string userId)
+        {
+            try
+            {
+                var uri = $"SetDatas/GetSetDataByExerciceAndUser?exerciceId={exerciceId}&userId={userId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var setDatas = JsonSerializer.Deserialize<List<SetData>>(data);
+                return setDatas;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+
         public async Task<bool> PostSetData(SetData setData)
         {
             try

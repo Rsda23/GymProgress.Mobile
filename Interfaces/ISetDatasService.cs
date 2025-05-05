@@ -6,6 +6,7 @@ namespace GymProgress.Mobile.Interfaces
     {
         public Task<SetData> GetSetDataByExericceId(string exerciceId);
         public Task<List<SetData>> GetSetDataByUserId(string userId);
+        public Task<List<SetData>> GetSetDataByExerciceAndUser(string exerciceId, string userId);
         public Task<bool> PostSetData(SetData setData);
         public Task<bool> ReplaceSetData(SetData setData);
         public Task<bool> Delete(string setDataId);

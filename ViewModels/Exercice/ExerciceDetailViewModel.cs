@@ -122,15 +122,17 @@ namespace GymProgress.Mobile.ViewModels
         public async Task DisplaySetData()
         {
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
+            string userId = Preferences.Get("UserId", string.Empty);
+            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
 
-            if (exercice.SetDatas.Count() != 0)
+            if (setDatas.Count() != 0)
             {
                 SetDatas.Clear();
 
                 EmptySetData = false;
                 HasSetData = true;
 
-                foreach (var setData in exercice.SetDatas)
+                foreach (var setData in setDatas)
                 {
                     SetDatas.Add(setData);
                 }
@@ -145,15 +147,17 @@ namespace GymProgress.Mobile.ViewModels
         public async Task DisplayAddByName()
         {
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
+            string userId = Preferences.Get("UserId", string.Empty);
+            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
 
-            if (exercice.SetDatas.Count() != 0)
+            if (setDatas.Count() != 0)
             {
                 SetDatas.Clear();
 
                 EmptySetData = false;
                 HasSetData = true;
 
-                foreach (var setData in exercice.SetDatas)
+                foreach (var setData in setDatas)
                 {
                     SetDatas.Add(setData);
                 }
@@ -166,15 +170,17 @@ namespace GymProgress.Mobile.ViewModels
         public async Task DisplayByExerciceId(string exerciceId)
         {
             Exercice exercice = await _service.GetExerciceById(exerciceId);
+            string userId = Preferences.Get("UserId", string.Empty);
+            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
 
-            if (exercice.SetDatas.Count() != 0)
+            if (setDatas.Count() != 0)
             {
                 SetDatas.Clear();
 
                 EmptySetData = false;
                 HasSetData = true;
 
-                foreach (var setData in exercice.SetDatas)
+                foreach (var setData in setDatas)
                 {
                     SetDatas.Add(setData);
                 }
