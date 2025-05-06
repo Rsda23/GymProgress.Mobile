@@ -42,6 +42,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool isEditing = false;
 
         [ObservableProperty]
+        public bool hasPublic = true;
+
+        [ObservableProperty]
         private bool hasSetData;
 
         [ObservableProperty]
@@ -196,6 +199,18 @@ namespace GymProgress.Mobile.ViewModels
 
             EmptySetData = false;
             HasSetData = true;
+        }
+
+        public void VerifyUserId()
+        {
+            if (string.IsNullOrEmpty(CurrentExercice.UserId) || CurrentExercice.UserId == "string")
+            {
+                HasPublic = false;
+            }
+            else
+            {
+                HasPublic = true;
+            }
         }
     }
 }
