@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.ViewModels.SnackBar;
 using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
@@ -12,10 +13,12 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly IExercicesService _exercicesService;
         private readonly ISeancesService _seanceService;
-        public AddExerciceViewModel(IExercicesService exercicesService, ISeancesService seancesService)
+        private readonly SnackBarViewModel _snackBar;
+        public AddExerciceViewModel(IExercicesService exercicesService, ISeancesService seancesService, SnackBarViewModel snackBar)
         {
             _exercicesService = exercicesService;
             _seanceService = seancesService;
+            _snackBar = snackBar;
             DisplayExercice();
         }
 
@@ -83,6 +86,7 @@ namespace GymProgress.Mobile.ViewModels
 
             await GoToSeanceDetail();
 
+            _snackBar.Succefull("Exercice ajouté !");
         }
 
 

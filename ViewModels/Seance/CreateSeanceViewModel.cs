@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.ViewModels.SnackBar;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -9,10 +10,12 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly IExercicesService _exercicesService;
         private readonly ISeancesService _seancesService;
-        public CreateSeanceViewModel(IExercicesService exercicesService, ISeancesService seancesService)
+        private readonly SnackBarViewModel _snackbar;
+        public CreateSeanceViewModel(IExercicesService exercicesService, ISeancesService seancesService, SnackBarViewModel snackBar)
         {
             _exercicesService = exercicesService;
             _seancesService = seancesService;
+            _snackbar = snackBar;
         }
 
         [ObservableProperty]
@@ -37,6 +40,8 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorSeance = false;
                 await _seancesService.PostSeance(seance);
                 await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
+
+                _snackbar.Succefull("Séance créé !");
             }
             else
             {

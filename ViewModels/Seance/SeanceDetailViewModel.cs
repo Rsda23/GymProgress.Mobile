@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.ViewModels.SnackBar;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -11,9 +12,11 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly ISeancesService _seanceService;
         private readonly IExercicesService _exerciceService;
-        public SeanceDetailViewModel(ISeancesService service)
+        private readonly SnackBarViewModel _snackBar;
+        public SeanceDetailViewModel(ISeancesService service, SnackBarViewModel snackBar)
         {
             _seanceService = service;
+            _snackBar = snackBar;
         }
 
         [ObservableProperty]
@@ -53,6 +56,8 @@ namespace GymProgress.Mobile.ViewModels
             {
                 await _seanceService.Delete(currentSeance.SeanceId);
                 await Shell.Current.GoToAsync("..");
+
+                _snackBar.Succefull("Suppression effectuée !");
             }
         }
 

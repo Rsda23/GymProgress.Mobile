@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
+using GymProgress.Mobile.ViewModels.SnackBar;
 
 namespace GymProgress.Mobile.ViewModels.Popups
 {
@@ -10,12 +11,14 @@ namespace GymProgress.Mobile.ViewModels.Popups
     {
         private readonly ISetDatasService _setDatasService;
         private readonly ExerciceDetailViewModel _exerciceDetailViewModel;
+        private readonly SnackBarViewModel _snackBar;
 
-        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, ExerciceDetailViewModel exerciceDetailViewModel)
+        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, ExerciceDetailViewModel exerciceDetailViewModel, SnackBarViewModel snackBar)
         {
             _setDatasService = setDatasService;
             ExerciceId = exerciceId;
             _exerciceDetailViewModel = exerciceDetailViewModel;
+            _snackBar = snackBar;
         }
 
         [ObservableProperty]
@@ -58,6 +61,8 @@ namespace GymProgress.Mobile.ViewModels.Popups
             await _setDatasService.PostSetData(setData);
 
             Cancel();
+
+            _snackBar.Succefull("Série ajoutée !");
         }
     }
 }

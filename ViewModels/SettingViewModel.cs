@@ -2,16 +2,19 @@
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.Services;
+using GymProgress.Mobile.ViewModels.SnackBar;
 
 namespace GymProgress.Mobile.ViewModels
 {
     public partial class SettingViewModel : ViewModelBase
     {
         private readonly UsersService _usersService;
+        private readonly SnackBarViewModel _snackBar;
 
-        public SettingViewModel(UsersService userService)
+        public SettingViewModel(UsersService userService, SnackBarViewModel snackBar)
         {
             _usersService = userService;
+            _snackBar = snackBar;
         }
 
         [ObservableProperty]
@@ -54,6 +57,8 @@ namespace GymProgress.Mobile.ViewModels
                 await _usersService.Delete(UserId);
                 UserId = string.Empty;
                 await ButtonDisconnect();
+
+                _snackBar.Succefull("Suppression effectuée !");
             }
         }
 

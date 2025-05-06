@@ -6,6 +6,7 @@ using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.View.Popups;
 using GymProgress.Mobile.ViewModels.Popups;
+using GymProgress.Mobile.ViewModels.SnackBar;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
@@ -17,10 +18,12 @@ namespace GymProgress.Mobile.ViewModels
     {
         private readonly IExercicesService _service;
         private readonly ISetDatasService _setDatasService;
-        public ExerciceDetailViewModel(IExercicesService service, ISetDatasService setDatasService)
+        private readonly SnackBarViewModel _snackBar;
+        public ExerciceDetailViewModel(IExercicesService service, ISetDatasService setDatasService, SnackBarViewModel snackBar)
         {
             _service = service;
             _setDatasService = setDatasService;
+            _snackBar = snackBar;
         }
 
         [ObservableProperty]
@@ -66,6 +69,8 @@ namespace GymProgress.Mobile.ViewModels
             {
                 await _service.Delete(CurrentExercice.ExerciceId);
                 await Shell.Current.GoToAsync("..");
+
+                _snackBar.Succefull("Suppression effectuée !");
             }
         }
 
@@ -95,7 +100,7 @@ namespace GymProgress.Mobile.ViewModels
         private async Task AddSetData(Exercice model)
         {
             var exercice = await _service.GetExerciceByName(ExerciceNom);
-            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, this);
+            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, this, _snackBar);
             var popup = new AddSetDataPopup(viewModel);
             await Shell.Current.CurrentPage.ShowPopupAsync(popup);
         }
@@ -109,6 +114,8 @@ namespace GymProgress.Mobile.ViewModels
             {
                 await _setDatasService.Delete(setData.SetDataId);
                 await DisplaySetData();
+
+                _snackBar.Succefull("Suppression effectuée !");
             }
         }
 
