@@ -91,6 +91,7 @@ namespace GymProgress.Mobile.ViewModels
 
                 if (verify)
                 {
+                    Email = Email.ToLower();
                     ErrorEmail = false;
                     LayoutPseudo = false;
                     LayoutEmail = false;

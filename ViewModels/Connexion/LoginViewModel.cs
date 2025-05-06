@@ -62,6 +62,7 @@ namespace GymProgress.Mobile.ViewModels
         {
             try
             {
+                Email = Email.ToLower();
                 User user = await _usersService.GetUserByEmail(Email);
 
                 if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
