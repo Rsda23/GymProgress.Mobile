@@ -46,9 +46,9 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task SelectSeance(Seance model)
         {
-            var test = model.Name;
+            var test = model.SeanceId;
             ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.SeanceName, model.Name);
+            parameters.Add(Constants.QueryIdentifiers.SeanceId, model.SeanceId);
     
             await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
 

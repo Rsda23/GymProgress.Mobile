@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeanceDetailPage"
+             xmlns:viewModels="clr-namespace:GymProgress.Mobile.ViewModels"
              Shell.NavBarIsVisible="true">
     <ContentPage.Resources>
         <Style TargetType="Grid">
@@ -48,7 +49,8 @@
                         SelectedItem="{Binding SelectedExercice}"
                         SelectionChangedCommand="{Binding SelectExerciceCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
-                        IsVisible="{Binding HasExercice}">
+                        IsVisible="{Binding HasExercice}"
+                        x:Name="ExerciesList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="10,5">
@@ -58,10 +60,22 @@
                                 Padding="10" 
                                 BackgroundColor="Transparent"
                                 Margin="5">
-                            
-                        <Label Text="{Binding Nom}" 
-                               FontSize="16" 
-                               VerticalOptions="End"/>
+                            <Grid>
+                                <Label Text="{Binding Nom}" 
+                                       FontSize="16" 
+                                       VerticalOptions="End"
+                                       Grid.Column="0"/>
+
+
+                                <ImageButton Source="croix.png"
+                                             WidthRequest="24"
+                                             HeightRequest="24"
+                                             BackgroundColor="Transparent"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SeanceDetailViewModel}}, Path=RemoveCommand}"
+                                             CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}}"
+                                             Grid.Column="1"
+                                             HorizontalOptions="End"/>
+                            </Grid>
                         </Border>
                     </Grid>
                 </DataTemplate>

@@ -11,4 +11,10 @@ public partial class SeanceDetailPage : ContentPage
 		_seanceDetailViewModel = model;
 		BindingContext = _seanceDetailViewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _seanceDetailViewModel.DisplayExercice();
+    }
 }

@@ -4,10 +4,12 @@ using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.ViewModels.SnackBar;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    [QueryProperty(Constants.TargetProperties.SeanceName, Constants.QueryIdentifiers.SeanceName)]
+    [QueryProperty(Constants.TargetProperties.SeanceId, Constants.QueryIdentifiers.SeanceId)]
     public partial class SeanceDetailViewModel : ViewModelBase
     {
         private readonly ISeancesService _seanceService;
@@ -27,6 +29,9 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string seanceName = string.Empty;
+
+        [ObservableProperty]
+        private string seanceId = string.Empty;
 
         [ObservableProperty]
         private bool confirm = false;
@@ -79,13 +84,14 @@ namespace GymProgress.Mobile.ViewModels
             return Task.CompletedTask;
         }
 
-        async partial void OnSeanceNameChanged(string value)
+        async partial void OnSeanceIdChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                CurrentSeance = await _seanceService.GetSeanceByName(value);
-                Exercices = CurrentSeance.Exercices;
-                VisibleSeance();
+                CurrentSeance = await _seanceService.GetSeanceById(value);
+
+                await DisplayExercice();
+                await VisibleSeance();
             }
         }
 
@@ -101,11 +107,38 @@ namespace GymProgress.Mobile.ViewModels
             Deselect();
         }
 
+        [RelayCommand]
+        private async Task Remove(Exercice exercice)
+        {
+            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir retirer cet exercice ?", "Oui", "Non");
+            if (confirm)
+            {
+                await _seanceService.RemoveExerciceToSeance(CurrentSeance.SeanceId, exercice.ExerciceId);
+
+                _snackBar.Succefull("Exercice retiré !");
+
+                await DisplayExercice();
+            }
+        }
 
 
         public void Deselect()
         {
             SelectedExercice = null;
+        }
+
+        public async Task DisplayExercice()
+        {
+            List<Exercice> exercices = await _exerciceService.GetExercicesBySeanceId(CurrentSeance.SeanceId);
+
+            if (exercices != null)
+            {
+                Exercices.Clear();
+                foreach (var exercice in exercices)
+                {
+                    Exercices.Add(exercice);
+                }
+            }
         }
     }
 }

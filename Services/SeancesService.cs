@@ -31,6 +31,22 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
+        public async Task<Seance> GetSeanceById(string id)
+        {
+            try
+            {
+                var uri = $"GetSeanceById?id={id}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var seance = JsonSerializer.Deserialize<Seance>(data);
+                return seance;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
         public async Task<List<Seance>> GetAllSeance()
         {
             try
@@ -127,6 +143,23 @@ namespace GymProgress.Mobile.Services
             try
             {
                 var uri = $"DeleteSeanceById?id={seanceId}";
+
+                var response = await _httpClient.DeleteAsync(uri);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveExerciceToSeance(string seanceId, string exerciceId)
+        {
+            try
+            {
+                var uri = $"RemoveExerciceToSeance?seanceId={seanceId}&exerciceId={exerciceId}";
 
                 var response = await _httpClient.DeleteAsync(uri);
 

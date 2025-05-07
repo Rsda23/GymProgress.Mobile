@@ -101,6 +101,23 @@ namespace GymProgress.Mobile.Services
             }
         }
 
+        public async Task<List<Exercice>> GetExercicesBySeanceId(string seanceId)
+        {
+            try
+            {
+                var uri = $"Exercices/GetExercicesBySeanceId?seanceId={seanceId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
+                return exercice;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
+
         public async Task<bool> PostExercice(Exercice exercice)
         {
             try
@@ -133,9 +150,6 @@ namespace GymProgress.Mobile.Services
             {
                 var uri = $"Exercices/PutName?exerciceId={exerciceId}&name={name}";
 
-                //var jsonContent = JsonSerializer.Serialize(name);
-                //Debug.WriteLine(jsonContent);
-                //var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var content = new StringContent("");
 
                 var response = await _httpClient.PutAsync(uri, content);

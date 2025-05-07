@@ -108,7 +108,7 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task DeleteSetData(SetData setData)
         {
-            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Etes vous sure de vouloir suprrimer cette serie ?", "Oui", "Non");
+            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir suprrimer cette série ?", "Oui", "Non");
 
             if (confirm)
             {
