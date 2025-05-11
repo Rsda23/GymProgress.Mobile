@@ -4,8 +4,6 @@ using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.ViewModels.SnackBar;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -15,10 +13,11 @@ namespace GymProgress.Mobile.ViewModels
         private readonly ISeancesService _seanceService;
         private readonly IExercicesService _exerciceService;
         private readonly SnackBarViewModel _snackBar;
-        public SeanceDetailViewModel(ISeancesService service, SnackBarViewModel snackBar)
+        public SeanceDetailViewModel(ISeancesService service, SnackBarViewModel snackBar, IExercicesService exerciceService)
         {
             _seanceService = service;
             _snackBar = snackBar;
+            _exerciceService = exerciceService;
         }
 
         [ObservableProperty]
