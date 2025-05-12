@@ -21,7 +21,7 @@
     <MauiXaml Update="View\Popups\AddSetDataPopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="View\SettingPage.xaml">
+    <MauiXaml Update="View\Setting\SettingPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>
