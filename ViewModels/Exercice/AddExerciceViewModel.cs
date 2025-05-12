@@ -37,6 +37,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool isSelected;
 
         [ObservableProperty]
+        private bool isLoaded;
+
+        [ObservableProperty]
         private ObservableCollection<ExerciceSelectableViewModel> exercices = new();
 
         [ObservableProperty]
@@ -54,6 +57,7 @@ namespace GymProgress.Mobile.ViewModels
         private async Task DisplayExercice()
         {
             IsRunning = true;
+            IsLoaded = false;
 
             List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
 
@@ -72,6 +76,7 @@ namespace GymProgress.Mobile.ViewModels
                 }
             }
 
+            IsLoaded = true;
             IsRunning = false;
         }
 
