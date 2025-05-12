@@ -100,7 +100,7 @@ namespace GymProgress.Mobile.ViewModels
 
             FilterExercices = new ObservableCollection<Exercice>(Exercices);
 
-            VisibleExercice();
+            await VisibleExercice();
         }
     }
 }
