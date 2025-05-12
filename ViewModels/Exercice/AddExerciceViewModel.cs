@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    [QueryProperty(Constants.TargetProperties.SeanceName, Constants.QueryIdentifiers.SeanceName)]
+    [QueryProperty(Constants.TargetProperties.SeanceId, Constants.QueryIdentifiers.SeanceId)]
     public partial class AddExerciceViewModel : ViewModelBase
     {
         private readonly IExercicesService _exercicesService;
@@ -19,7 +19,6 @@ namespace GymProgress.Mobile.ViewModels
             _exercicesService = exercicesService;
             _seanceService = seancesService;
             _snackBar = snackBar;
-            DisplayExercice();
         }
 
         [ObservableProperty]
@@ -32,7 +31,7 @@ namespace GymProgress.Mobile.ViewModels
         private string buttonCreateExerciceText = "Créer";
 
         [ObservableProperty]
-        private string seanceName = string.Empty;
+        private string seanceId = string.Empty;
 
         [ObservableProperty]
         private bool isSelected;
@@ -87,7 +86,7 @@ namespace GymProgress.Mobile.ViewModels
             {
                 ExercicesId.Add(exercice.Id);
             }
-
+           
             await _seanceService.AddExerciceToSeanceById(CurrentSeance.SeanceId, ExercicesId.ToList());
 
             await GoToSeanceDetail();
@@ -99,18 +98,19 @@ namespace GymProgress.Mobile.ViewModels
 
 
 
-        async partial void OnSeanceNameChanged(string value)
+        async partial void OnSeanceIdChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                CurrentSeance = await _seanceService.GetSeanceByName(value);
+                CurrentSeance = await _seanceService.GetSeanceById(value);
+                await DisplayExercice();
             }
         }
 
         private async Task  GoToSeanceDetail()
         {
             await Shell.Current.GoToAsync($"//{Routes.SeancePage}");
-            await Shell.Current.GoToAsync($"{Routes.SeanceDetailPage}?{Constants.QueryIdentifiers.SeanceName}={SeanceName}");
+            await Shell.Current.GoToAsync($"{Routes.SeanceDetailPage}?{Constants.QueryIdentifiers.SeanceId}={SeanceId}");
         }
     }
 }
