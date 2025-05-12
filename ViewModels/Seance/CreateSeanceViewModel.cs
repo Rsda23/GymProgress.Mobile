@@ -32,6 +32,8 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValide()
         {
+            IsRunning = true;
+
             if (!string.IsNullOrWhiteSpace(NameSeanceText))
             {
                 string userId = Preferences.Get("UserId", string.Empty);
@@ -49,6 +51,8 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorSeanceText = ex.Message;
                 ErrorSeance = true;
             }
+
+            IsRunning = false;
         }
     }
 }

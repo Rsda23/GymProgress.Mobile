@@ -22,7 +22,7 @@ namespace GymProgress.Mobile.ViewModels.Connexion
 
 
         [RelayCommand]
-        private async void EmailNext()
+        private async Task EmailNext()
         {
             LayoutEmail = false;
             LayoutCode = true;
@@ -31,7 +31,7 @@ namespace GymProgress.Mobile.ViewModels.Connexion
         }
 
         [RelayCommand]
-        private async void PasswordNext()
+        private async Task PasswordNext()
         {
             LayoutEmail = false;
             LayoutCode = false;
@@ -40,7 +40,7 @@ namespace GymProgress.Mobile.ViewModels.Connexion
         }
 
         [RelayCommand]
-        private async void GoToLogin()
+        private async Task GoToLogin()
         {
             await Shell.Current.GoToAsync($"/{Routes.LoginPage}");
         }

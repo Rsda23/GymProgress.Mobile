@@ -12,4 +12,10 @@ public partial class LoginPage : ContentPage
         _loginViewModel = model;
 		BindingContext = _loginViewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _loginViewModel.ResetVisibility();
+    }
 }

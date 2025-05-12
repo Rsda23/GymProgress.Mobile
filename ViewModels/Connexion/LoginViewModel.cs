@@ -40,19 +40,19 @@ namespace GymProgress.Mobile.ViewModels
 
 
         [RelayCommand]
-        private async void GoToSeance()
+        private async Task GoToSeance()
         {
             await Shell.Current.GoToAsync("//SeancePage");
         }
 
         [RelayCommand]
-        private async void GoToSubscribe()
+        private async Task GoToSubscribe()
         {
             await Shell.Current.GoToAsync($"{Routes.SubscribePage}");
         }
 
         [RelayCommand]
-        private async void GoToForgot()
+        private async Task GoToForgot()
         {
             await Shell.Current.GoToAsync($"{Routes.ForgotPage}");
         }
@@ -60,6 +60,9 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonConnection()
         {
+            IsRunning = true;
+            Error = false;
+
             try
             {
                 Email = Email.ToLower();
@@ -73,6 +76,7 @@ namespace GymProgress.Mobile.ViewModels
                 if (user == null)
                 {
                     Error = true;
+                    IsRunning = false;
                     return;
                 }
 
@@ -81,17 +85,21 @@ namespace GymProgress.Mobile.ViewModels
                 if (!password)
                 {
                     Error = true;
+                    IsRunning = false;
                     return;
                 }
 
                 Preferences.Set("UserId", user.UserId);
-                GoToSeance();
+
+                await GoToSeance();
             }
             catch (Exception ex)
             {
                 ErrorText = ex.Message;
                 Error = true;
             }
+
+            IsRunning = false;
         }
 
         [RelayCommand]
@@ -110,6 +118,15 @@ namespace GymProgress.Mobile.ViewModels
                 EyeYes = true;
                 EyeNo = false;
             }
+        }
+
+
+
+        public void ResetVisibility()
+        {
+            Error = false;
+            Password = string.Empty;
+            Email = string.Empty;
         }
     }
 }

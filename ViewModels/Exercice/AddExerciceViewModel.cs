@@ -54,6 +54,8 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task DisplayExercice()
         {
+            IsRunning = true;
+
             List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
 
             string userId = Preferences.Get("UserId", string.Empty);
@@ -70,11 +72,15 @@ namespace GymProgress.Mobile.ViewModels
                     Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
                 }
             }
+
+            IsRunning = false;
         }
 
         [RelayCommand]
         private async Task ButtonValidExercice()
         {
+            IsRunning = true;
+
             ExercicesId.Clear();
 
             foreach (var exercice in Exercices.Where(e => e.IsSelected))
@@ -87,6 +93,8 @@ namespace GymProgress.Mobile.ViewModels
             await GoToSeanceDetail();
 
             _snackBar.Succefull("Exercice ajouté !");
+
+            IsRunning = false;
         }
 
 

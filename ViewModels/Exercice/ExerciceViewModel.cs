@@ -19,7 +19,10 @@ namespace GymProgress.Mobile.ViewModels
         private string searchText = string.Empty;
 
         [ObservableProperty]
-        private bool hasExercice;
+        private bool hasExercice = true;
+
+        [ObservableProperty]
+        private bool isLoaded;
 
         [ObservableProperty]
         private string buttonCreateExerciceText = "Créer";
@@ -83,6 +86,9 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplayExercice()
         {
+            IsRunning = true;
+            IsLoaded = false;
+
             List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
 
             string userId = Preferences.Get("UserId", string.Empty);
@@ -105,6 +111,9 @@ namespace GymProgress.Mobile.ViewModels
             FilterExercices = new ObservableCollection<Exercice>(Exercices);
 
             await VisibleExercice();
+
+            IsLoaded = true;
+            IsRunning = false;
         }
     }
 }

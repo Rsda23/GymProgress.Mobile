@@ -51,6 +51,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool hasSetData;
 
         [ObservableProperty]
+        private bool isLoaded;
+
+        [ObservableProperty]
         private ObservableCollection<SetData> setDatas = new();
 
 
@@ -72,7 +75,7 @@ namespace GymProgress.Mobile.ViewModels
         }
 
         [RelayCommand]
-        private async Task Editing()
+        private void Editing()
         {
             IsEditing = !IsEditing;
         }
@@ -96,15 +99,21 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task AddSetData(Exercice model)
         {
+            IsRunning = true; 
+
             var exercice = await _service.GetExerciceByName(ExerciceNom);
             var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, this, _snackBar);
             var popup = new AddSetDataPopup(viewModel);
             await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+
+            IsRunning = false;
         }
 
         [RelayCommand]
         private async Task DeleteSetData(SetData setData)
         {
+            IsRunning = true;
+
             bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir suprrimer cette série ?", "Oui", "Non");
 
             if (confirm)
@@ -114,6 +123,8 @@ namespace GymProgress.Mobile.ViewModels
 
                 _snackBar.Succefull("Suppression effectuée !");
             }
+
+            IsRunning = false;
         }
 
 
@@ -128,6 +139,9 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplaySetData()
         {
+            IsRunning = true;
+            IsLoaded = false;
+
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
             string userId = Preferences.Get("UserId", string.Empty);
             List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
@@ -147,10 +161,16 @@ namespace GymProgress.Mobile.ViewModels
             {
                 HasSetData = false;
             }
+
+            IsLoaded = true;
+            IsRunning = false;
         }
 
         public async Task DisplayAddByName()
         {
+            IsRunning = true;
+            IsLoaded = false;
+
             Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
             string userId = Preferences.Get("UserId", string.Empty);
             List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
@@ -167,11 +187,16 @@ namespace GymProgress.Mobile.ViewModels
                 }
             }
 
+            IsLoaded = true;
             HasSetData = false;
+            IsRunning = false;
         }
 
         public async Task DisplayByExerciceId(string exerciceId)
         {
+            IsRunning = true;
+            IsLoaded = false;
+
             Exercice exercice = await _service.GetExerciceById(exerciceId);
             string userId = Preferences.Get("UserId", string.Empty);
             List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
@@ -196,7 +221,9 @@ namespace GymProgress.Mobile.ViewModels
                 SetDatas = CurrentExercice.SetDatas
             };
 
+            IsLoaded = true;
             HasSetData = true;
+            IsRunning = false;
         }
 
         public void VerifyUserId()

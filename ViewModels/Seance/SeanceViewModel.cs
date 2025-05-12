@@ -98,6 +98,8 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplaySeance()
         {
+            IsRunning = true;
+
             string userId = Preferences.Get("UserId", string.Empty);
             var seancesUser = await _seanceService.GetSeanceByUserId(userId);
 
@@ -112,7 +114,9 @@ namespace GymProgress.Mobile.ViewModels
 
             FilterSeances = new ObservableCollection<Seance>(Seances);
 
-            VisibleSeance();
+            await VisibleSeance();
+
+            IsRunning = false;
         }
 
         public void Deselect()

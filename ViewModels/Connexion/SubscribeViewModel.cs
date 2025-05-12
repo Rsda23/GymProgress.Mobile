@@ -48,20 +48,23 @@ namespace GymProgress.Mobile.ViewModels
 
 
         [RelayCommand]
-        private async void GoToSeance()
+        private async Task GoToSeance()
         {
             await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
         }
 
         [RelayCommand]
-        private async void GoToLogin()
+        private async Task GoToLogin()
         {
             await Shell.Current.GoToAsync($"///{Routes.LoginPage}");
         }
 
         [RelayCommand]
-        private async void EmailNext()
+        private async Task EmailNext()
         {
+            IsRunning = true;
+            ErrorPseudo = false;
+
             try
             {
                 bool verify = ConfirmedPseudo(Pseudo);
@@ -80,11 +83,16 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorPseudoText = ex.Message;
                 ErrorPseudo = true;
             }
+
+            IsRunning = false;
         }
 
         [RelayCommand]
-        private async void PasswordNext()
+        private async Task PasswordNext()
         {
+            IsRunning = true;
+            ErrorEmail = false;
+
             try
             {
                 bool verify = await ConfirmedEmail(Email);
@@ -104,11 +112,18 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorEmailText = ex.Message;
                 ErrorEmail = true;
             }
+
+            IsRunning = false;
         }
 
         [RelayCommand]
-        public async void ValidRegister()
+        public async Task ValidRegister()
         {
+            IsRunning = true;
+            ErrorPassword = false;
+
+            await Task.Delay(100);
+
             try
             {
                 bool verify = VerifyPassword(FirstPassword, SecondPassword);
@@ -127,11 +142,11 @@ namespace GymProgress.Mobile.ViewModels
                         HashedPassword = hashedPassword
                     };
 
-                    _usersService.PostUser(newUser);
+                    await _usersService.PostUser(newUser);
 
                     User user = await _usersService.GetUserByEmail(newUser.Email);
                     Preferences.Set("UserId", user.UserId);
-                    GoToSeance();
+                    await GoToSeance();
                 }
             }
             catch (Exception ex)
@@ -140,6 +155,7 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorPassword = true;
             }
 
+            IsRunning = false;
         }
 
 

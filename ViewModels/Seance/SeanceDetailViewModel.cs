@@ -42,6 +42,9 @@ namespace GymProgress.Mobile.ViewModels
         private bool hasExercice;
 
         [ObservableProperty]
+        private bool isLoaded;
+
+        [ObservableProperty]
         private Exercice selectedExercice;
 
 
@@ -132,6 +135,9 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task DisplayExercice()
         {
+            IsRunning = true;
+            IsLoaded = false;
+
             List<Exercice> exercices = await _exerciceService.GetExercicesBySeanceId(CurrentSeance.SeanceId);
 
             if (exercices != null)
@@ -142,6 +148,9 @@ namespace GymProgress.Mobile.ViewModels
                     Exercices.Add(exercice);
                 }
             }
+
+            IsLoaded = true;
+            IsRunning = false;
         }
     }
 }

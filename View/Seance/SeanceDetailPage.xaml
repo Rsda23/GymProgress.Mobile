@@ -46,50 +46,60 @@
         </Grid>
     </Shell.TitleView>
 
-    <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding Exercices}"
-                        SelectionMode="Single"
-                        SelectedItem="{Binding SelectedExercice}"
-                        SelectionChangedCommand="{Binding SelectExerciceCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
-                        IsVisible="{Binding HasExercice}"
-                        x:Name="ExerciesList">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="10,5">
-                        <Border Stroke="MediumPurple"
-                                StrokeThickness="1" 
-                                StrokeShape="RoundRectangle 10"
-                                Padding="10" 
-                                BackgroundColor="Transparent"
-                                Margin="5">
-                            <Grid>
-                                <Label Text="{Binding Nom}" 
-                                       FontSize="16" 
-                                       VerticalOptions="End"
-                                       Grid.Column="0"/>
+    <Grid>
+        <VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding Exercices}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedExercice}"
+                            SelectionChangedCommand="{Binding SelectExerciceCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+                            IsVisible="{Binding HasExercice}"
+                            x:Name="ExerciesList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10,5">
+                            <Border Stroke="MediumPurple"
+                                    StrokeThickness="1" 
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="10" 
+                                    BackgroundColor="Transparent"
+                                    Margin="5">
+                                <Grid>
+                                    <Label Text="{Binding Nom}" 
+                                           FontSize="16" 
+                                           VerticalOptions="End"
+                                           Grid.Column="0"/>
 
+                                    <ImageButton Source="croix.png"
+                                                 WidthRequest="24"
+                                                 HeightRequest="24"
+                                                 BackgroundColor="Transparent"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SeanceDetailViewModel}}, Path=RemoveCommand}"
+                                                 CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"
+                                                 Grid.Column="1"
+                                                 HorizontalOptions="End"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-                                <ImageButton Source="croix.png"
-                                             WidthRequest="24"
-                                             HeightRequest="24"
-                                             BackgroundColor="Transparent"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SeanceDetailViewModel}}, Path=RemoveCommand}"
-                                             CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"
-                                             Grid.Column="1"
-                                             HorizontalOptions="End"/>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <StackLayout IsVisible="{Binding IsLoaded}">
+                <Grid IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}" 
+                      HorizontalOptions="Center">
+                    <Label Text="{Binding EmptyExerciceText}"
+                           FontSize="20" 
+                           Margin="50"/>
+                </Grid>
+            </StackLayout>
+        </VerticalStackLayout>
 
-        <Grid IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}" 
-              HorizontalOptions="Center">
-            <Label Text="{Binding EmptyExerciceText}"
-                   FontSize="20" 
-                   Margin="50"/>
-        </Grid>
-    </VerticalStackLayout>
+        <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                           IsVisible="{Binding IsRunning}"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center"
+                           WidthRequest="50" 
+                           HeightRequest="50"/>
+    </Grid>
 </ContentPage>

@@ -23,56 +23,65 @@
         </Style>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
-        <Grid>
-            <Label Grid.Column="0" 
-                   Text="{Binding TitleSeance}"
-                   Padding="20" 
-                   HorizontalOptions="Center" />
+    <Grid>
+        <VerticalStackLayout>
+            <Grid>
+                <Label Grid.Column="0" 
+                       Text="{Binding TitleSeance}"
+                       Padding="20" 
+                       HorizontalOptions="Center" />
 
-            <Button Grid.Column="1" 
-                    Text="{Binding ButtonCreateSeanceText}" 
-                    Command="{Binding ButtonCreateSeanceCommand}"
-                    WidthRequest="100" 
-                    HeightRequest="40" 
-                    HorizontalOptions="End" 
-                    Margin="0, 0, 20, 0" />
-        </Grid>
+                <Button Grid.Column="1" 
+                        Text="{Binding ButtonCreateSeanceText}" 
+                        Command="{Binding ButtonCreateSeanceCommand}"
+                        WidthRequest="100" 
+                        HeightRequest="40" 
+                        HorizontalOptions="End" 
+                        Margin="0, 0, 20, 0" />
+            </Grid>
 
-        <SearchBar Placeholder="Rechercher une seance..."
-                   Text="{Binding SearchText}"
-                   TextChanged="OnSearchBarTextChanged"/>
+            <SearchBar Placeholder="Rechercher une seance..."
+                       Text="{Binding SearchText}"
+                       TextChanged="OnSearchBarTextChanged"/>
 
-        <CollectionView ItemsSource="{Binding FilterSeances}"
-                        SelectionMode="Single"
-                        SelectedItem="{Binding SelectedSeance}"
-                        SelectionChangedCommand="{Binding SelectSeanceCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
-                        IsVisible="{Binding HasSeance}" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Border Stroke="MediumPurple"
-                                StrokeThickness="1" 
-                                StrokeShape="RoundRectangle 10"
-                                Padding="50" 
-                                BackgroundColor="Transparent"
-                                Margin="5">
-                            <Label Text="{Binding Name}" 
-                                   FontSize="16" 
-                                   VerticalOptions="End"
-                                   Margin="10,0,0,0"/>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <CollectionView ItemsSource="{Binding FilterSeances}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSeance}"
+                            SelectionChangedCommand="{Binding SelectSeanceCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+                            IsVisible="{Binding HasSeance}" >
 
-        <Grid IsVisible="{Binding HasSeance, Converter={StaticResource InvertedBoolConverter}}"
-              HorizontalOptions="Center">
-            <Label Text="{Binding EmptySeanceText}"
-                    FontSize="20" 
-                    Margin="50"/>
-        </Grid>
-    </VerticalStackLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Border Stroke="MediumPurple"
+                                    StrokeThickness="1" 
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="50" 
+                                    BackgroundColor="Transparent"
+                                    Margin="5">
+                                <Label Text="{Binding Name}" 
+                                       FontSize="16" 
+                                       VerticalOptions="End"
+                                       Margin="10,0,0,0"/>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid IsVisible="{Binding HasSeance, Converter={StaticResource InvertedBoolConverter}}"
+                  HorizontalOptions="Center">
+                <Label Text="{Binding EmptySeanceText}"
+                       FontSize="20" 
+                       Margin="50"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                           IsVisible="{Binding IsRunning}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+    </Grid>
+
 </ContentPage>

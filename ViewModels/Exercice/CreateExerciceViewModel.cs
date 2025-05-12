@@ -35,6 +35,8 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonValide()
         {
+            IsRunning = true;
+
             string userId = Preferences.Get("UserId", string.Empty);
             Exercice exercice = new Exercice(NameExerciceText, userId);
 
@@ -42,6 +44,8 @@ namespace GymProgress.Mobile.ViewModels
             await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
 
             _snackBar.Succefull("Exercice créé !");
+
+            IsRunning = false;
         }
     }
 }

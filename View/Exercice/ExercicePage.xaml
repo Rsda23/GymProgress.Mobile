@@ -23,60 +23,69 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    
-    <VerticalStackLayout>
-        <Grid>
-            <Label Grid.Column="0" 
-                   Text="{Binding TitleExerciceText}"
-                   Padding="20" 
-                   HorizontalOptions="Center" />
-            
-            <Button Grid.Column="1" 
-                    Text="{Binding ButtonCreateExerciceText}" 
-                    Command="{Binding ButtonCreateExerciceCommand}"
-                    WidthRequest="100" 
-                    HeightRequest="40" 
-                    HorizontalOptions="End" 
-                    Margin="0, 0, 20, 0" />
-        </Grid>
 
-        <SearchBar Placeholder="Rechercher un exercice..."
-                   Text="{Binding SearchText}"
-                   TextChanged="OnSearchBar"/>
+    <Grid>
+        <VerticalStackLayout>
+            <Grid>
+                <Label Grid.Column="1" 
+                       Text="{Binding TitleExerciceText}"
+                       Padding="20" 
+                       HorizontalOptions="Center" />
 
-        <CollectionView ItemsSource="{Binding FilterExercices}"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding SelectExerciceCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
-                        IsVisible="{Binding HasExercice}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Border Stroke="MediumPurple"
-                                StrokeThickness="1" 
-                                StrokeShape="RoundRectangle 10"
-                                Padding="10" 
-                                BackgroundColor="Transparent"
-                                Margin="5">
-                            <Grid ColumnDefinitions="*, Auto">
-                                <Label Text="{Binding Nom}"  
-                                        FontSize="16" 
-                                        VerticalOptions="End"
-                                        Margin="10,0,0,0"
-                                        Grid.Column="0"/>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <Button Grid.Column="2" 
+                        Text="{Binding ButtonCreateExerciceText}" 
+                        Command="{Binding ButtonCreateExerciceCommand}"
+                        WidthRequest="100" 
+                        HeightRequest="40" 
+                        HorizontalOptions="End" 
+                        Margin="0, 0, 20, 0" />
+            </Grid>
 
-        <StackLayout IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}">
-            <VerticalStackLayout>
-                <Frame Margin="10, 5">
-                    <Label Text="Aucun Exercice"/>
-                </Frame>
-            </VerticalStackLayout>
-        </StackLayout>
-    </VerticalStackLayout>
+            <SearchBar Placeholder="Rechercher un exercice..."
+                       Text="{Binding SearchText}"
+                       TextChanged="OnSearchBar"/>
+
+            <CollectionView ItemsSource="{Binding FilterExercices}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SelectExerciceCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+                            IsVisible="{Binding HasExercice}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Border Stroke="MediumPurple"
+                                    StrokeThickness="1" 
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="10" 
+                                    BackgroundColor="Transparent"
+                                    Margin="5">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Text="{Binding Nom}"  
+                                           FontSize="16" 
+                                           VerticalOptions="End"
+                                           Margin="10,0,0,0"
+                                           Grid.Column="0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout IsVisible="{Binding IsLoaded}">
+                <VerticalStackLayout IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}">
+                    <Frame Margin="10, 5">
+                        <Label Text="Aucun Exercice"/>
+                    </Frame>
+                </VerticalStackLayout>
+            </StackLayout>
+        </VerticalStackLayout>
+
+        <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                           IsVisible="{Binding IsRunning}"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center"
+                           WidthRequest="50" 
+                           HeightRequest="50"/>
+    </Grid>
 </ContentPage>

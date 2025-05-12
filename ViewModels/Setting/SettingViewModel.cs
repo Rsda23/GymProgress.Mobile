@@ -54,11 +54,15 @@ namespace GymProgress.Mobile.ViewModels
                 "Oui", "Non");
             if (Confirm)
             {
+                IsRunning = true;
+
                 await _usersService.Delete(UserId);
                 UserId = string.Empty;
                 await ButtonDisconnect();
 
                 _snackBar.Succefull("Suppression effectuée !");
+
+                IsRunning = false;
             }
         }
 
@@ -66,6 +70,8 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task LoadUser()
         {
+            IsRunning = true;
+
             if (Preferences.ContainsKey("UserId"))
             {
                 string userId = Preferences.Get("UserId", string.Empty);
@@ -84,6 +90,8 @@ namespace GymProgress.Mobile.ViewModels
                     Email = "Erreur";
                 }
             }
+
+            IsRunning = false;
         }
     }
 }
