@@ -6,6 +6,9 @@
              xmlns:viewModels="clr-namespace:GymProgress.Mobile.ViewModels"
              Shell.NavBarIsVisible="true">
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -72,7 +75,7 @@
                                              HeightRequest="24"
                                              BackgroundColor="Transparent"
                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SeanceDetailViewModel}}, Path=RemoveCommand}"
-                                             CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}}"
+                                             CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"
                                              Grid.Column="1"
                                              HorizontalOptions="End"/>
                             </Grid>
@@ -82,7 +85,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Grid IsVisible="{Binding EmptyExercice}" 
+        <Grid IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}" 
               HorizontalOptions="Center">
             <Label Text="{Binding EmptyExerciceText}"
                    FontSize="20" 

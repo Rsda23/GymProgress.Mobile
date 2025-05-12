@@ -40,8 +40,6 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private bool hasExercice;
-        [ObservableProperty]
-        private bool emptyExercice;
 
         [ObservableProperty]
         private Exercice selectedExercice;
@@ -78,8 +76,14 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private Task VisibleSeance()
         {
-            HasExercice = Exercices.Any();
-            EmptyExercice = !HasExercice;
+            if (Exercices.Any())
+            {
+                HasExercice = true;
+            }
+            else
+            {
+                HasExercice = false;
+            }
             return Task.CompletedTask;
         }
 
