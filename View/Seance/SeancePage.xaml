@@ -4,6 +4,9 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GymProgress.Mobile.SeancePage">
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        </ResourceDictionary>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -65,7 +68,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Grid IsVisible="{Binding EmptySeance}"
+        <Grid IsVisible="{Binding HasSeance, Converter={StaticResource InvertedBoolConverter}}"
               HorizontalOptions="Center">
             <Label Text="{Binding EmptySeanceText}"
                     FontSize="20" 

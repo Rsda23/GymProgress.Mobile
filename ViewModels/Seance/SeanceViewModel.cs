@@ -29,8 +29,6 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private bool hasSeance;
-        [ObservableProperty]
-        private bool emptySeance;
 
         [ObservableProperty]
         private ObservableCollection<Seance> seances = new();
@@ -70,8 +68,14 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private Task VisibleSeance()
         {
-            HasSeance = Seances.Any();
-            EmptySeance = !HasSeance;
+            if (Seances.Any())
+            {
+                HasSeance = true;
+            }
+            else
+            {
+                HasSeance = false;
+            }
             return Task.CompletedTask;
         }
 
