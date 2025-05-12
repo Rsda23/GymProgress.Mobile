@@ -5,6 +5,9 @@
              xmlns:vm="clr-namespace:GymProgress.Mobile.ViewModels"
              x:Class="GymProgress.Mobile.ExercicePage">
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -68,7 +71,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout IsVisible="{Binding EmptyExercice}">
+        <StackLayout IsVisible="{Binding HasExercice, Converter={StaticResource InvertedBoolConverter}}">
             <VerticalStackLayout>
                 <Frame Margin="10, 5">
                     <Label Text="Aucun Exercice"/>

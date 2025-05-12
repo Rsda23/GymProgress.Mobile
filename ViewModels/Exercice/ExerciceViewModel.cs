@@ -20,8 +20,6 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private bool hasExercice;
-        [ObservableProperty]
-        private bool emptyExercice;
 
         [ObservableProperty]
         private string buttonCreateExerciceText = "Créer";
@@ -56,8 +54,14 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private Task VisibleExercice()
         {
-            HasExercice = Exercices.Any();
-            EmptyExercice = !HasExercice;
+            if (Exercices.Any())
+            {
+                HasExercice = true;
+            }
+            else
+            {
+                HasExercice = false;
+            }
             return Task.CompletedTask;
         }
 
