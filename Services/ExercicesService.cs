@@ -20,6 +20,8 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
+                // /exercices/{exerciceId}
+                // /exercices/name/{exerciceName}
                 var uri = $"Exercices/GetAllExercice";
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
@@ -122,6 +124,7 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
+                // POST /exercices
                 var uri = $"Exercices/PostExercice";
 
                 var jsonOptions = new JsonSerializerOptions
@@ -148,6 +151,8 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
+                // PUT  /exercices/{exerciceId}
+                // BODY { "name": "newName" }
                 var uri = $"Exercices/PutName?exerciceId={exerciceId}&name={name}";
 
                 var content = new StringContent("");
@@ -168,6 +173,7 @@ namespace GymProgress.Mobile.Services
         {
             try
             {
+                // DELETE  /exercices/{exerciceId}
                 var uri = $"Exercices/DeleteExerciceById?id={exerciceId}";
 
                 var response = await _httpClient.DeleteAsync(uri);

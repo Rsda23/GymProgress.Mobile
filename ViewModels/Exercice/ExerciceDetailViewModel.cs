@@ -51,9 +51,6 @@ namespace GymProgress.Mobile.ViewModels
         private bool hasSetData;
 
         [ObservableProperty]
-        private bool emptySetData;
-
-        [ObservableProperty]
         private ObservableCollection<SetData> setDatas = new();
 
 
@@ -139,7 +136,6 @@ namespace GymProgress.Mobile.ViewModels
             {
                 SetDatas.Clear();
 
-                EmptySetData = false;
                 HasSetData = true;
 
                 foreach (var setData in setDatas)
@@ -150,7 +146,6 @@ namespace GymProgress.Mobile.ViewModels
             else
             {
                 HasSetData = false;
-                EmptySetData = true;
             }
         }
 
@@ -164,7 +159,6 @@ namespace GymProgress.Mobile.ViewModels
             {
                 SetDatas.Clear();
 
-                EmptySetData = false;
                 HasSetData = true;
 
                 foreach (var setData in setDatas)
@@ -173,8 +167,7 @@ namespace GymProgress.Mobile.ViewModels
                 }
             }
 
-            EmptySetData = false;
-            HasSetData = true;
+            HasSetData = false;
         }
 
         public async Task DisplayByExerciceId(string exerciceId)
@@ -187,7 +180,6 @@ namespace GymProgress.Mobile.ViewModels
             {
                 SetDatas.Clear();
 
-                EmptySetData = false;
                 HasSetData = true;
 
                 foreach (var setData in setDatas)
@@ -204,7 +196,6 @@ namespace GymProgress.Mobile.ViewModels
                 SetDatas = CurrentExercice.SetDatas
             };
 
-            EmptySetData = false;
             HasSetData = true;
         }
 

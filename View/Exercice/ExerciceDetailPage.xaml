@@ -5,6 +5,13 @@
              x:Class="GymProgress.Mobile.ExerciceDetailPage"
              Shell.NavBarIsVisible="True"
              Shell.BackgroundColor="Aquamarine">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Shell.TitleView>
         <Grid HeightRequest="40" VerticalOptions="Center">
             <Label Text="{Binding CurrentExercice.Nom}"
@@ -221,7 +228,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <VerticalStackLayout IsVisible="{Binding EmptySetData}">
+        <VerticalStackLayout IsVisible="{Binding HasSetData, Converter={StaticResource InvertedBoolConverter}}">
             <VerticalStackLayout>
                 <Frame Margin="10, 5">
                     <Label Text="Vous n'avez pas encore de stats"/>
