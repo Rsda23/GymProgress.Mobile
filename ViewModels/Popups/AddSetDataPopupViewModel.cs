@@ -10,14 +10,12 @@ namespace GymProgress.Mobile.ViewModels.Popups
     public partial class AddSetDataPopupViewModel : ViewModelBase
     {
         private readonly ISetDatasService _setDatasService;
-        private readonly ExerciceDetailViewModel _exerciceDetailViewModel;
         private readonly SnackBarViewModel _snackBar;
 
-        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, ExerciceDetailViewModel exerciceDetailViewModel, SnackBarViewModel snackBar)
+        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, SnackBarViewModel snackBar)
         {
             _setDatasService = setDatasService;
             ExerciceId = exerciceId;
-            _exerciceDetailViewModel = exerciceDetailViewModel;
             _snackBar = snackBar;
         }
 
@@ -45,9 +43,11 @@ namespace GymProgress.Mobile.ViewModels.Popups
         {
             await PopupInstance.CloseAsync();
 
+            await Task.Delay(100);
+
             if (Shell.Current.CurrentPage is ExerciceDetailPage page && page.BindingContext is ExerciceDetailViewModel vm)
             {
-                await _exerciceDetailViewModel.DisplayAddByName();
+                await vm.DisplayAddByName();
             }
         }
 

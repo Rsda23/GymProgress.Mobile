@@ -102,7 +102,7 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true; 
 
             var exercice = await _service.GetExerciceByName(ExerciceNom);
-            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, this, _snackBar);
+            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, _snackBar);
             var popup = new AddSetDataPopup(viewModel);
             await Shell.Current.CurrentPage.ShowPopupAsync(popup);
 
@@ -185,11 +185,16 @@ namespace GymProgress.Mobile.ViewModels
                 {
                     SetDatas.Add(setData);
                 }
-            }
 
-            IsLoaded = true;
-            HasSetData = false;
-            IsRunning = false;
+                IsLoaded = true;
+                IsRunning = false;
+            }
+            else
+            {
+                HasSetData = false;
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
 
         public async Task DisplayByExerciceId(string exerciceId)
