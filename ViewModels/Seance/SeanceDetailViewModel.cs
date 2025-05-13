@@ -45,35 +45,71 @@ namespace GymProgress.Mobile.ViewModels
         private bool isLoaded;
 
         [ObservableProperty]
-        private Exercice selectedExercice;
+        private Exercice? selectedExercice;
 
 
 
         [RelayCommand]
         private async Task Delete()
         {
-            Confirm = await Shell.Current.DisplayAlert(
+            IsRunning = true;
+
+            try
+            {
+                Confirm = await Shell.Current.DisplayAlert(
                 "Confirmation",
                 "Voulez-vous vraiment supprimer cet exercice ?",
                 "Oui", "Non");
 
-            if (Confirm)
-            {
-                await _seanceService.Delete(currentSeance.SeanceId);
-                await Shell.Current.GoToAsync("..");
+                if (Confirm)
+                {
+                    if (string.IsNullOrEmpty(CurrentSeance.SeanceId))
+                    {
+                        throw new Exception("L'id de la seance en cours est vide");
+                    }
 
-                _snackBar.Succefull("Suppression effectuée !");
+                    await _seanceService.Delete(CurrentSeance.SeanceId);
+                    await Shell.Current.GoToAsync("..");
+
+                    _snackBar.Succefull("Suppression effectuée !");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
             }
         }
 
         [RelayCommand]
         private async Task AddExercice()
         {
-            var seance = SeanceId;
-            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.SeanceId, seance);
+            IsRunning = true;
 
-            await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}", parameters);
+            try
+            {
+                if (string.IsNullOrEmpty(SeanceId))
+                {
+                    throw new Exception("L'id de la seance est vide");
+                }
+
+                string seance = SeanceId;
+                ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+                parameters.Add(Constants.QueryIdentifiers.SeanceId, seance);
+
+                await Shell.Current.GoToAsync($"/{Routes.AddExercicePage}", parameters);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -92,38 +128,99 @@ namespace GymProgress.Mobile.ViewModels
 
         async partial void OnSeanceIdChanged(string value)
         {
-            if (!string.IsNullOrEmpty(value))
+            try
             {
-                CurrentSeance = await _seanceService.GetSeanceById(value);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    Seance? seance = await _seanceService.GetSeanceById(value);
 
-                await DisplayExercice();
-                await VisibleSeance();
+                    if (seance != null)
+                    {
+                        CurrentSeance = seance;
+
+                        await DisplayExercice();
+                        await VisibleSeance();
+                    }
+                    else
+                    {
+                        throw new Exception("La seances est nulle");
+                    }
+                }
+                else
+                {
+                    throw new Exception("La value est nulle");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
             }
         }
 
         [RelayCommand]
         private async Task SelectExercice(Exercice model)
         {
-            var test = model.Nom;
-            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+            IsRunning = true;
 
-            await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
+            try
+            {
+                if (model == null)
+                {
+                    throw new Exception("Le model est null");
+                }
 
-            Deselect();
+                string test = model.Nom;
+                ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+                parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+
+                await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
+
+                Deselect();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
         private async Task Remove(Exercice exercice)
         {
-            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir retirer cet exercice ?", "Oui", "Non");
-            if (confirm)
+            IsRunning = true;
+
+            try
             {
-                await _seanceService.RemoveExerciceToSeance(CurrentSeance.SeanceId, exercice.ExerciceId);
+                bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir retirer cet exercice ?", "Oui", "Non");
 
-                _snackBar.Succefull("Exercice retiré !");
+                if (confirm)
+                {
+                    if (exercice == null)
+                    {
+                        throw new Exception("L'exercice est null");
+                    }
+                    if (string.IsNullOrEmpty(CurrentSeance.SeanceId))
+                    {
+                        throw new Exception("L'id de la seance en cours est vide");
+                    }
 
-                await DisplayExercice();
+                    await _seanceService.RemoveExerciceToSeance(CurrentSeance.SeanceId, exercice.ExerciceId);
+
+                    _snackBar.Succefull("Exercice retiré !");
+
+                    await DisplayExercice();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
             }
         }
 
@@ -138,19 +235,40 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            List<Exercice> exercices = await _exerciceService.GetExercicesBySeanceId(CurrentSeance.SeanceId);
-
-            if (exercices != null)
+            if (CurrentSeance == null || string.IsNullOrEmpty(CurrentSeance.SeanceId))
             {
-                Exercices.Clear();
-                foreach (var exercice in exercices)
-                {
-                    Exercices.Add(exercice);
-                }
+                Console.WriteLine("Pas encore initialisé");
+                return;
             }
 
-            IsLoaded = true;
-            IsRunning = false;
+            try
+            {
+                if (string.IsNullOrEmpty(CurrentSeance.SeanceId))
+                {
+                    throw new Exception("L'id de la seance en cours est vide");
+                }
+
+                List<Exercice>? exercices = await _exerciceService.GetExercicesBySeanceId(CurrentSeance.SeanceId);
+
+                if (exercices != null)
+                {
+                    Exercices.Clear();
+
+                    foreach (Exercice exercice in exercices)
+                    {
+                        Exercices.Add(exercice);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
     }
 }

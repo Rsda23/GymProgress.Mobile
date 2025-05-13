@@ -67,6 +67,11 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
+                if (string.IsNullOrEmpty(Pseudo))
+                {
+                    throw new Exception("Le pseudo est vide");
+                }
+
                 bool verify = ConfirmedPseudo(Pseudo);
 
                 if (verify)
@@ -83,8 +88,10 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorPseudoText = ex.Message;
                 ErrorPseudo = true;
             }
-
-            IsRunning = false;
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -95,6 +102,11 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
+                if (string.IsNullOrEmpty(Email))
+                {
+                    throw new Exception("L'email est vide");
+                }
+
                 bool verify = await ConfirmedEmail(Email);
 
                 if (verify)
@@ -112,8 +124,10 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorEmailText = ex.Message;
                 ErrorEmail = true;
             }
-
-            IsRunning = false;
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -126,6 +140,11 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
+                if(string.IsNullOrEmpty(FirstPassword) || !string.IsNullOrEmpty(SecondPassword))
+                {
+                    throw new Exception("L'un des mots de passes est vide");
+                }
+               
                 bool verify = VerifyPassword(FirstPassword, SecondPassword);
 
                 if (verify)
@@ -135,7 +154,7 @@ namespace GymProgress.Mobile.ViewModels
                     string hashedPassword = PasswordHashing.HashPassword(FirstPassword);
 
 
-                    var newUser = new User
+                    User newUser = new User
                     {
                         Pseudo = inputPseudo,
                         Email = inputEmail,
@@ -144,7 +163,12 @@ namespace GymProgress.Mobile.ViewModels
 
                     await _usersService.PostUser(newUser);
 
-                    User user = await _usersService.GetUserByEmail(newUser.Email);
+                    User? user = await _usersService.GetUserByEmail(newUser.Email);
+                    if (user == null)
+                    {
+                        throw new Exception("L'utilisateur est introuvable");
+                    }
+
                     Preferences.Set("UserId", user.UserId);
                     await GoToSeance();
                 }
@@ -154,8 +178,10 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorPasswordText = ex.Message;
                 ErrorPassword = true;
             }
-
-            IsRunning = false;
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
 
@@ -210,7 +236,7 @@ namespace GymProgress.Mobile.ViewModels
 
         public async Task<bool> VerifyEmail(string email)
         {
-            var user = await _usersService.GetUserByEmail(email);
+            User? user = await _usersService.GetUserByEmail(email);
             if (user == null)
             {
                 return true;

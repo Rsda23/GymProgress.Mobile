@@ -7,7 +7,7 @@ namespace GymProgress.Mobile.ViewModels.SnackBar
     {
         public async void Succefull(string message)
         {
-            var snackBar = Snackbar.Make(
+            ISnackbar snackBar = Snackbar.Make(
                 message: message,
                 duration: TimeSpan.FromSeconds(2),
                 visualOptions: new SnackbarOptions

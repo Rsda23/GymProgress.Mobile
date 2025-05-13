@@ -37,15 +37,33 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            string userId = Preferences.Get("UserId", string.Empty);
-            Exercice exercice = new Exercice(NameExerciceText, userId);
+            try
+            {
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateur est vide");
+                }
+                if (string.IsNullOrWhiteSpace(NameExerciceText))
+                {
+                    throw new Exception("Le nom de l'exercice est vide");
+                }
 
-            await _exercicesService.PostExercice(exercice);
-            await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
+                Exercice exercice = new Exercice(NameExerciceText, userId);
 
-            _snackBar.Succefull("Exercice créé !");
+                await _exercicesService.PostExercice(exercice);
+                await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
 
-            IsRunning = false;
+                _snackBar.Succefull("Exercice créé !");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
     }
 }

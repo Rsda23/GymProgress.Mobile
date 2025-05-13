@@ -15,12 +15,17 @@ namespace GymProgress.Mobile
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _seanceViewModel.DisplaySeance();
+            _ = CallSeance();
         }
 
         private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
         {
             _seanceViewModel.FilterSeancesBySearchTextCommand.Execute(e.NewTextValue);
+        }
+
+        private async Task CallSeance()
+        {
+            await _seanceViewModel.DisplaySeance();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GymProgress.Mobile.Services
             _httpClient = httpClient;
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<User?> GetUserByEmail(string email)
         {
             try
             {
@@ -23,7 +23,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(fullUri);
                 var data = await response.Content.ReadAsStringAsync();
                 var user = JsonSerializer.Deserialize<User>(data);
-                return user;
+                if (user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    throw new Exception("L'utilisateur est null");
+                }
             }
             catch (Exception ex)
             {
@@ -32,7 +39,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<User> GetUserById(string userId)
+        public async Task<User?> GetUserById(string userId)
         {
             try
             {
@@ -40,7 +47,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(fullUri);
                 var data = await response.Content.ReadAsStringAsync();
                 var user = JsonSerializer.Deserialize<User>(data);
-                return user;
+                if (user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    throw new Exception("L'utilisateur est null");
+                }
             }
             catch (Exception ex)
             {

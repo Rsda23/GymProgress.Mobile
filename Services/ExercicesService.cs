@@ -16,7 +16,7 @@ namespace GymProgress.Mobile.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<Exercice>> GetAllExercice()
+        public async Task<List<Exercice>?> GetAllExercice()
         {
             try
             {
@@ -26,7 +26,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {
@@ -35,7 +42,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<Exercice> GetExerciceByName(string name)
+        public async Task<Exercice?> GetExerciceByName(string name)
         {
             try
             {
@@ -43,7 +50,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<Exercice>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {
@@ -52,7 +66,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<Exercice> GetExerciceById(string exerciceId)
+        public async Task<Exercice?> GetExerciceById(string exerciceId)
         {
             try
             {
@@ -60,7 +74,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<Exercice>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {
@@ -69,7 +90,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<List<Exercice>> GetExerciceUserId(string userId)
+        public async Task<List<Exercice>?> GetExerciceUserId(string userId)
         {
             try
             {
@@ -77,7 +98,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {
@@ -86,7 +114,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<List<Exercice>> GetExercicePublic()
+        public async Task<List<Exercice>?> GetExercicePublic()
         {
             try
             {
@@ -94,7 +122,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {
@@ -103,7 +138,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<List<Exercice>> GetExercicesBySeanceId(string seanceId)
+        public async Task<List<Exercice>?> GetExercicesBySeanceId(string seanceId)
         {
             try
             {
@@ -111,7 +146,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var exercice = JsonSerializer.Deserialize<List<Exercice>>(data);
-                return exercice;
+                if (exercice != null)
+                {
+                    return exercice;
+                }
+                else
+                {
+                    throw new Exception("L'exercice est null");
+                }
             }
             catch (Exception ex)
             {

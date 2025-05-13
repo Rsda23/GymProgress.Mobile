@@ -15,6 +15,11 @@ public partial class SeanceDetailPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _seanceDetailViewModel.DisplayExercice();
+        _ = CallSeanceDetail();
+    }
+
+	private async Task CallSeanceDetail()
+	{
+        await _seanceDetailViewModel.DisplayExercice();
     }
 }

@@ -34,12 +34,12 @@ namespace GymProgress.Mobile.ViewModels.Popups
         [ObservableProperty]
         private DateTime date = DateTime.Now;
 
-        public Popup PopupInstance { get; set; }
+        public Popup PopupInstance { get; set; } = new();
 
 
 
         [RelayCommand]
-        private async void Cancel()
+        private async Task Cancel()
         {
             await PopupInstance.CloseAsync();
 
@@ -52,17 +52,35 @@ namespace GymProgress.Mobile.ViewModels.Popups
         }
 
         [RelayCommand]
-        private async void Add()
+        private async Task Add()
         {
-            string userId = Preferences.Get("UserId", string.Empty);
+            IsRunning = true;
 
-            SetData setData = new SetData(ExerciceId, Repetition, Serie, Charge, Date, userId);
+            try
+            {
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateure est vide");
+                }
 
-            await _setDatasService.PostSetData(setData);
+                SetData setData = new SetData(ExerciceId, Repetition, Serie, Charge, Date, userId);
 
-            Cancel();
+                await _setDatasService.PostSetData(setData);
 
-            _snackBar.Succefull("Série ajoutée !");
+                await Cancel();
+
+                _snackBar.Succefull("Série ajoutée !");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
+
         }
     }
 }

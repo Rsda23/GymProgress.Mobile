@@ -47,11 +47,29 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task SelectExercice(Exercice model)
         {
-            var test = model.Nom;
-            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+            IsRunning = true;
 
-            await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
+            try
+            {
+                if (model == null)
+                {
+                    throw new Exception("le model est null");
+                }
+
+                string test = model.Nom;
+                ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+                parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+
+                await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -89,31 +107,48 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
-
-            string userId = Preferences.Get("UserId", string.Empty);
-            List<Exercice> exercicesUser = await _exercicesService.GetExerciceUserId(userId);
-
-            if (exercicesUser != null && exercicesPublic != null)
+            try
             {
+                List<Exercice>? exercicesPublic = await _exercicesService.GetExercicePublic();
+
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateur est vide");
+                }
+
+                List<Exercice>? exercicesUser = await _exercicesService.GetExerciceUserId(userId);
+
                 Exercices.Clear();
-                foreach (Exercice exercice in exercicesUser)
+
+                if (exercicesUser != null)
                 {
-                    Exercices.Add(exercice);
+                    foreach (Exercice exercice in exercicesUser)
+                    {
+                        Exercices.Add(exercice);
+                    }
+                }
+                if (exercicesPublic != null)
+                {
+                    foreach (var exercice in exercicesPublic)
+                    {
+                        Exercices.Add(exercice);
+                    }
                 }
 
-                foreach (var exercice in exercicesPublic)
-                {
-                    Exercices.Add(exercice);
-                }
+                FilterExercices = new ObservableCollection<Exercice>(Exercices);
+
+                await VisibleExercice();
             }
-
-            FilterExercices = new ObservableCollection<Exercice>(Exercices);
-
-            await VisibleExercice();
-
-            IsLoaded = true;
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
     }
 }

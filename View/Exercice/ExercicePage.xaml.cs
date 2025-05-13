@@ -16,11 +16,16 @@ public partial class ExercicePage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _exerciceViewModel.DisplayExercice();
+        _ = CallExercice();
     }
 
     private void OnSearchBar(object sender, TextChangedEventArgs e)
     {
         _exerciceViewModel.FilterExercicesBySearchCommand.Execute(e.NewTextValue);
+    }
+
+    private async Task CallExercice()
+    {
+        await _exerciceViewModel.DisplayExercice();
     }
 }

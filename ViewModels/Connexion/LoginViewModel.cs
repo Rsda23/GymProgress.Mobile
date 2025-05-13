@@ -66,18 +66,16 @@ namespace GymProgress.Mobile.ViewModels
             try
             {
                 Email = Email.ToLower();
-                User user = await _usersService.GetUserByEmail(Email);
+                User? user = await _usersService.GetUserByEmail(Email);
+                if (user == null)
+                {
+                    Error = true;
+                    return;
+                }
 
                 if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 {
                     throw new Exception("Tous les champs doivent être remplis.");
-                }
-
-                if (user == null)
-                {
-                    Error = true;
-                    IsRunning = false;
-                    return;
                 }
 
                 bool password = PasswordHashing.ConfirmPassword(Password, user.HashedPassword);
@@ -85,7 +83,6 @@ namespace GymProgress.Mobile.ViewModels
                 if (!password)
                 {
                     Error = true;
-                    IsRunning = false;
                     return;
                 }
 
@@ -98,8 +95,10 @@ namespace GymProgress.Mobile.ViewModels
                 ErrorText = ex.Message;
                 Error = true;
             }
-
-            IsRunning = false;
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]

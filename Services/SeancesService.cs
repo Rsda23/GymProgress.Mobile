@@ -15,7 +15,7 @@ namespace GymProgress.Mobile.Services
             _httpClient = httpclient;
         }
 
-        public async Task<Seance> GetSeanceByName(string name)
+        public async Task<Seance?> GetSeanceByName(string name)
         {
             try
             {
@@ -23,7 +23,15 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<Seance>(data);
-                return seance;
+
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
             }
             catch (Exception ex)
             {
@@ -31,7 +39,7 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<Seance> GetSeanceById(string id)
+        public async Task<Seance?> GetSeanceById(string id)
         {
             try
             {
@@ -39,7 +47,15 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<Seance>(data);
-                return seance;
+
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
             }
             catch (Exception ex)
             {
@@ -47,7 +63,7 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<List<Seance>> GetAllSeance()
+        public async Task<List<Seance>?> GetAllSeance()
         {
             try
             {
@@ -55,7 +71,15 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<List<Seance>>(data);
-                return seance;
+                
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
             }
             catch (Exception ex)
             {
@@ -63,7 +87,7 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<List<Seance>> GetSeanceByUserId(string userId)
+        public async Task<List<Seance>?> GetSeanceByUserId(string userId)
         {
             try
             {
@@ -71,7 +95,15 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<List<Seance>>(data);
-                return seance;
+
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
             }
             catch (Exception ex)
             {
@@ -79,7 +111,7 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<List<Seance>> GetSeancePublic()
+        public async Task<List<Seance>?> GetSeancePublic()
         {
             try
             {
@@ -87,7 +119,15 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var seance = JsonSerializer.Deserialize<List<Seance>>(data);
-                return seance;
+
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
             }
             catch (Exception ex)
             {

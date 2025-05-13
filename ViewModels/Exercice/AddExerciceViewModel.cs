@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
@@ -59,25 +60,42 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            List<Exercice> exercicesPublic = await _exercicesService.GetExercicePublic();
-
-            string userId = Preferences.Get("UserId", string.Empty);
-            List<Exercice> exercicesUser = await _exercicesService.GetExerciceUserId(userId);
-            
-            if (exercicesUser != null)
+            try
             {
-                foreach (var exercice in exercicesUser)
+                List<Exercice>? exercicesPublic = await _exercicesService.GetExercicePublic();
+
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
                 {
-                    Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
+                    throw new Exception("L'id de l'utilisateur est vide");
                 }
-                foreach (var exercice in exercicesPublic)
+                List<Exercice>? exercicesUser = await _exercicesService.GetExerciceUserId(userId);
+
+                if (exercicesUser != null)
                 {
-                    Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
+                    foreach (Exercice exercice in exercicesUser)
+                    {
+                        Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
+                    }
+                }
+
+                if (exercicesPublic != null)
+                {
+                    foreach (Exercice exercice in exercicesPublic)
+                    {
+                        Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
+                    }
                 }
             }
-
-            IsLoaded = true;
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -85,20 +103,41 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            ExercicesId.Clear();
-
-            foreach (var exercice in Exercices.Where(e => e.IsSelected))
+            try
             {
-                ExercicesId.Add(exercice.Id);
+                ExercicesId.Clear();
+
+                if (!Exercices.Any())
+                {
+                    throw new Exception("Aucun exercices trouvé");
+                }
+
+                foreach (ExerciceSelectableViewModel exercice in Exercices.Where(e => e.IsSelected))
+                {
+                    ExercicesId.Add(exercice.Id);
+                }
+
+                if (!string.IsNullOrEmpty(CurrentSeance.SeanceId) && ExercicesId.Any())
+                {
+                    await _seanceService.AddExerciceToSeanceById(CurrentSeance.SeanceId, ExercicesId.ToList());
+                }
+                else
+                {
+                    throw new Exception("L'id de la seance est vide ou aucune exercice selectionné");
+                }
+
+                await GoToSeanceDetail();
+
+                _snackBar.Succefull("Exercice ajouté !");
             }
-           
-            await _seanceService.AddExerciceToSeanceById(CurrentSeance.SeanceId, ExercicesId.ToList());
-
-            await GoToSeanceDetail();
-
-            _snackBar.Succefull("Exercice ajouté !");
-
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
 
@@ -107,8 +146,13 @@ namespace GymProgress.Mobile.ViewModels
         {
             if (!string.IsNullOrEmpty(value))
             {
-                CurrentSeance = await _seanceService.GetSeanceById(value);
-                await DisplayExercice();
+                Seance? seance = await _seanceService.GetSeanceById(value);
+                
+                if (seance != null)
+                {
+                    CurrentSeance = seance;
+                    await DisplayExercice();
+                }
             }
         }
 

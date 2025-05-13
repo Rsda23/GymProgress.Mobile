@@ -34,25 +34,48 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            if (!string.IsNullOrWhiteSpace(NameSeanceText))
+            try
             {
-                string userId = Preferences.Get("UserId", string.Empty);
-                Seance seance = new Seance(NameSeanceText, userId);
+                if (!string.IsNullOrWhiteSpace(NameSeanceText))
+                {
+                    string userId = Preferences.Get("UserId", string.Empty);
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        throw new Exception("L'id de l'utilisateur est vide");
+                    }
 
-                ErrorSeance = false;
-                await _seancesService.PostSeance(seance);
-                await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
+                    Seance seance = new Seance(NameSeanceText, userId);
 
-                _snackbar.Succefull("Séance créé !");
+                    if (seance != null)
+                    {
+                        ErrorSeance = false;
+
+                        await _seancesService.PostSeance(seance);
+                        await Shell.Current.GoToAsync($"///{Routes.SeancePage}");
+
+                        _snackbar.Succefull("Séance créé !");
+                    }
+                    else
+                    {
+                        throw new Exception("La seance est nulle");
+                    }
+                }
+                else
+                {
+                    Exception ex = new Exception("Le champs ne peut pas être vide.");
+                    ErrorSeanceText = ex.Message;
+                    ErrorSeance = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var ex = new Exception("Le champs ne peut pas être vide.");
-                ErrorSeanceText = ex.Message;
-                ErrorSeance = true;
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
             }
+            finally
+            {
+                IsRunning = false;
 
-            IsRunning = false;
+            }
         }
     }
 }

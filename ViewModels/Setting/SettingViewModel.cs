@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GymProgress.Domain.Models;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.Services;
 using GymProgress.Mobile.ViewModels.SnackBar;
@@ -48,20 +49,37 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonDeleteAccount()
         {
-            Confirm = await Shell.Current.DisplayAlert(
-                "Confirmation", 
-                "Etes vous sur de vouloir supprimer votre compte ?", 
-                "Oui", "Non");
-            if (Confirm)
+            try
             {
-                IsRunning = true;
+                Confirm = await Shell.Current.DisplayAlert(
+                "Confirmation",
+                "Etes vous sur de vouloir supprimer votre compte ?",
+                "Oui", "Non");
 
-                await _usersService.Delete(UserId);
-                UserId = string.Empty;
-                await ButtonDisconnect();
+                if (Confirm)
+                {
+                    IsRunning = true;
 
-                _snackBar.Succefull("Suppression effectuée !");
+                    if (string.IsNullOrEmpty(UserId))
+                    {
+                        throw new Exception("L'id de l'utilisateur est vide");
+                    }
 
+                    await _usersService.Delete(UserId);
+
+                    UserId = string.Empty;
+
+                    await ButtonDisconnect();
+
+                    _snackBar.Succefull("Suppression effectuée !");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
                 IsRunning = false;
             }
         }
@@ -72,26 +90,39 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            if (Preferences.ContainsKey("UserId"))
+            try
             {
-                string userId = Preferences.Get("UserId", string.Empty);
-
-                var user = await _usersService.GetUserById(userId);
-
-                if (user != null)
+                if (Preferences.ContainsKey("UserId"))
                 {
-                    Pseudo = user.Pseudo;
-                    Email = user.Email;
-                    UserId = user.UserId;
-                }
-                else
-                {
-                    Pseudo = "Erreur";
-                    Email = "Erreur";
+                    string userId = Preferences.Get("UserId", string.Empty);
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        throw new Exception("L'id de l'utilisateur est vide");
+                    }
+
+                    User? user = await _usersService.GetUserById(userId);
+
+                    if (user != null)
+                    {
+                        Pseudo = user.Pseudo;
+                        Email = user.Email;
+                        UserId = user.UserId;
+                    }
+                    else
+                    {
+                        Pseudo = "Erreur";
+                        Email = "Erreur";
+                    }
                 }
             }
-
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
     }
 }

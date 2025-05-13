@@ -60,17 +60,35 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task Delete()
         {
-            Confirm = await Shell.Current.DisplayAlert(
+            IsRunning = true;
+
+            try
+            {
+                Confirm = await Shell.Current.DisplayAlert(
                 "Confirmation",
                 "Voulez-vous vraiment supprimer cet exercice ?",
                 "Oui", "Non");
 
-            if (Confirm)
-            {
-                await _service.Delete(CurrentExercice.ExerciceId);
-                await Shell.Current.GoToAsync("..");
+                if (Confirm)
+                {
+                    if (string.IsNullOrEmpty(CurrentExercice.ExerciceId))
+                    {
+                        throw new Exception("L'id de l'exercice est vide");
+                    }
 
-                _snackBar.Succefull("Suppression effectuée !");
+                    await _service.Delete(CurrentExercice.ExerciceId);
+                    await Shell.Current.GoToAsync("..");
+
+                    _snackBar.Succefull("Suppression effectuée !");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
             }
         }
 
@@ -83,30 +101,69 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task SaveEdit()
         {
-            foreach (var setData in SetDatas)
+            if (!SetDatas.Any())
+            {
+                throw new Exception("Aucune Serie trouvé");
+            }
+
+            foreach (SetData setData in SetDatas)
             {
                 await _setDatasService.ReplaceSetData(setData);
             }
 
-            await _service.UpdateExercice(CurrentExercice.ExerciceId, CurrentExercice.Nom);
+            if (!string.IsNullOrEmpty(CurrentExercice.ExerciceId) && !string.IsNullOrEmpty(CurrentExercice.Nom))
+            {
+                await _service.UpdateExercice(CurrentExercice.ExerciceId, CurrentExercice.Nom);
+                
+                IsEditing = false;
 
-            IsEditing = false;
-
-            await DisplayByExerciceId(CurrentExercice.ExerciceId);
-
+                await DisplayByExerciceId(CurrentExercice.ExerciceId);
+            }
+            else
+            {
+                throw new Exception("L'id ou le nom de l'exercice est vide");
+            }
         }
 
         [RelayCommand]
-        private async Task AddSetData(Exercice model)
+        private async Task AddSetData()
         {
             IsRunning = true; 
 
-            var exercice = await _service.GetExerciceByName(ExerciceNom);
-            var viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, _snackBar);
-            var popup = new AddSetDataPopup(viewModel);
-            await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+            try
+            {
+                if (!string.IsNullOrEmpty(ExerciceNom))
+                {
+                    Exercice? exercice = await _service.GetExerciceByName(ExerciceNom);
+                    if (exercice == null)
+                    {
+                        throw new Exception("l'exercice est vide");
+                    }
 
-            IsRunning = false;
+                    if (!string.IsNullOrEmpty(exercice.ExerciceId) && exercice != null)
+                    {
+                        AddSetDataPopupViewModel viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, _snackBar);
+                        AddSetDataPopup popup = new AddSetDataPopup(viewModel);
+                        await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+                    }
+                    else
+                    {
+                        throw new Exception("Exercice introuvable ou l'id de l'exercice est vide");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Nom de l'exercice introuvable");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -114,17 +171,33 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir suprrimer cette série ?", "Oui", "Non");
-
-            if (confirm)
+            try
             {
-                await _setDatasService.Delete(setData.SetDataId);
-                await DisplaySetData();
+                bool confirm = await Shell.Current.DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir suprrimer cette série ?", "Oui", "Non");
 
-                _snackBar.Succefull("Suppression effectuée !");
+                if (confirm)
+                {
+                    if (setData != null)
+                    {
+                        await _setDatasService.Delete(setData.SetDataId);
+                        await DisplaySetData();
+
+                        _snackBar.Succefull("Suppression effectuée !");
+                    }
+                    else
+                    {
+                        throw new Exception("SetData est null");
+                    }
+                }
             }
-
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
 
@@ -133,7 +206,11 @@ namespace GymProgress.Mobile.ViewModels
         {
             if (!string.IsNullOrEmpty(value))
             {
-                CurrentExercice = await _service.GetExerciceByName(value);
+                Exercice? exercice = await _service.GetExerciceByName(value);
+                if (exercice != null)
+                {
+                    CurrentExercice = exercice;
+                }
             }
         }
 
@@ -142,28 +219,53 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
-            string userId = Preferences.Get("UserId", string.Empty);
-            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
-
-            if (setDatas.Count() != 0)
+            try
             {
-                SetDatas.Clear();
+                Exercice? exercice = await _service.GetExerciceByName(ExerciceNom);
 
-                HasSetData = true;
-
-                foreach (var setData in setDatas)
+                if (exercice == null)
                 {
-                    SetDatas.Add(setData);
+                    throw new Exception("Auncun exercice trouvé");
+                }
+
+                string userId = Preferences.Get("UserId", string.Empty);
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateur est vide");
+                }
+
+                List<SetData>? setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
+                if (setDatas == null)
+                {
+                    throw new Exception("La serie est null");
+                }
+
+                if (setDatas.Count() != 0)
+                {
+                    SetDatas.Clear();
+
+                    HasSetData = true;
+
+                    foreach (SetData setData in setDatas)
+                    {
+                        SetDatas.Add(setData);
+                    }
+                }
+                else
+                {
+                    HasSetData = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                HasSetData = false;
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
             }
-
-            IsLoaded = true;
-            IsRunning = false;
+            finally
+            {
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
 
         public async Task DisplayAddByName()
@@ -171,27 +273,48 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            Exercice exercice = await _service.GetExerciceByName(ExerciceNom);
-            string userId = Preferences.Get("UserId", string.Empty);
-            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
-
-            if (setDatas.Count() != 0)
+            try
             {
-                SetDatas.Clear();
-
-                HasSetData = true;
-
-                foreach (var setData in setDatas)
+                Exercice? exercice = await _service.GetExerciceByName(ExerciceNom);
+                if (exercice == null)
                 {
-                    SetDatas.Add(setData);
+                    throw new Exception("Auncun exercice trouvé");
                 }
 
-                IsLoaded = true;
-                IsRunning = false;
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateur est vide");
+                }
+
+                List<SetData>? setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
+                if (setDatas == null)
+                {
+                    throw new Exception("La serie est null");
+                }
+
+                if (setDatas.Count() != 0)
+                {
+                    SetDatas.Clear();
+
+                    HasSetData = true;
+
+                    foreach (SetData setData in setDatas)
+                    {
+                        SetDatas.Add(setData);
+                    }
+                }
+                else
+                {
+                    HasSetData = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                HasSetData = false;
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
                 IsLoaded = true;
                 IsRunning = false;
             }
@@ -202,33 +325,60 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
-            Exercice exercice = await _service.GetExerciceById(exerciceId);
-            string userId = Preferences.Get("UserId", string.Empty);
-            List<SetData> setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
-
-            if (setDatas.Count() != 0)
+            try
             {
-                SetDatas.Clear();
-
-                HasSetData = true;
-
-                foreach (var setData in setDatas)
+                if (string.IsNullOrEmpty(exerciceId))
                 {
-                    SetDatas.Add(setData);
+                    throw new Exception("L'id de l'exercice est vide");
                 }
+
+                Exercice? exercice = await _service.GetExerciceById(exerciceId);
+                if (exercice == null)
+                {
+                    throw new Exception("Auncun exercice trouvé");
+                }
+
+                string userId = Preferences.Get("UserId", string.Empty);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    throw new Exception("L'id de l'utilisateur est vide");
+                }
+
+                List<SetData>? setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
+                if (setDatas == null)
+                {
+                    throw new Exception("La serie est null");
+                }
+
+                if (setDatas.Count() != 0)
+                {
+                    SetDatas.Clear();
+
+                    HasSetData = true;
+
+                    foreach (SetData setData in setDatas)
+                    {
+                        SetDatas.Add(setData);
+                    }
+                }
+
+                CurrentExercice = new Exercice
+                {
+                    ExerciceId = CurrentExercice.ExerciceId,
+                    Nom = CurrentExercice.Nom,
+                    UserId = CurrentExercice.UserId,
+                    SetDatas = CurrentExercice.SetDatas
+                };
             }
-
-            CurrentExercice = new Exercice
+            catch (Exception ex)
             {
-                ExerciceId = CurrentExercice.ExerciceId,
-                Nom = CurrentExercice.Nom,
-                UserId = CurrentExercice.UserId,
-                SetDatas = CurrentExercice.SetDatas
-            };
-
-            IsLoaded = true;
-            HasSetData = true;
-            IsRunning = false;
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsLoaded = true;
+                IsRunning = false;
+            }
         }
 
         public void VerifyUserId()

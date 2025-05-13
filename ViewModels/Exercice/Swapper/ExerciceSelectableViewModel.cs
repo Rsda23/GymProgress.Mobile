@@ -5,7 +5,7 @@ namespace GymProgress.Mobile.ViewModels
 {
     public partial class ExerciceSelectableViewModel : ObservableObject
     {
-        public Exercice Exercice { get; set; }
+        public Exercice Exercice { get; set; } = new();
 
         [ObservableProperty]
         private bool isSelected;

@@ -37,20 +37,38 @@ namespace GymProgress.Mobile.ViewModels
         private ObservableCollection<Seance> filterSeances = new();
 
         [ObservableProperty]
-        private Seance selectedSeance;
+        private Seance? selectedSeance;
 
 
 
         [RelayCommand]
         private async Task SelectSeance(Seance model)
         {
-            var test = model.SeanceId;
-            ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-            parameters.Add(Constants.QueryIdentifiers.SeanceId, model.SeanceId);
-    
-            await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
+            IsRunning = true;
 
-            Deselect();
+            try
+            {
+                if (model == null)
+                {
+                    throw new Exception("Le model est null");
+                }
+
+                string test = model.SeanceId;
+                ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
+                parameters.Add(Constants.QueryIdentifiers.SeanceId, model.SeanceId);
+
+                await Shell.Current.GoToAsync($"/{Routes.SeanceDetailPage}", parameters);
+
+                Deselect();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         [RelayCommand]
@@ -100,23 +118,37 @@ namespace GymProgress.Mobile.ViewModels
         {
             IsRunning = true;
 
-            string userId = Preferences.Get("UserId", string.Empty);
-            var seancesUser = await _seanceService.GetSeanceByUserId(userId);
-
-            if (seancesUser != null)
+            try
             {
-                Seances.Clear();
-                foreach (var seance in seancesUser)
+                string userId = Preferences.Get("UserId", string.Empty);
+                if(string.IsNullOrEmpty(userId))
                 {
-                    Seances.Add(seance);
+                    throw new Exception("L'id de l'utilisateur est introuvable");
                 }
+
+                List<Seance>? seancesUser = await _seanceService.GetSeanceByUserId(userId);
+
+                if (seancesUser != null)
+                {
+                    Seances.Clear();
+                    foreach (Seance seance in seancesUser)
+                    {
+                        Seances.Add(seance);
+                    }
+                }
+
+                FilterSeances = new ObservableCollection<Seance>(Seances);
+
+                await VisibleSeance();
             }
-
-            FilterSeances = new ObservableCollection<Seance>(Seances);
-
-            await VisibleSeance();
-
-            IsRunning = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "fermer");
+            }
+            finally
+            {
+                IsRunning = false;
+            }
         }
 
         public void Deselect()

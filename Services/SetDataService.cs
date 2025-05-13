@@ -15,7 +15,7 @@ namespace GymProgress.Mobile.Services
             _httpClient = httpClient;
         }
 
-        public async Task<SetData> GetSetDataByExericceId(string exerciceId)
+        public async Task<SetData?> GetSetDataByExericceId(string exerciceId)
         {
             try
             {
@@ -23,7 +23,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var setDatas = JsonSerializer.Deserialize<SetData>(data);
-                return setDatas;
+                if (setDatas != null)
+                {
+                    return setDatas;
+                }
+                else
+                {
+                    throw new Exception("La serie est null");
+                }
             }
             catch (Exception ex)
             {
@@ -31,7 +38,7 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
-        public async Task<List<SetData>> GetSetDataByUserId(string userId)
+        public async Task<List<SetData>?> GetSetDataByUserId(string userId)
         {
             try
             {
@@ -39,7 +46,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var setDatas = JsonSerializer.Deserialize<List<SetData>>(data);
-                return setDatas;
+                if (setDatas != null)
+                {
+                    return setDatas;
+                }
+                else
+                {
+                    throw new Exception("La serie est null");
+                }
             }
             catch (Exception ex)
             {
@@ -48,7 +62,7 @@ namespace GymProgress.Mobile.Services
             }
         }
 
-        public async Task<List<SetData>> GetSetDataByExerciceAndUser(string exerciceId, string userId)
+        public async Task<List<SetData>?> GetSetDataByExerciceAndUser(string exerciceId, string userId)
         {
             try
             {
@@ -56,7 +70,14 @@ namespace GymProgress.Mobile.Services
                 var response = await _httpClient.GetAsync(uri);
                 var data = await response.Content.ReadAsStringAsync();
                 var setDatas = JsonSerializer.Deserialize<List<SetData>>(data);
-                return setDatas;
+                if (setDatas != null)
+                {
+                    return setDatas;
+                }
+                else
+                {
+                    throw new Exception("La serie est null");
+                }
             }
             catch (Exception ex)
             {
