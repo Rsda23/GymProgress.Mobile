@@ -8,8 +8,6 @@ using GymProgress.Mobile.View.Popups;
 using GymProgress.Mobile.ViewModels.Popups;
 using GymProgress.Mobile.ViewModels.SnackBar;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace GymProgress.Mobile.ViewModels
 {

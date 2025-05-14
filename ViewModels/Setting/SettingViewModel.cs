@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
-using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.Services;
 using GymProgress.Mobile.ViewModels.SnackBar;
 
