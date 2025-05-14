@@ -140,7 +140,7 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
-                if(string.IsNullOrEmpty(FirstPassword) || !string.IsNullOrEmpty(SecondPassword))
+                if(string.IsNullOrEmpty(FirstPassword) || string.IsNullOrEmpty(SecondPassword))
                 {
                     throw new Exception("L'un des mots de passes est vide");
                 }

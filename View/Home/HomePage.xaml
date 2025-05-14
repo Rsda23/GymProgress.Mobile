@@ -3,9 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.HomePage"
              Title="HomePage">
-    <VerticalStackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Label Text="Bonjour,"
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+            <Label Text="{Binding Pseudo}"
+                   FontSize="24"
+                   HorizontalOptions="Center" />
+
+            <Frame BackgroundColor="#eeeeee" Padding="10" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Nombre total d'exercices : XX"
+                           FontSize="16" />
+                    <Label Text="Nombre total de seances : X"
+                           FontSize="16" />
+                    <Label Text="Dernière séance : xx/xx/xxxx"
+                           FontSize="16" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Accès rapide aux séances" FontSize="18" />
+            <CollectionView x:Name="AccesSeances"
+                            ItemsSource="{Binding Seances}"
+                            HeightRequest="150"
+                            ItemsLayout="VerticalList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BackgroundColor="#f5f5f5" CornerRadius="8">
+                            <Label Text="{Binding Name}" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

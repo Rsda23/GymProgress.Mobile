@@ -3,6 +3,7 @@ using GymProgress.Mobile.View.Connexion;
 using GymProgress.Mobile.View.Popups;
 using GymProgress.Mobile.ViewModels;
 using GymProgress.Mobile.ViewModels.Connexion;
+using GymProgress.Mobile.ViewModels.Home;
 using GymProgress.Mobile.ViewModels.Popups;
 using GymProgress.Mobile.ViewModels.SnackBar;
 
@@ -47,6 +48,7 @@ namespace GymProgress.Mobile.Extensions
             services.AddTransient<SettingViewModel>();
             services.AddTransient<AddSetDataPopupViewModel>();
             services.AddTransient<SnackBarViewModel>();
+            services.AddTransient<HomeViewModel>();
             return services;
         }
 
