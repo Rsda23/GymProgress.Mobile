@@ -28,6 +28,7 @@ namespace GymProgress.Mobile.Extensions
             services.AddTransient<UsersService>();
             services.AddTransient<SetDataService>();
             services.AddTransient<AddSetDataPopup>();
+            services.AddTransient<HomePage>();
             return services;
         }
 

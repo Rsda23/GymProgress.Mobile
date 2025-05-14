@@ -80,6 +80,9 @@
 	  <MauiXaml Update="View\Connexion\SubscribePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Home\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Popups\AddSetDataPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

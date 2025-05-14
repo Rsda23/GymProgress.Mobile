@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="GymProgress.Mobile.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:GymProgress.Mobile"
-    Shell.FlyoutBehavior="Disabled"
-    Title="GymProgress.Mobile">
+<Shell x:Class="GymProgress.Mobile.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:GymProgress.Mobile"
+       Shell.FlyoutBehavior="Disabled"
+       Title="GymProgress.Mobile">
 
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage"
-        Shell.NavBarIsVisible="False"/>
+    <ShellContent Title="Login"
+                  ContentTemplate="{DataTemplate local:LoginPage}"
+                  Route="LoginPage"
+                  Shell.NavBarIsVisible="False"/>
     <TabBar>
-        <Tab Title="Seance" Icon="training.png">
-            <ShellContent
-                Title="Seance"
-                ContentTemplate="{DataTemplate local:SeancePage}"
-                Route="SeancePage"
-                Shell.NavBarIsVisible="False"/>
+        <Tab Title="Accueil" 
+             Icon="home.png">
+            <ShellContent Title="Accueil"
+                          ContentTemplate="{DataTemplate local:HomePage}"
+                          Route="HomePage"
+                          Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Title="Exercice" Icon="exercice.png">
-            <ShellContent
-                Title="Exercice"
-                ContentTemplate="{DataTemplate local:ExercicePage}"
-                Route="ExercicePage"
-                Shell.NavBarIsVisible="False"/>
+        
+        <Tab Title="Seance" 
+             Icon="training.png">
+            <ShellContent Title="Seance"
+                          ContentTemplate="{DataTemplate local:SeancePage}"
+                          Route="SeancePage"
+                          Shell.NavBarIsVisible="False"/>
         </Tab>
-        <Tab Title="Parametre" Icon="setting.png">
-            <ShellContent
-                Title="Parametre"
-                ContentTemplate="{DataTemplate local:SettingPage}"
-                Route="SettingPage"
-                Shell.NavBarIsVisible="False"/>
+        
+        <Tab Title="Exercice" 
+             Icon="exercice.png">
+            <ShellContent Title="Exercice"
+                          ContentTemplate="{DataTemplate local:ExercicePage}"
+                          Route="ExercicePage"
+                          Shell.NavBarIsVisible="False"/>
+        </Tab>
+        <Tab Title="Parametre" 
+             Icon="setting.png">
+            <ShellContent Title="Parametre"
+                          ContentTemplate="{DataTemplate local:SettingPage}"
+                          Route="SettingPage"
+                          Shell.NavBarIsVisible="False"/>
         </Tab>
     </TabBar>
 </Shell>
