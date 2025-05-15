@@ -11,4 +11,15 @@ public partial class HomePage : ContentPage
 		_homeViewModel = homeViewModel;
 		BindingContext = _homeViewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _ = CallSeance();
+    }
+
+    private async Task CallSeance()
+    {
+        await _homeViewModel.DisplayLastSeances();
+    }
 }

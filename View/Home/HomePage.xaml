@@ -16,7 +16,7 @@
                 <VerticalStackLayout>
                     <Label Text="Nombre total d'exercices : XX"
                            FontSize="16" />
-                    <Label Text="Nombre total de seances : X"
+                    <Label Text="{Binding TitleSeance}"
                            FontSize="16" />
                     <Label Text="Dernière séance : xx/xx/xxxx"
                            FontSize="16" />

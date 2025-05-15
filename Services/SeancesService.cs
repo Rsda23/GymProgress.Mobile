@@ -135,6 +135,30 @@ namespace GymProgress.Mobile.Services
                 return null;
             }
         }
+        public async Task<List<Seance>?> GetLastSeance(int count, string userId)
+        {
+            try
+            {
+                var uri = $"GetLastSeance?count={count}&userId={userId}";
+                var response = await _httpClient.GetAsync(uri);
+                var data = await response.Content.ReadAsStringAsync();
+                var seance = JsonSerializer.Deserialize<List<Seance>>(data);
+
+                if (seance != null)
+                {
+                    return seance;
+                }
+                else
+                {
+                    throw new Exception("la seance est nulle");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return null;
+            }
+        }
 
         public async Task<bool> PostSeance(Seance seance)
         {
