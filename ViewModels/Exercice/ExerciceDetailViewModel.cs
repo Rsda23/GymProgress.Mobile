@@ -219,6 +219,7 @@ namespace GymProgress.Mobile.ViewModels
                 {
                     CurrentExercice = exercice;
                     ExerciceNom = CurrentExercice.Nom;
+                    await DisplaySetData();
                 }
             }
         }
@@ -230,6 +231,7 @@ namespace GymProgress.Mobile.ViewModels
                 if (seance != null)
                 {
                     CurrentSeance = seance;
+                    await DisplaySetData();
                 }
             }
         }
@@ -239,15 +241,13 @@ namespace GymProgress.Mobile.ViewModels
             IsRunning = true;
             IsLoaded = false;
 
+            if (string.IsNullOrEmpty(CurrentExercice.ExerciceId))
+            {
+                return;
+            }
+
             try
             {
-                Exercice? exercice = await _service.GetExerciceById(ExerciceId);
-
-                if (exercice == null)
-                {
-                    throw new Exception("Auncun exercice trouvé");
-                }
-
                 string userId = Preferences.Get("UserId", string.Empty);
 
                 if (string.IsNullOrEmpty(userId))
@@ -255,7 +255,7 @@ namespace GymProgress.Mobile.ViewModels
                     throw new Exception("L'id de l'utilisateur est vide");
                 }
 
-                List<SetData>? setDatas = await _setDatasService.GetSetDataByExerciceAndUser(exercice.ExerciceId, userId);
+                List<SetData>? setDatas = await _setDatasService.GetSetDataByExerciceAndUser(CurrentExercice.ExerciceId, userId);
                 if (setDatas == null)
                 {
                     throw new Exception("La serie est null");
