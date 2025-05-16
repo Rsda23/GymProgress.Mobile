@@ -12,15 +12,18 @@ using System.Collections.ObjectModel;
 namespace GymProgress.Mobile.ViewModels
 {
     [QueryProperty(Constants.TargetProperties.ExerciceId, Constants.QueryIdentifiers.ExerciceId)]
+    [QueryProperty(Constants.TargetProperties.SeanceId, Constants.QueryIdentifiers.SeanceId)]
     public partial class ExerciceDetailViewModel : ViewModelBase
     {
         private readonly IExercicesService _service;
         private readonly ISetDatasService _setDatasService;
+        private readonly ISeancesService _seanceService;
         private readonly SnackBarViewModel _snackBar;
-        public ExerciceDetailViewModel(IExercicesService service, ISetDatasService setDatasService, SnackBarViewModel snackBar)
+        public ExerciceDetailViewModel(IExercicesService service, ISetDatasService setDatasService, ISeancesService seancesService, SnackBarViewModel snackBar)
         {
             _service = service;
             _setDatasService = setDatasService;
+            _seanceService = seancesService;
             _snackBar = snackBar;
         }
 
@@ -28,10 +31,16 @@ namespace GymProgress.Mobile.ViewModels
         private Exercice currentExercice = new();
 
         [ObservableProperty]
+        private Seance currentSeance = new();
+
+        [ObservableProperty]
         private string exerciceNom = string.Empty;
 
         [ObservableProperty]
         private string exerciceId = string.Empty;
+
+        [ObservableProperty]
+        private string seanceId = string.Empty;
 
         [ObservableProperty]
         private DateTime date = DateTime.Now;
@@ -209,6 +218,17 @@ namespace GymProgress.Mobile.ViewModels
                 {
                     CurrentExercice = exercice;
                     ExerciceNom = CurrentExercice.Nom;
+                }
+            }
+        }
+        async partial void OnSeanceIdChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                Seance? seance = await _seanceService.GetSeanceById(value);
+                if (seance != null)
+                {
+                    CurrentSeance = seance;
                 }
             }
         }
