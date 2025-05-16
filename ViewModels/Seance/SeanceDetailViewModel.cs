@@ -169,9 +169,9 @@ namespace GymProgress.Mobile.ViewModels
                     throw new Exception("Le model est null");
                 }
 
-                string test = model.Nom;
+                string test = model.ExerciceId;
                 ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-                parameters.Add(Constants.QueryIdentifiers.ExerciceNom, model.Nom);
+                parameters.Add(Constants.QueryIdentifiers.ExerciceId, model.ExerciceId);
 
                 await Shell.Current.GoToAsync($"/{Routes.ExerciceDetailPage}", parameters);
 

@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
-    [QueryProperty(Constants.TargetProperties.ExerciceNom, Constants.QueryIdentifiers.ExerciceNom)]
+    [QueryProperty(Constants.TargetProperties.ExerciceId, Constants.QueryIdentifiers.ExerciceId)]
     public partial class ExerciceDetailViewModel : ViewModelBase
     {
         private readonly IExercicesService _service;
@@ -130,9 +130,9 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
-                if (!string.IsNullOrEmpty(ExerciceNom))
+                if (!string.IsNullOrEmpty(ExerciceId))
                 {
-                    Exercice? exercice = await _service.GetExerciceByName(ExerciceNom);
+                    Exercice? exercice = await _service.GetExerciceById(ExerciceId);
                     if (exercice == null)
                     {
                         throw new Exception("l'exercice est vide");
@@ -200,14 +200,15 @@ namespace GymProgress.Mobile.ViewModels
 
 
 
-        async partial void OnExerciceNomChanged(string value)
+        async partial void OnExerciceIdChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                Exercice? exercice = await _service.GetExerciceByName(value);
+                Exercice? exercice = await _service.GetExerciceById(value);
                 if (exercice != null)
                 {
                     CurrentExercice = exercice;
+                    ExerciceNom = CurrentExercice.Nom;
                 }
             }
         }
@@ -219,7 +220,7 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
-                Exercice? exercice = await _service.GetExerciceByName(ExerciceNom);
+                Exercice? exercice = await _service.GetExerciceById(ExerciceId);
 
                 if (exercice == null)
                 {
