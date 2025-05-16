@@ -149,9 +149,10 @@ namespace GymProgress.Mobile.ViewModels
 
                     if (!string.IsNullOrEmpty(exercice.ExerciceId) && exercice != null)
                     {
-                        AddSetDataPopupViewModel viewModel = new AddSetDataPopupViewModel(_setDatasService, exercice.ExerciceId, _snackBar);
+                        AddSetDataPopupViewModel viewModel = new AddSetDataPopupViewModel(_setDatasService, _seanceService, exercice.ExerciceId, SeanceId, _snackBar);
                         AddSetDataPopup popup = new AddSetDataPopup(viewModel);
                         await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+                        
                     }
                     else
                     {

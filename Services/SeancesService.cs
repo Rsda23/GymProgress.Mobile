@@ -3,6 +3,7 @@ using GymProgress.Mobile.Interfaces;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using System.Xml.Linq;
 
 namespace GymProgress.Mobile.Services
 {
@@ -226,6 +227,26 @@ namespace GymProgress.Mobile.Services
                 var uri = $"RemoveExerciceToSeance?seanceId={seanceId}&exerciceId={exerciceId}";
 
                 var response = await _httpClient.DeleteAsync(uri);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateDate(string seanceId)
+        {
+            try
+            {
+                var uri = $"UpdateDate?seanceId={seanceId}";
+
+                var content = new StringContent("");
+
+                var response = await _httpClient.PutAsync(uri, content);
+                var data = await response.Content.ReadAsStringAsync();
 
                 return response.IsSuccessStatusCode;
             }

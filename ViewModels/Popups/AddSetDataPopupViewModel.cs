@@ -10,12 +10,15 @@ namespace GymProgress.Mobile.ViewModels.Popups
     public partial class AddSetDataPopupViewModel : ViewModelBase
     {
         private readonly ISetDatasService _setDatasService;
+        private readonly ISeancesService _seancesService;
         private readonly SnackBarViewModel _snackBar;
 
-        public AddSetDataPopupViewModel(ISetDatasService setDatasService, string exerciceId, SnackBarViewModel snackBar)
+        public AddSetDataPopupViewModel(ISetDatasService setDatasService, ISeancesService seancesService, string exerciceId, string seanceId, SnackBarViewModel snackBar)
         {
             _setDatasService = setDatasService;
+            _seancesService = seancesService;
             ExerciceId = exerciceId;
+            SeanceId = seanceId;
             _snackBar = snackBar;
         }
 
@@ -30,6 +33,9 @@ namespace GymProgress.Mobile.ViewModels.Popups
 
         [ObservableProperty]
         private float charge;
+
+        [ObservableProperty]
+        private string seanceId;
 
         [ObservableProperty]
         private DateTime date = DateTime.Now;
@@ -67,6 +73,11 @@ namespace GymProgress.Mobile.ViewModels.Popups
                 SetData setData = new SetData(ExerciceId, Repetition, Serie, Charge, Date, userId);
 
                 await _setDatasService.PostSetData(setData);
+
+                if (!string.IsNullOrEmpty(SeanceId))
+                {
+                    await _seancesService.UpdateDate(SeanceId);
+                }
 
                 await Cancel();
 

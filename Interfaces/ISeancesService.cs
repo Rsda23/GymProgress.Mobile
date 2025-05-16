@@ -14,5 +14,6 @@ namespace GymProgress.Mobile.Interfaces
         public Task<bool> AddExerciceToSeanceById(string seanceId, List<string> execicesId);
         public Task<bool> Delete(string seanceId);
         public Task<bool> RemoveExerciceToSeance(string seanceId, string exerciceId);
+        public Task<bool> UpdateDate(string seanceId);
     }
 }
