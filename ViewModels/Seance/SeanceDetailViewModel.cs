@@ -4,6 +4,7 @@ using GymProgress.Domain.Models;
 using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.ViewModels.SnackBar;
+using System.Collections.ObjectModel;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -24,7 +25,7 @@ namespace GymProgress.Mobile.ViewModels
         private Seance currentSeance = new();
 
         [ObservableProperty]
-        private List<Exercice> exercices = [];
+        private ObservableCollection<Exercice> exercices = new();
 
         [ObservableProperty]
         private string seanceName = string.Empty;
@@ -215,7 +216,10 @@ namespace GymProgress.Mobile.ViewModels
 
                     _snackBar.Succefull("Exercice retiré !");
 
-                    await DisplayExercice();
+                    if (Shell.Current.CurrentPage is SeanceDetailPage page && page.BindingContext is SeanceDetailViewModel vm)
+                    {
+                        await vm.DisplayExercice();
+                    }
                 }
             }
             catch (Exception ex)
