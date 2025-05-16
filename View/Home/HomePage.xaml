@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GymProgress.Mobile.HomePage"
              Title="HomePage">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid>
+        <VerticalStackLayout Padding="20" 
+                             Spacing="20"
+                             IsVisible="{Binding IsLoaded}">
             <Label Text="Bonjour,"
                    FontSize="20"
                    HorizontalOptions="Center" />
@@ -24,8 +26,7 @@
             </Frame>
 
             <Label Text="Accès rapide aux séances" FontSize="18" />
-            <CollectionView x:Name="AccesSeances"
-                            ItemsSource="{Binding Seances}"
+            <CollectionView ItemsSource="{Binding LastSeances}"
                             HeightRequest="150"
                             ItemsLayout="VerticalList">
                 <CollectionView.ItemTemplate>
@@ -37,6 +38,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
-    </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                   IsVisible="{Binding IsRunning}"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   WidthRequest="50" 
+                   HeightRequest="50"/>
+    </Grid>
 
 </ContentPage>

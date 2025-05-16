@@ -24,6 +24,9 @@ namespace GymProgress.Mobile.ViewModels.Home
         private int countSeance;
 
         [ObservableProperty]
+        private bool isLoaded;
+
+        [ObservableProperty]
         private string titleSeance = string.Empty;
 
         [ObservableProperty]
@@ -40,6 +43,7 @@ namespace GymProgress.Mobile.ViewModels.Home
         public async Task DisplayLastSeances()
         {
             IsRunning = true;
+            IsLoaded = false;
 
             try
             {
@@ -81,6 +85,7 @@ namespace GymProgress.Mobile.ViewModels.Home
             }
             finally
             {
+                IsLoaded = true;
                 IsRunning = false;
             }
         }
