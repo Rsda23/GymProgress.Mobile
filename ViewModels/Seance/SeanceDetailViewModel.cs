@@ -170,8 +170,7 @@ namespace GymProgress.Mobile.ViewModels
                 }
 
                 string test = model.ExerciceId;
-                //ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters();
-                //parameters.Add(Constants.QueryIdentifiers.ExerciceId, model.ExerciceId);
+                
                 ShellNavigationQueryParameters parameters = new ShellNavigationQueryParameters()
                 {
                     { Constants.QueryIdentifiers.ExerciceId, model.ExerciceId },
