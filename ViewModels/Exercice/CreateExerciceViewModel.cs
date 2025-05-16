@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GymProgress.Domain.Models;
+using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.ViewModels.SnackBar;
 
 namespace GymProgress.Mobile.ViewModels
 {
+    [QueryProperty(Constants.TargetProperties.GoExercice, Constants.QueryIdentifiers.GoExercice)]
     public partial class CreateExerciceViewModel : ViewModelBase
     {
         private readonly IExercicesService _exercicesService;
@@ -23,6 +25,9 @@ namespace GymProgress.Mobile.ViewModels
 
         [ObservableProperty]
         private string nameExerciceText = string.Empty;
+
+        [ObservableProperty]
+        private string goExercice = "true";
 
 
 
@@ -52,7 +57,14 @@ namespace GymProgress.Mobile.ViewModels
                 Exercice exercice = new Exercice(NameExerciceText, userId);
 
                 await _exercicesService.PostExercice(exercice);
-                await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
+                if (GoExercice == "true")
+                {
+                    await Shell.Current.GoToAsync($"///{Routes.ExercicePage}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
 
                 _snackBar.Succefull("Exercice créé !");
             }
@@ -63,6 +75,16 @@ namespace GymProgress.Mobile.ViewModels
             finally
             {
                 IsRunning = false;
+            }
+        }
+
+
+
+        partial void OnGoExerciceChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                GoExercice = value;
             }
         }
     }

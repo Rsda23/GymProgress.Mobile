@@ -5,6 +5,7 @@ using GymProgress.Mobile.Core;
 using GymProgress.Mobile.Interfaces;
 using GymProgress.Mobile.ViewModels.SnackBar;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace GymProgress.Mobile.ViewModels
 {
@@ -53,14 +54,24 @@ namespace GymProgress.Mobile.ViewModels
         [RelayCommand]
         private async Task ButtonCreateExercice()
         {
-            await Shell.Current.GoToAsync("CreateExercicePage");
+            var parameters = new ShellNavigationQueryParameters()
+            {
+                 { Constants.QueryIdentifiers.GoExercice, "false" },
+            };
+
+            await Shell.Current.GoToAsync($"{Routes.CreateExercicePage}", parameters);
         }
 
         [RelayCommand]
-        private async Task DisplayExercice()
+        public async Task DisplayExercice()
         {
             IsRunning = true;
             IsLoaded = false;
+
+            if (string.IsNullOrEmpty(CurrentSeance.SeanceId))
+            {
+                return;
+            }
 
             try
             {
