@@ -34,6 +34,9 @@ namespace GymProgress.Mobile.ViewModels
         private string seanceId = string.Empty;
 
         [ObservableProperty]
+        private bool disponibleExercice;
+
+        [ObservableProperty]
         private bool isSelected;
 
         [ObservableProperty]
@@ -61,6 +64,12 @@ namespace GymProgress.Mobile.ViewModels
 
             try
             {
+                List<Exercice>? exercices = await _exercicesService.GetExercicesBySeanceId(CurrentSeance.SeanceId);
+                if (exercices == null)
+                {
+                    throw new Exception("La exercices sont introuvable");
+                }
+
                 List<Exercice>? exercicesPublic = await _exercicesService.GetExercicePublic();
 
                 string userId = Preferences.Get("UserId", string.Empty);
@@ -70,7 +79,7 @@ namespace GymProgress.Mobile.ViewModels
                 }
                 List<Exercice>? exercicesUser = await _exercicesService.GetExerciceUserId(userId);
 
-                if (exercicesUser != null)
+                if (exercicesUser != null && exercicesUser.Count() > 0)
                 {
                     foreach (Exercice exercice in exercicesUser)
                     {
@@ -78,12 +87,25 @@ namespace GymProgress.Mobile.ViewModels
                     }
                 }
 
-                if (exercicesPublic != null)
+                if (exercicesPublic != null && exercicesPublic.Count() > 0)
                 {
                     foreach (Exercice exercice in exercicesPublic)
                     {
                         Exercices.Add(new ExerciceSelectableViewModel { Exercice = exercice });
                     }
+                }
+
+                if (exercices != null)
+                {
+                    foreach (var exercice in exercices)
+                    {
+                        var delete = Exercices.FirstOrDefault(e => e.Exercice.ExerciceId == exercice.ExerciceId);
+                        if (delete != null)
+                        {
+                            Exercices.Remove(delete);
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -92,6 +114,15 @@ namespace GymProgress.Mobile.ViewModels
             }
             finally
             {
+                if (Exercices.Count() > 0)
+                {
+                    DisponibleExercice = true;
+                }
+                else
+                {
+                    DisponibleExercice = false;
+                }
+
                 IsLoaded = true;
                 IsRunning = false;
             }
