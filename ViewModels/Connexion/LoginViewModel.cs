@@ -40,9 +40,9 @@ namespace GymProgress.Mobile.ViewModels
 
 
         [RelayCommand]
-        private async Task GoToSeance()
+        private async Task GoToHome()
         {
-            await Shell.Current.GoToAsync("//SeancePage");
+            await Shell.Current.GoToAsync("//HomePage");
         }
 
         [RelayCommand]
@@ -88,7 +88,7 @@ namespace GymProgress.Mobile.ViewModels
 
                 Preferences.Set("UserId", user.UserId);
 
-                await GoToSeance();
+                await GoToHome();
             }
             catch (Exception ex)
             {

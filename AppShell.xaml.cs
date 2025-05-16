@@ -18,7 +18,7 @@
             }
             else
             {
-                GoToAsync("//SeancePage");
+                GoToAsync("//HomePage");
             }
         }
 
